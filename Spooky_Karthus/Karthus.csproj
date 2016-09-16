@@ -7,8 +7,8 @@
     <ProjectGuid>{7163B536-7FD7-4672-A269-1E882B2FF0DD}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Karthus</RootNamespace>
-    <AssemblyName>Karthus</AssemblyName>
+    <RootNamespace>Spooky_Karthus</RootNamespace>
+    <AssemblyName>Spooky_Karthus</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
