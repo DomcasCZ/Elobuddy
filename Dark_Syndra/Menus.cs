@@ -49,7 +49,7 @@ namespace Dark_Syndra
             ComboMenu.Add("QE", new CheckBox("- Use Q - E"));
             ComboMenu.Add("WE", new CheckBox("- Use W - E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
-            ComboMenu.AddLabel("Dont use SDK Beta Prediction")
+            ComboMenu.AddLabel("Dont use SDK Beta Prediction");
 
             //ComboMenu.AddGroupLabel("Summoner Settings");
             //ComboMenu.Add("Smite", new CheckBox("- Use Smite"));
