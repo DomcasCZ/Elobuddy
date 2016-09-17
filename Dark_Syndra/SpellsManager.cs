@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
@@ -84,9 +84,9 @@ namespace Dark_Syndra
         {
             var ap = Player.Instance.FlatMagicDamageMod;
             var index = Player.GetSpell(SpellSlot.R).Level - 1;
-            var mindmg = new float[] { 270, 405, 540 }[index] + 0.6f * ap;
-            var maxdmg = new float[] { 630, 975, 1260 }[index] + 1.4f * ap;
-            var perballdmg = new float[] {90, 135, 180}[index]*0.2f*ap*(BallsCount());
+            var mindmg = new float[] { 90, 135, 180 }[index] + 0.6f * ap;
+            var maxdmg = new float[] { 210, 975, 325 }[index] + 1.4f * ap;
+            var perballdmg = new float[] {30, 45, 60}[index]*0.2f*ap*(BallsCount());
 
             return Player.Instance.CalculateDamageOnUnit(rtarget, DamageType.Magical, Math.Min(mindmg, maxdmg) + perballdmg);
         }
