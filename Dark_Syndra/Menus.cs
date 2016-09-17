@@ -42,13 +42,14 @@ namespace Dark_Syndra
             DrawingsMenu = FirstMenu.AddSubMenu("• Drawings", DrawingsMenuId);
             MiscMenu = FirstMenu.AddSubMenu("• Misc", MiscMenuId);
 
-
+            
             ComboMenu.AddGroupLabel("Combo Settings");
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("QE", new CheckBox("- Use Q - E"));
             ComboMenu.Add("WE", new CheckBox("- Use W - E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
+            ComboMenu.AddLabel("Dont use SDK Beta Prediction")
 
             //ComboMenu.AddGroupLabel("Summoner Settings");
             //ComboMenu.Add("Smite", new CheckBox("- Use Smite"));
