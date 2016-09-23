@@ -49,7 +49,7 @@ namespace Fairy_Lux
             {
                 case SpellSlot.Q:
                     if (Q.IsReady())
-                        dmg += new float[] { 150, 300, 450, 600, 750 }[sLevel] + 0.7f*ap;
+                        dmg += new float[] { 50, 100, 150, 200, 250 }[sLevel] + 0.7f*ap;
                     break;                  // 50, 100, 150, 200, 250
                 case SpellSlot.W:
                     if (W.IsReady())
@@ -57,11 +57,11 @@ namespace Fairy_Lux
                     break;                  
                 case SpellSlot.E:
                     if (E.IsReady())
-                        dmg += new float[] { 180, 315, 450, 585, 720 }[sLevel] + 0.6f*ap;
+                        dmg += new float[] { 60, 105, 150, 195, 240 }[sLevel] + 0.6f*ap;
                     break;                  //60, 105, 150, 195, 240
                 case SpellSlot.R:
                     if (R.IsReady())
-                        dmg += new float[] { 900, 1200, 1500 }[sLevel] + 0.75f*ap;
+                        dmg += new float[] { 300, 400, 500 }[sLevel] + 0.75f*ap;
                     break;                  //300 400 500
             }
             return Player.Instance.CalculateDamageOnUnit(target, damageType, dmg - 10);
