@@ -6,6 +6,7 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using T2IN1_Lib;
 using static Fairy_Lux.Menus;
+using static Fairy_Lux.Extensions;
 using Color = System.Drawing.Color;
 using Line = EloBuddy.SDK.Rendering.Line;
 
@@ -13,9 +14,10 @@ namespace Fairy_Lux
 {
     internal class DamageIndicator
     {
+
         //Offsets
-        private const float YOff = 9.8f;
-        private const float XOff = 0;
+        private const float YOff = -12.8f;
+        private const float XOff = 1;
         private const float Width = 107;
         private const float Thick = 9.82f;
         //Offsets

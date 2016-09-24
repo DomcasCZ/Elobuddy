@@ -1,5 +1,6 @@
 ﻿using EloBuddy.SDK.Menu.Values;
 using T2IN1_Lib;
+using static Fairy_Lux.Combo;
 
 namespace Fairy_Lux
 {
@@ -16,6 +17,10 @@ namespace Fairy_Lux
             if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue)
                 if (SpellsManager.E.IsReady())
                     SpellsManager.E.TryToCast(SpellsManager.E.GetBestCircularFarmPosition(), Menus.LaneClearMenu);
+            if (myhero.HasBuff("Detonate"))
+            {
+                SpellsManager.E.Cast();
+            }
 
         }
     }

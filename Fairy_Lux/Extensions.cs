@@ -14,7 +14,6 @@ namespace Fairy_Lux
 
             return dmg;
         }
-
         /// Gets the minion that can be lasthitable by the spell using the custom damage provided by you in spellmanager
         public static Obj_AI_Minion GetlastHitMinion(this Spell.SpellBase spell)
         {

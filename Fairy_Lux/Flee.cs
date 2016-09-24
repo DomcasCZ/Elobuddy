@@ -16,9 +16,18 @@ namespace Fairy_Lux
             if ((qtarget == null) || qtarget.IsInvulnerable)
                 return;
             //Cast Q
-            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
+            if (FleeMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                     SpellsManager.Q.TryToCast(qtarget, ComboMenu);
+
+            var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
+
+            if ((etarget == null) || etarget.IsInvulnerable)
+                return;
+            //Cast E
+            if (FleeMenu["E"].Cast<CheckBox>().CurrentValue)
+                if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
+                    SpellsManager.E.TryToCast(etarget, ComboMenu);
 
         }
     }
