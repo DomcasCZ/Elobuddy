@@ -27,7 +27,7 @@ namespace Fairy_Lux
             {
                 AllowedCollisionCount = int.MaxValue
             };
-            R = new Spell.Skillshot(SpellSlot.R, 3340+3000, SkillShotType.Circular, 1000, int.MaxValue, 110)
+            R = new Spell.Skillshot(SpellSlot.R, 3340, SkillShotType.Circular, 1000, int.MaxValue, 110)
             {
                 AllowedCollisionCount = int.MaxValue
             };
@@ -49,7 +49,7 @@ namespace Fairy_Lux
             {
                 case SpellSlot.Q:
                     if (Q.IsReady())
-                        dmg += new float[] { 100, 200, 300, 400, 500 }[sLevel] + 0.7f*ap;
+                        dmg += new float[] { 50, 100, 150, 200, 250 }[sLevel] + 0.7f*ap;
                     break;                  // 50, 100, 150, 200, 250
                 case SpellSlot.W:
                     if (W.IsReady())
@@ -57,11 +57,11 @@ namespace Fairy_Lux
                     break;                  
                 case SpellSlot.E:
                     if (E.IsReady())
-                        dmg += new float[] { 120, 210, 300, 400, 480 }[sLevel] + 0.6f*ap;
+                        dmg += new float[] { 60, 105, 150, 195, 240 }[sLevel] + 0.6f*ap;
                     break;                  //60, 105, 150, 195, 240
                 case SpellSlot.R:
                     if (R.IsReady())
-                        dmg += new float[] { 600, 800, 1000 }[sLevel] + 0.75f*ap;
+                        dmg += new float[] { 400, 500, 600 }[sLevel] + 0.75f*ap;
                     break;                  //300 400 500
             }
             return Player.Instance.CalculateDamageOnUnit(target, damageType, dmg - 10);
