@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using EloBuddy;
@@ -65,7 +65,7 @@ namespace Fairy_Lux
             HarassMenu.AddGroupLabel("Auto Harass");
             HarassMenu.Add("AutoQ", new CheckBox("- Use Q", false));
             HarassMenu.Add("AutoE", new CheckBox("- Use E ", false));
-            HarassMenu.AddLabel("*Autoharras casts spells from itself, when the enemy is in range*");
+            HarassMenu.AddLabel("Autoharras casts spells from itself, when the enemy is in range");
             //HarassMenu.AddLabel("*Autoharass will come soon*");
             //HarassMenu.AddLabel("*Autoharass will come soon*");
 
@@ -77,7 +77,7 @@ namespace Fairy_Lux
 
             WMenu.AddGroupLabel("W Settings");
             WMenu.Add("W", new CheckBox("- Use W"));
-            WMenu.AddLabel("Only use when getting attacked");
+            WMenu.AddLabel("It will only use W if an enemy is in range");
             WMenu.CreateSlider("HP must be lower that[{0}%] to use W", "dangerSlider", 80);
             WMenu.CreateSlider("Mana must be higher than [{0}%] to use W", "manaSlider", 50);
 
@@ -88,7 +88,8 @@ namespace Fairy_Lux
             
             FleeMenu.AddGroupLabel("Flee Settings");
             FleeMenu.Add("Q", new CheckBox("- Use Q"));
-            FleeMenu.AddLabel("Click T and it will use Q ");
+            FleeMenu.Add("E", new CheckBox("- Use E"));
+            FleeMenu.AddLabel("Press T and it will use Q and/or E ");
 
             MiscMenu.AddGroupLabel("Misc");
             MiscMenu.Add("Interrupt", new CheckBox("- Interrupt"));
@@ -107,17 +108,16 @@ namespace Fairy_Lux
             }
 
             DrawingsMenu.AddGroupLabel("Setting");
-            DrawingsMenu.CreateCheckBox(" - Draw Spell Range only if Spell is Ready.", "readyDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator.", "damageDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Percent.", "perDraw");
+            DrawingsMenu.CreateCheckBox(" - Draw Spell Range only if Spell is Ready.", "readyDraw", false);
+            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator.", "damageDraw", false);
+            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Percent.", "perDraw", false);
             DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Statistics.", "statDraw", false);
             DrawingsMenu.AddGroupLabel("Spells");
             DrawingsMenu.CreateCheckBox(" - Draw Q.", "qDraw");
             DrawingsMenu.CreateCheckBox(" - Draw W.", "wDraw");
             DrawingsMenu.CreateCheckBox(" - Draw E.", "eDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Q - E.", "QeDraw");
             DrawingsMenu.CreateCheckBox(" - Draw R.", "rDraw");
-            DrawingsMenu.AddLabel("*Only draw if ready*");
+            DrawingsMenu.AddLabel("It will only draw if ready");
             DrawingsMenu.AddGroupLabel("Drawings Color");
             QColorSlide = new ColorSlide(DrawingsMenu, "qColor", Color.CornflowerBlue, "Q Color:");
             WColorSlide = new ColorSlide(DrawingsMenu, "wColor", Color.White, "W Color:");
