@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
@@ -36,7 +36,7 @@ namespace Fairy_Lux
             if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
                 Autoharass.Execute7();
 
-            if (WMenu["W"].Cast<CheckBox>().CurrentValue && (playerMana > MiscMenu.GetSliderValue("manaSlider")) && (myhero.HealthPercent > WMenu.GetSliderValue("dangerSlider")))
+            if (WMenu["W"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
                 Active.Execute6();
 
             if (HarassMenu["AutoE"].Cast<CheckBox>().CurrentValue) 
