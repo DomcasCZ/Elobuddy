@@ -14,7 +14,7 @@ namespace Fairy_Lux
         {
             var playerMana = Player.Instance.ManaPercent;
             var herohealth = WMenu["dangerSlider"].Cast<Slider>().CurrentValue;
-            if (W.IsReady() && WMenu["W"].Cast<CheckBox>().CurrentValue && myhero.HealthPercent < herohealth && playerMana > HarassMenu.GetSliderValue("manaSlider") && myhero.CountEnemiesInRange(SpellsManager.W.Range) >= 1)
+            if (W.IsReady() && WMenu["W"].Cast<CheckBox>().CurrentValue && myhero.HealthPercent < herohealth && playerMana > WMenu.GetSliderValue("manaSlider") && myhero.CountEnemiesInRange(500) >= 1)
             {
                 W.Cast(myhero.Position);
             }
