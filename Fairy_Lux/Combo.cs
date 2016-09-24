@@ -1,4 +1,4 @@
-﻿using EloBuddy;
+using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 using T2IN1_Lib;
@@ -8,8 +8,14 @@ namespace Fairy_Lux
 {
     internal static class Combo
     {
+        public static AIHeroClient myhero
+        {
+            get { return ObjectManager.Player; }
+        }
+
         public static void Execute()
         {
+
             var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
             if ((etarget == null) || etarget.IsInvulnerable)
@@ -18,6 +24,10 @@ namespace Fairy_Lux
             if (ComboMenu["E"].Cast<CheckBox>().CurrentValue)
                 if (etarget.IsValidTarget(SpellsManager.E.Range + 300) && SpellsManager.E.IsReady())
                     SpellsManager.E.TryToCast(etarget, ComboMenu);
+            if (myhero.HasBuff("Detonate"))
+            {
+                SpellsManager.E.Cast();
+            }
 
             var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
 
