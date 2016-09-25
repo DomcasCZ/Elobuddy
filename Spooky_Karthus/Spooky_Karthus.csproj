@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7163B536-7FD7-4672-A269-1E882B2FF0DD}</ProjectGuid>
+    <ProjectGuid>{63D99997-2625-4703-8100-739FA53A8B9B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spooky_Karthus</RootNamespace>
-    <AssemblyName>Spooky_Karthus</AssemblyName>
+    <RootNamespace>Karthus</RootNamespace>
+    <AssemblyName>Karthus</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

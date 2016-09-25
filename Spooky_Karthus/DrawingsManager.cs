@@ -26,9 +26,9 @@ namespace Spooky_Karthus
 
         private static void Drawing_OnDraw(EventArgs args)
         {
-            var readyDraw = DrawingsMenu.GetCheckBoxValue("readyDraw");
             var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
             var orbMode = Orbwalker.ActiveModesFlags;
+            var readyDraw = DrawingsMenu.GetCheckBoxValue("readyDraw");
             //Drawings
             if (DrawingsMenu.GetCheckBoxValue("qDraw") && readyDraw
                 ? Q.IsReady()
@@ -52,7 +52,7 @@ namespace Spooky_Karthus
                     Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                     SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
                 {
-                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 50,
+                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 60,
                       Drawing.WorldToScreen(myhero.Position).Y + 10,
                       Color.Red, "Killsteal with R");
                 }
@@ -62,17 +62,17 @@ namespace Spooky_Karthus
                 Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                 SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
                 {
-                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 50,
+                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 60,
     Drawing.WorldToScreen(myhero.Position).Y + 10,
     Color.Gold, "Killable target with R");
                 }
 
             if (RMenu["R2"].Cast<CheckBox>().CurrentValue)
-                if (SpellsManager.R.IsReady() && rtarget.IsValidTarget((SpellsManager.R.Range)) && !orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && !rtarget.IsValidTarget(SpellsManager.Q.Range) && !rtarget.HasUndyingBuff() &&
+                if (SpellsManager.R.IsReady() && rtarget.IsValidTarget((SpellsManager.R.Range)) && !rtarget.HasUndyingBuff() &&
                 Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                 SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
                 {
-                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 50,
+                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 60,
                         Drawing.WorldToScreen(myhero.Position).Y + 10,
                         Color.Gold, "Killable target with R");
                 }
@@ -84,6 +84,8 @@ namespace Spooky_Karthus
         {
             var wts = Drawing.WorldToScreen(Hero.Position);
             Drawing.DrawText(wts[0] - (msg.Length) * 5, wts[1], color, msg);
+            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
+            var orbMode = Orbwalker.ActiveModesFlags;
 
 
         }

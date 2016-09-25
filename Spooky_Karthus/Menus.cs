@@ -39,7 +39,6 @@ namespace Spooky_Karthus
             HarassMenu = FirstMenu.AddSubMenu("• Harass");
             LaneClearMenu = FirstMenu.AddSubMenu("• LaneClear");
             FleeMenu = FirstMenu.AddSubMenu("• Flee");
-            //KillStealMenu = FirstMenu.AddSubMenu("• Killsteal");
             DrawingsMenu = FirstMenu.AddSubMenu("• Drawings", DrawingsMenuId);
             MiscMenu = FirstMenu.AddSubMenu("• Misc", MiscMenuId);
 
@@ -48,12 +47,11 @@ namespace Spooky_Karthus
 
             ComboMenu.AddGroupLabel("Combo Settings");
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
-            ComboMenu.Add("Q1", new CheckBox("- Use Q - crit"));
-            ComboMenu.AddLabel("Q - crit will try to cast Q only on 1 target, if it is possible");
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("E", new CheckBox("- Use E", false));
             ComboMenu.AddGroupLabel("Don't use SDK beta prediction");
 
+            RMenu.AddLabel("DamageIndicator shows only R damage");
             RMenu.Add("R", new CheckBox("- Use R", false));
             RMenu.AddLabel("Will use R to KS");
             RMenu.Add("R1", new CheckBox("- Use R "));
@@ -71,7 +69,6 @@ namespace Spooky_Karthus
 
             HarassMenu.AddGroupLabel("Auto Harass");
             HarassMenu.Add("AutoQ", new CheckBox("- Use Q", false));
-            HarassMenu.Add("Q1", new CheckBox("- Use Q - crit", false));
             HarassMenu.Add("AutoE", new CheckBox("- Use E ", false));
             HarassMenu.AddLabel("Autoharras casts spells from itself, when the enemy is in range");
             HarassMenu.CreateSlider("Mana must be higher than [{0}%] to use autoharass Spells", "manaSlider", 40);
@@ -81,15 +78,13 @@ namespace Spooky_Karthus
             LaneClearMenu.Add("Q", new CheckBox("- Use Q"));
             LaneClearMenu.Add("E", new CheckBox("- Use E"));
             LaneClearMenu.CreateSlider("Mana must be higher than [{0}%] to use Lane Clear Spells", "manaSlider", 50);
-
-           // KillStealMenu.AddGroupLabel("Killsteal Settings");
-           // KillStealMenu.Add("Q", new CheckBox("- Use Q"));
-           // KillStealMenu.Add("E", new CheckBox("- Use E"));
-
+            
             FleeMenu.AddGroupLabel("Flee Settings");
             FleeMenu.Add("W", new CheckBox("- Use W"));
-            FleeMenu.AddLabel("Click T and it will use W ");
-            
+            FleeMenu.Add("Q", new CheckBox("- Use Q"));
+            FleeMenu.AddLabel("Press T and it will use W and/or Q");
+            FleeMenu.CreateSlider("Mana must be higher than [{0}%] to use Flee Spells", "manaSlider", 50);
+
             MiscMenu.AddGroupLabel("Skin Changer");
 
             var skinList = Skins.SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);

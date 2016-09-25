@@ -10,7 +10,6 @@ namespace Spooky_Karthus
     {
         public static void Execute2()
         {
-
             //Cast Q
             if (Menus.LaneClearMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (SpellsManager.Q.IsReady())
@@ -18,14 +17,11 @@ namespace Spooky_Karthus
 
 
             if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue)
-                if (myhero.HasBuff("Defile"))
-                    return;
-            if (SpellsManager.E.IsReady() && myhero.CountEnemyMinionsInRange(SpellsManager.E.Range) >= 3)
-            {
-                SpellsManager.E.Cast();
-            }
-            
-            if (myhero.HasBuff("Defile") && SpellsManager.E.IsReady() && myhero.CountEnemyMinionsInRange(SpellsManager.E.Range) <= 2)
+                if (myhero.HasBuff("Defile") && SpellsManager.E.IsReady() && myhero.CountEnemyMinionsInRange(SpellsManager.E.Range) <= 2)
+                {
+                    SpellsManager.E.Cast();
+                }
+            if (SpellsManager.E.IsReady() && myhero.HasBuff("Defile") && myhero.CountEnemyMinionsInRange(SpellsManager.E.Range) >= 3)
             {
                 SpellsManager.E.Cast();
             }

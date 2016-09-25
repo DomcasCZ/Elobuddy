@@ -30,16 +30,5 @@ namespace Spooky_Karthus
                 SpellsManager.E.TryToCast(etarget, Menus.HarassMenu);
         }
 
-        public static void Execute12()
-        {
-            var q1target = TargetSelector.GetTarget(SpellsManager.Q1.Range, DamageType.Magical);
-
-            if ((q1target == null) || q1target.IsInvulnerable)
-                return;
-            //Cast Q
-            if (q1target.IsValidTarget(SpellsManager.Q1.Range + 20) && SpellsManager.Q1.IsReady())
-                SpellsManager.Q1.GetPrediction(q1target);
-            SpellsManager.Q1.TryToCast(q1target, Menus.HarassMenu);
-        }
     }
 }

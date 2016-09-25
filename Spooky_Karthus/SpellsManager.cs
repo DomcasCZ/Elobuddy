@@ -62,7 +62,7 @@ namespace Spooky_Karthus
                     break;
                 case SpellSlot.R:
                     if (R.IsReady())
-                        dmg += new float[] {725, 1150, 1600}[sLevel] + 0.6f*ap;
+                        dmg += new float[] { 250 , 400 , 550 }[sLevel] + 0.6f*ap;
                     break;
 
             }

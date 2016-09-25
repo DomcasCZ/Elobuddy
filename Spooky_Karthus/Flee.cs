@@ -20,6 +20,16 @@ namespace Spooky_Karthus
                 if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
                     SpellsManager.Q.TryToCast(wtarget, ComboMenu);
 
+            var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+
+            if ((qtarget == null) || qtarget.IsInvulnerable)
+                return;
+            //Cast Q
+            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
+                if (qtarget.IsValidTarget(SpellsManager.Q.Range + 20) && SpellsManager.Q.IsReady())
+                    SpellsManager.Q.GetPrediction(qtarget);
+            SpellsManager.Q.TryToCast(qtarget, FleeMenu);
+
         }
     }
 }
