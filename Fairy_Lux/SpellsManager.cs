@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
@@ -52,8 +52,8 @@ namespace Fairy_Lux
                         dmg += new float[] { 50, 100, 150, 200, 250 }[sLevel] + 0.7f*ap;
                     break;                  // 50, 100, 150, 200, 250
                 case SpellSlot.W:
-                    if (W.IsReady())
-                        dmg += new float[] {0, 0, 0, 0, 0}[sLevel] + 0f*ap;
+                    if (W.IsReady() && Q.IsReady())
+                        dmg += new float[] {50, 150, 160, 170, 180}[sLevel] + 0.20f*ap;
                     break;                  
                 case SpellSlot.E:
                     if (E.IsReady())

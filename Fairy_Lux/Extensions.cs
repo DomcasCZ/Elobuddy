@@ -14,6 +14,15 @@ namespace Fairy_Lux
 
             return dmg;
         }
+
+        public static float GetRealDamage(this Obj_AI_Base target)
+        {
+            var slots = new[] { SpellSlot.Q, SpellSlot.E};
+            var dmg = Player.Spells.Where(s => slots.Contains(s.Slot)).Sum(s => target.GetRealDamage(s.Slot));
+
+            return dmg;
+        }
+
         /// Gets the minion that can be lasthitable by the spell using the custom damage provided by you in spellmanager
         public static Obj_AI_Minion GetlastHitMinion(this Spell.SpellBase spell)
         {

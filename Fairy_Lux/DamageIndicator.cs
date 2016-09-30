@@ -16,8 +16,8 @@ namespace Fairy_Lux
     {
 
         //Offsets
-        private const float YOff = -12.8f;
-        private const float XOff = 1;
+        private const float YOff = 9.8f;
+        private const float XOff = 0;
         private const float Width = 107;
         private const float Thick = 9.82f;
         //Offsets
