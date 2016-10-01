@@ -1,3 +1,0 @@
-c:\users\ladisla\documents\visual studio 2015\Projects\Karthus\Karthus\bin\Debug\Karthus.exe.config
-C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Spooky_Karthus\Karthus\bin\Debug\Karthus.exe.config
-C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Spooky_Karthus\Spooky_Karthus\bin\Debug\Karthus.exe.config

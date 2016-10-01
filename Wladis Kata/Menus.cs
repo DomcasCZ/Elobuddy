@@ -50,6 +50,8 @@ namespace Wladis_Kata
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.AddSeparator();
+            ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range", false));
+            ComboMenu.AddSeparator();
             //ComboMenu.Add("R-Logic", new ComboBox(" R-Logic ", 2, "< Half R range", "In R range", "In W Range"));
             ComboMenu.AddLabel("If you want perfekt R, disable your Evade or set it to dodge dangerous only");
             ComboMenu.Add("R1", new CheckBox("- R on full range", false));
@@ -95,6 +97,8 @@ namespace Wladis_Kata
             LaneClearMenu.Add("Q", new CheckBox("- Use Q"));
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
             LaneClearMenu.Add("E", new CheckBox("- Use E", false));
+            LaneClearMenu.AddSeparator();
+            LaneClearMenu.Add("WX", new Slider("- Will hit x minions with W", 0, 1, 6));
 
             LastHitMenu.AddGroupLabel("Last hit Settings");
             LastHitMenu.Add("Q", new CheckBox("- Use Q"));

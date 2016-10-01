@@ -30,8 +30,8 @@ namespace Wladis_Kata
         public static float GetRealDamage(this Obj_AI_Base target, SpellSlot slot)
         {
             var damageType = DamageType.Mixed;
-            var ap = Player.Instance.FlatMagicDamageMod;
-            var ad = Player.Instance.FlatPhysicalDamageMod;
+            var ap = Player.Instance.TotalMagicalDamage;
+            var ad = Player.Instance.TotalAttackDamage;
             var sLevel = Player.GetSpell(slot).Level - 1;
 
             var dmg = 0f;
@@ -51,8 +51,8 @@ namespace Wladis_Kata
                         dmg += new float[] { 40, 70, 100, 130, 160 }[sLevel] + 0.25f * ap;
                     break;                  //60, 105, 150, 195, 240
                 case SpellSlot.R:
-                    if (R.IsReady())
-                        dmg += new float[] { 200, 300, 400 }[sLevel] + 0.25f * ap + 0.375f * ad;
+                    if (R.IsLearned && !R.IsOnCooldown)
+                        dmg += new float[] { 250, 350, 450 }[sLevel] + 0.25f * ap + 0.375f * ad;
                     break;                  //300 400 500
             }
             

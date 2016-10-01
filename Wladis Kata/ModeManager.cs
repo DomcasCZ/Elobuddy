@@ -13,9 +13,11 @@ namespace Wladis_Kata
         {
             Game.OnTick += Game_OnTick;
             Game.OnUpdate += Game_OnUpdate;
-            Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Orbwalker.OnPreAttack += Orbwalker_PreAttack;
+            Player.OnIssueOrder += Player_OnIssueOrder;
+            //Spellbook.OnCastSpell += Spellbook_OnCastSpell;
         }
+        public static float rStart;
 
         private static void Game_OnTick(EventArgs args)
         {
@@ -33,7 +35,7 @@ namespace Wladis_Kata
                 LaneClear.Execute10();
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
-                LaneClear.Execute10();
+                LaneClear.Execute8();
 
             if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue)
                 Harass.Execute7();
@@ -54,16 +56,18 @@ namespace Wladis_Kata
                 KillSteal.Execute5();
             
         }
-        private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+
+        /*private static void Spellbook_OnCastSpell(Spellbook spellbook, SpellbookCastSpell spellbookCastSpellEventArgs)
         {
-            if (sender.IsMe)
+            if (sender.Owner.IsMe && Player.Instance.IsChannelling &&
+                (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
+                args.Process = false;
+        }*/
+        private static void Player_OnIssueOrder(Obj_AI_Base sender, PlayerIssueOrderEventArgs args)
+        {
+            if (sender.IsMe && Environment.TickCount < rStart + 300 && args.Order == GameObjectOrder.MoveTo)
             {
-                if (args.Slot == SpellSlot.R)
-                {
-                    Orbwalker.DisableMovement = true;
-                    Orbwalker.DisableAttacking = true;
-                    Core.DelayAction(() => Orbwalker.DisableMovement = false, 1550);
-                }
+                args.Process = false;
             }
         }
 
@@ -71,20 +75,21 @@ namespace Wladis_Kata
         {
             if (args.Target.IsMe)
             {
-                args.Process = !myhero.HasBuff("KataRbuff");
+                args.Process = !myhero.HasBuff("KatarinaR");
             }
         }
 
-        private static bool DeathLotus()
+        private static bool HasRBuff()
         {
             var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
-            return myhero.HasBuff("KataRbuff") || Player.Instance.Spellbook.IsChanneling ||
+            return myhero.HasBuff("KatarinaR") || Player.Instance.Spellbook.IsChanneling ||
                    myhero.HasBuff("katarinarsound"); //|| target.HasBuff("Grevious") && sender.IsMe
         }
+        
 
         private static void Game_OnUpdate(EventArgs args)
         {
-            if (DeathLotus())
+            if (HasRBuff())
             {
                 Orbwalker.DisableMovement = true;
                 Orbwalker.DisableAttacking = true;
@@ -94,7 +99,9 @@ namespace Wladis_Kata
                 Orbwalker.DisableMovement = false;
                 Orbwalker.DisableAttacking = false;
             }
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo)) Execute();
         }
+       
 
     }
 }
