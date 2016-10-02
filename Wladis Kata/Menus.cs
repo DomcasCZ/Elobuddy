@@ -59,6 +59,7 @@ namespace Wladis_Kata
             ComboMenu.Add("R3", new CheckBox("- R on W range", false));
             //ComboMenu.AddLabel("with '< Half R range' is ment that, R will be casted, when enemy is in half of the R range or closer");
             ComboMenu.AddSeparator(15);
+            ComboMenu.Add("Rhealth", new Slider("- R if enemy health % < Slider %", 0, 0, 100));
 
             WardjumpMenu.AddGroupLabel("Wardjump Settings");
             var a = WardjumpMenu.Add("alwaysMax", new CheckBox("Always Jump To Max Range"));
