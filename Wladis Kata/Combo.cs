@@ -7,7 +7,6 @@ using static Wladis_Kata.Menus;
 using static Wladis_Kata.ModeManager;
 using static Wladis_Kata.Extensions;
 
-
 namespace Wladis_Kata
 {
     internal static class Combo
@@ -51,7 +50,7 @@ namespace Wladis_Kata
             if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
             {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue) 
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
