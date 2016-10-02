@@ -77,7 +77,7 @@ namespace Wladis_Kata
                 }
             };
 
-            Chat.Print("s");
+            Chat.Print(""<font color='#04B404'>Wladis Kata Loaded </font>");
             Chat.Print("Credits to Tarakan and Hellsing");
         }
     }
