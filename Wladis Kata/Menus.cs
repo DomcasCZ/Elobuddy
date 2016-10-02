@@ -113,6 +113,9 @@ namespace Wladis_Kata
             KillStealMenu.Add("R", new CheckBox("- Use R", false));
 
             MiscMenu.AddGroupLabel("Misc");
+            MiscMenu.Add("Z", new CheckBox("- use Zhonyas", false));
+            MiscMenu.AddSeparator(15);
+            MiscMenu.Add("Zhealth", new Slider("- Health % for Zhonyas", 20, 0, 100));
             MiscMenu.AddGroupLabel("Skin Changer");
 
             var skinList = Skins.SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);

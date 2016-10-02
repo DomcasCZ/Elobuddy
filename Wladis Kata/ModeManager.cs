@@ -23,8 +23,7 @@ namespace Wladis_Kata
         {
             var orbMode = Orbwalker.ActiveModesFlags;
             var playerMana = Player.Instance.ManaPercent;
-
-
+            
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
                 Execute();
 
@@ -54,6 +53,9 @@ namespace Wladis_Kata
 
             if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute5();
+
+            if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
+                Combo.Execute6();
             
         }
 

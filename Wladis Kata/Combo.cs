@@ -5,6 +5,8 @@ using EloBuddy.SDK.Menu.Values;
 using T2IN1_Lib;
 using static Wladis_Kata.Menus;
 using static Wladis_Kata.ModeManager;
+using static Wladis_Kata.Extensions;
+
 
 namespace Wladis_Kata
 {
@@ -49,7 +51,7 @@ namespace Wladis_Kata
             if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
             {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue) 
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
@@ -78,6 +80,17 @@ namespace Wladis_Kata
             }
 
 
+        }
+        public static void Execute6()
+        {
+            if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
+            {
+                if (Player.Instance.IsDead) return;
+
+                if ((Player.Instance.CountEnemiesInRange(700) >= 1) && Zhonyas.IsOwned() && Zhonyas.IsReady())
+                    if (Player.Instance.HealthPercent <= MiscMenu["Zhealth"].Cast<Slider>().CurrentValue)
+                        Zhonyas.Cast();
+            }
         }
     }
 }

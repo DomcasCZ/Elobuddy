@@ -42,8 +42,9 @@ namespace Wladis_Kata
                 : DrawingsMenu.GetCheckBoxValue("eDraw"))
                 Circle.Draw(EColorSlide.GetSharpColor(), E.Range, 1f, Player.Instance);
 
-            if (DrawingsMenu.GetCheckBoxValue("rDraw"))
-                DrawingsMenu.GetCheckBoxValue("rDraw");
+            if (DrawingsMenu.GetCheckBoxValue("rDraw")
+                ? R.IsReady() && !R.IsOnCooldown
+                : DrawingsMenu.GetCheckBoxValue("rDraw"))
                 Circle.Draw(EColorSlide.GetSharpColor(), R.Range, 1f, Player.Instance);
 
             if (!(target.Health <=
