@@ -52,6 +52,11 @@ namespace Wladis_Kata
             ComboMenu.AddSeparator();
             ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range", false));
             ComboMenu.AddSeparator();
+            ComboMenu.Add("Ignite", new CheckBox("- Use Ignite", false));
+            ComboMenu.AddLabel("It will only use ignite, when the enemy isn't killable with Combo");
+            ComboMenu.AddSeparator(15);
+            ComboMenu.Add("IgniteHealth", new Slider("- Ignite if enemy Hp % < Slider %", 60, 1, 100));
+            ComboMenu.AddSeparator(30);
             //ComboMenu.Add("R-Logic", new ComboBox(" R-Logic ", 2, "< Half R range", "In R range", "In W Range"));
             ComboMenu.AddLabel("If you want perfekt R, disable your Evade or set it to dodge dangerous only");
             ComboMenu.Add("R1", new CheckBox("- R on full range", false));
@@ -113,9 +118,12 @@ namespace Wladis_Kata
             KillStealMenu.Add("R", new CheckBox("- Use R", false));
 
             MiscMenu.AddGroupLabel("Misc");
-            MiscMenu.Add("Z", new CheckBox("- use Zhonyas", false));
+            MiscMenu.Add("Z", new CheckBox("- use Zhonyas"));
             MiscMenu.AddSeparator(15);
             MiscMenu.Add("Zhealth", new Slider("- Health % for Zhonyas", 20, 0, 100));
+            MiscMenu.AddSeparator(15);
+            MiscMenu.Add("Humanizer", new CheckBox("- Use Humanizer", false));
+            MiscMenu.AddSeparator(25);
             MiscMenu.AddGroupLabel("Skin Changer");
 
             var skinList = Skins.SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);

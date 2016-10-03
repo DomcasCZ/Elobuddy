@@ -24,7 +24,6 @@ namespace Wladis_Kata
             var orbMode = Orbwalker.ActiveModesFlags;
             var playerMana = Player.Instance.ManaPercent;
 
-
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
                 Execute();
 

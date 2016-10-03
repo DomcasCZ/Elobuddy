@@ -6,17 +6,12 @@ using T2IN1_Lib;
 using static Wladis_Kata.Menus;
 using static Wladis_Kata.ModeManager;
 using static Wladis_Kata.Extensions;
+using System.Linq;
 
 namespace Wladis_Kata
 {
     internal static class Combo
     {
-
-
-        public static AIHeroClient myhero
-        {
-            get { return ObjectManager.Player; }
-        }
 
 
         public static void Execute()
@@ -45,6 +40,17 @@ namespace Wladis_Kata
                 {
                     SpellsManager.W.Cast();
                 }
+
+            var Summ = TargetSelector.GetTarget(Ignite.Range, DamageType.Mixed);
+
+            if ((Summ == null) || Summ.IsInvulnerable)
+                return;
+            //Ignite
+            if (ComboMenu["Ignite"].Cast<CheckBox>().CurrentValue)
+                if (Player.Instance.CountEnemiesInRange(600) >= 1 && Ignite.IsReady() && Ignite.IsLearned && Summ.IsValidTarget(Ignite.Range) && target.HealthPercent <= ComboMenu["IgniteHealth"].Cast<Slider>().CurrentValue)
+                    if (target.Health >
+                  target.GetRealDamage())
+                        Ignite.Cast(Summ);
 
             //var R1 = GetSlotFromComboBox(Menus.MiscMenu.GetComboBoxValue("R1"));
             if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
@@ -90,6 +96,33 @@ namespace Wladis_Kata
                     if (Player.Instance.HealthPercent <= MiscMenu["Zhealth"].Cast<Slider>().CurrentValue)
                         Zhonyas.Cast();
             }
+        }
+        public static AIHeroClient myhero
+        {
+            get { return ObjectManager.Player; }
+        }
+        public static Spell.Targeted Ignite = new Spell.Targeted(ReturnSlot("summonerdot"), 600);
+
+        public static SpellSlot ReturnSlot(string Name)
+        {
+            return Player.Instance.GetSpellSlotFromName(Name);
+        }
+
+        public static string[] SmiteNames => new[]
+{
+            "s5_summonersmiteplayerganker", "s5_summonersmiteduel",
+            "s5_summonersmitequick", "itemsmiteaoe", "summonersmite"
+        };
+
+        public static SpellSlot ReturnSlot(string[] Name)
+        {
+            if (SmiteNames.Contains(Player.Instance.Spellbook.GetSpell(SpellSlot.Summoner1).Name.ToLower()))
+                return SpellSlot.Summoner1;
+
+            if (SmiteNames.Contains(Player.Instance.Spellbook.GetSpell(SpellSlot.Summoner2).Name.ToLower()))
+                return SpellSlot.Summoner2;
+
+            return SpellSlot.Unknown;
         }
     }
 }
