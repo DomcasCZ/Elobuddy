@@ -50,7 +50,9 @@ namespace Wladis_Kata
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.AddSeparator();
-            ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range", false));
+            ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range"));
+            ComboMenu.Add("Ehealth", new CheckBox(" Don't Use E on not killable enemy"));
+            ComboMenu.AddLabel("Dont use E on almost not killable enemys");
             ComboMenu.AddSeparator();
             ComboMenu.Add("Ignite", new CheckBox("- Use Ignite", false));
             ComboMenu.AddLabel("It will only use ignite, when the enemy isn't killable with Combo");
@@ -62,6 +64,9 @@ namespace Wladis_Kata
             ComboMenu.Add("R1", new CheckBox("- R on full range", false));
             ComboMenu.Add("R2", new CheckBox("- R on half range or closer"));
             ComboMenu.Add("R3", new CheckBox("- R on W range", false));
+            ComboMenu.AddSeparator();
+            ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting"));
+            ComboMenu.AddLabel("It will end the block when target is out of R range and it will cast spells again");
             //ComboMenu.AddLabel("with '< Half R range' is ment that, R will be casted, when enemy is in half of the R range or closer");
             ComboMenu.AddSeparator(15);
             ComboMenu.Add("Rhealth", new Slider("- R if enemy health % < Slider %", 0, 1, 100));

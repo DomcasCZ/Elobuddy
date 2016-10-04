@@ -3,6 +3,7 @@ using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
 using static Wladis_Kata.Menus;
+using static Wladis_Kata.Combo;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Wladis_Kata
@@ -59,6 +60,11 @@ namespace Wladis_Kata
 
                 Spellbook.OnCastSpell += delegate (Spellbook sender, SpellbookCastSpellEventArgs args)
                 {
+                    var target = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Mixed);
+
+                    if ((target == null) || target.IsInvulnerable)
+                        return;
+
                     if (sender.Owner.IsMe && (int)args.Slot == 3 && Player.GetSpell(args.Slot).IsReady)
                     {
                         if (LockedSpellCasts)
@@ -71,6 +77,11 @@ namespace Wladis_Kata
                         }
 
                     }
+                    if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue && sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
+    (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
+                        args.Process = false;
+                    else if (target == null) args.Process = true;
+
                 };
 
                 Game.OnTick += delegate

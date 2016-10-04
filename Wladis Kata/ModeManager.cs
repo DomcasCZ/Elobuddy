@@ -15,7 +15,6 @@ namespace Wladis_Kata
             Game.OnUpdate += Game_OnUpdate;
             Orbwalker.OnPreAttack += Orbwalker_PreAttack;
             Player.OnIssueOrder += Player_OnIssueOrder;
-            //Spellbook.OnCastSpell += Spellbook_OnCastSpell;
         }
         public static float rStart;
 
@@ -55,13 +54,6 @@ namespace Wladis_Kata
                 KillSteal.Execute5();
             
         }
-
-        /*private static void Spellbook_OnCastSpell(Spellbook spellbook, SpellbookCastSpell spellbookCastSpellEventArgs)
-        {
-            if (sender.Owner.IsMe && Player.Instance.IsChannelling &&
-                (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
-                args.Process = false;
-        }*/
         private static void Player_OnIssueOrder(Obj_AI_Base sender, PlayerIssueOrderEventArgs args)
         {
             if (sender.IsMe && Environment.TickCount < rStart + 300 && args.Order == GameObjectOrder.MoveTo)

@@ -28,7 +28,7 @@ namespace Wladis_Kata
                 }
             //Cast E
             if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue)
-            {
+                    {
                 if (!ComboMenu["El"].Cast<CheckBox>().CurrentValue || !Player.Instance.IsInAutoAttackRange(target))
                 {
                     SpellsManager.E.TryToCast(target, ComboMenu);
