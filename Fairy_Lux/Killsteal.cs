@@ -19,7 +19,8 @@ namespace Fairy_Lux
                 Prediction.Health.GetPrediction(qtarget, SpellsManager.Q.CastDelay) <=
                 SpellsManager.GetRealDamage(qtarget, SpellSlot.Q))
             {
-                SpellsManager.Q.Cast(qtarget);
+                var prediction = SpellsManager.Q.GetPrediction(qtarget);
+                SpellsManager.Q.TryToCast(qtarget, KillStealMenu);
             }
         }
 
@@ -50,7 +51,8 @@ namespace Fairy_Lux
                 Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                 SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
             {
-                SpellsManager.R.Cast(rtarget);
+                var prediction = SpellsManager.Q.GetPrediction(rtarget);
+                SpellsManager.Q.TryToCast(rtarget, KillStealMenu);
             }
 
         }

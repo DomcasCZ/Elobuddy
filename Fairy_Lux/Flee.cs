@@ -18,7 +18,10 @@ namespace Fairy_Lux
             //Cast Q
             if (FleeMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.TryToCast(qtarget, ComboMenu);
+                {
+                    var prediction = SpellsManager.Q.GetPrediction(qtarget);
+                    SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+                }
 
             var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 

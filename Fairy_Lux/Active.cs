@@ -18,9 +18,6 @@ namespace Fairy_Lux
             {
                 W.Cast(myhero.Position);
             }
-
-
-
         }
 
         public static AIHeroClient myhero { get { return ObjectManager.Player; } }

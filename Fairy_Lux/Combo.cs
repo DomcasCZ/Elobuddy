@@ -32,18 +32,18 @@ namespace Fairy_Lux
             //Cast Q
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+                {
+                    var prediction = SpellsManager.Q.GetPrediction(target);
                     SpellsManager.Q.TryToCast(target, ComboMenu);
+                }
 
-            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsOnCooldown &&
-                SpellsManager.E.IsOnCooldown)
-                if (target.Health <=
-                  target.GetRealDamage())
-                    if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && target.Health > target.GetRealDamage())
                     if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range) &&
                         Prediction.Health.GetPrediction(target, SpellsManager.R.CastDelay) <=
                         SpellsManager.GetRealDamage(target, SpellSlot.R))
                     {
-                        SpellsManager.R.Cast(target);
+                            var prediction = SpellsManager.R.GetPrediction(target);
+                            SpellsManager.R.TryToCast(target,ComboMenu);
                     }
 
 
