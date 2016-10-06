@@ -51,7 +51,6 @@ namespace Wladis_Kata
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.AddSeparator();
             ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range"));
-            ComboMenu.AddLabel("Dont use E on almost not killable enemys");
             ComboMenu.AddSeparator();
             ComboMenu.Add("Ignite", new CheckBox("- Use Ignite", false));
             ComboMenu.AddLabel("It will only use ignite, when the enemy isn't killable with Combo");
