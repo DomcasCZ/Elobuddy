@@ -4,6 +4,7 @@ using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 using static Wladis_Kata.Menus;
 using static Wladis_Kata.Combo;
+using static Wladis_Kata.Loader;
 
 namespace Wladis_Kata
 {
@@ -15,6 +16,7 @@ namespace Wladis_Kata
             Game.OnUpdate += Game_OnUpdate;
             Orbwalker.OnPreAttack += Orbwalker_PreAttack;
             Player.OnIssueOrder += Player_OnIssueOrder;
+            Spellbook.OnCastSpell += Spellbook_OnCastSpell;
         }
         public static float rStart;
 
@@ -76,7 +78,39 @@ namespace Wladis_Kata
             return myhero.HasBuff("KatarinaR") || Player.Instance.Spellbook.IsChanneling ||
                    myhero.HasBuff("katarinarsound"); //|| target.HasBuff("Grevious") && sender.IsMe
         }
-        
+        private static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
+        {
+            var target = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Mixed);
+
+            if ((target == null) || target.IsInvulnerable)
+                return;
+
+            if (ComboMenu["Rblock"].Cast<CheckBox>().CurrentValue)
+                if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
+(args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
+                    args.Process = false;
+                 if (target == null) args.Process = true;
+
+            if (ComboMenu["Rblock"].Cast<CheckBox>().CurrentValue && ComboMenu["Rendblock"].Cast<CheckBox>().CurrentValue)
+                if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
+(args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
+                args.Process = false;
+             if (!SpellsManager.Q.IsOnCooldown && SpellsManager.W.IsOnCooldown && SpellsManager.E.IsOnCooldown) args.Process = true;
+
+
+                if (!(MiscMenu["Humanizer"].Cast<CheckBox>().CurrentValue))
+                if (sender.Owner.IsMe && (int)args.Slot == 3 && Player.GetSpell(args.Slot).IsReady)
+                {
+                    if (LockedSpellCasts)
+                    {
+                        args.Process = false;
+                    }
+                    else
+                    {
+                        LockedSpellCasts = true;
+                    }
+                }
+        }
 
         private static void Game_OnUpdate(EventArgs args)
         {
