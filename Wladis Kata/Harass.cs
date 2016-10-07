@@ -1,7 +1,6 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 
 namespace Wladis_Kata
 {
@@ -16,7 +15,7 @@ namespace Wladis_Kata
             //Cast Q
             if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-            SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+            SpellsManager.Q.Cast(qtarget);
 
             var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
 
@@ -25,7 +24,7 @@ namespace Wladis_Kata
             //Cast W
             if (Menus.HarassMenu["W"].Cast<CheckBox>().CurrentValue)
                 if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                    SpellsManager.W.TryToCast(wtarget, Menus.HarassMenu);
+                    SpellsManager.W.Cast(wtarget);
 
             var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
@@ -34,7 +33,7 @@ namespace Wladis_Kata
             //Cast E
             if (Menus.HarassMenu["E"].Cast<CheckBox>().CurrentValue)
                 if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                    SpellsManager.E.TryToCast(etarget, Menus.HarassMenu);
+                    SpellsManager.E.Cast(etarget);
 
 
         }
@@ -47,7 +46,7 @@ namespace Wladis_Kata
                 return;
 
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+                    SpellsManager.Q.Cast(qtarget);
         }
 
         public static void Execute8()
@@ -58,7 +57,7 @@ namespace Wladis_Kata
                 return;
             //Cast W
                 if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                    SpellsManager.W.TryToCast(wtarget, Menus.HarassMenu);
+                    SpellsManager.W.Cast(wtarget);
         }
 
     }

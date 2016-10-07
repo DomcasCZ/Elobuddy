@@ -1,7 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using T2IN1_Lib;
-using static Wladis_Kata.Menus;
 namespace Wladis_Kata
 {
     class KillSteal
@@ -16,7 +14,7 @@ namespace Wladis_Kata
                 Prediction.Health.GetPrediction(qtarget, SpellsManager.Q.CastDelay) <=
                 SpellsManager.GetRealDamage(qtarget, SpellSlot.Q))
             {
-                SpellsManager.Q.TryToCast(qtarget, KillStealMenu);
+                SpellsManager.Q.Cast(qtarget);
             }
         }
 
@@ -30,7 +28,7 @@ namespace Wladis_Kata
                 Prediction.Health.GetPrediction(wtarget, SpellsManager.W.CastDelay) <=
                 SpellsManager.GetRealDamage(wtarget, SpellSlot.W))
             {
-                SpellsManager.W.TryToCast(wtarget, KillStealMenu);
+                SpellsManager.W.Cast(wtarget);
             }
         }
 
@@ -44,7 +42,7 @@ namespace Wladis_Kata
                 Prediction.Health.GetPrediction(etarget, SpellsManager.E.CastDelay) <=
                 SpellsManager.GetRealDamage(etarget, SpellSlot.E))
             {
-                SpellsManager.E.TryToCast(etarget, KillStealMenu);
+                SpellsManager.E.Cast(etarget);
             }
         }
         public static void Execute5()
@@ -57,7 +55,7 @@ namespace Wladis_Kata
                 Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                 SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
             {
-                SpellsManager.R.TryToCast(rtarget, KillStealMenu);
+                SpellsManager.R.Cast(rtarget);
             }
         }
     }

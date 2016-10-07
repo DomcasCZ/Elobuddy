@@ -3,8 +3,6 @@ using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
 using static Wladis_Kata.Menus;
-using static Wladis_Kata.ModeManager;
-using static Wladis_Kata.Combo;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Wladis_Kata

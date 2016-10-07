@@ -1,6 +1,7 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using T2IN1_Lib;
+using EloBuddy.SDK.Menu.Values;
+using static Wladis_Kata.Menus;
 
 namespace Wladis_Kata
 {
@@ -9,9 +10,9 @@ namespace Wladis_Kata
         //This event is triggered when a unit levels up
         public static void Obj_AI_Base_OnLevelUp(Obj_AI_Base sender, Obj_AI_BaseLevelUpEventArgs args)
         {
-            if (Menus.MiscMenu.GetCheckBoxValue("activateAutoLVL") && sender.IsMe)
+            if (MiscMenu["activateAutoLVL"].Cast<CheckBox>().CurrentValue && sender.IsMe)
             {
-                var delay = Menus.MiscMenu.GetSliderValue("delaySlider");
+                var delay = MiscMenu["delaySlider"].Cast<Slider>().CurrentValue;
                 Core.DelayAction(LevelUpSpells, delay);
             }
         }
@@ -22,9 +23,9 @@ namespace Wladis_Kata
             if (Player.Instance.Spellbook.CanSpellBeUpgraded(SpellSlot.R))
                 Player.Instance.Spellbook.LevelSpell(SpellSlot.R);
 
-            var firstFocusSlot = GetSlotFromComboBox(Menus.MiscMenu.GetComboBoxValue("firstFocus"));
-            var secondFocusSlot = GetSlotFromComboBox(Menus.MiscMenu.GetComboBoxValue("secondFocus"));
-            var thirdFocusSlot = GetSlotFromComboBox(Menus.MiscMenu.GetComboBoxValue("thirdFocus"));
+            var firstFocusSlot = GetSlotFromComboBox(MiscMenu["firstFocus"].Cast<ComboBox>().CurrentValue);
+            var secondFocusSlot = GetSlotFromComboBox(MiscMenu["secondFocus"].Cast<ComboBox>().CurrentValue);
+            var thirdFocusSlot = GetSlotFromComboBox(MiscMenu["thirdFocus"].Cast<ComboBox>().CurrentValue);
 
             var secondSpell = Player.GetSpell(secondFocusSlot);
             var thirdSpell = Player.GetSpell(thirdFocusSlot);

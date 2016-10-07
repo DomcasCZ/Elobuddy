@@ -2,7 +2,6 @@
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 using static Wladis_Kata.Menus;
 using static Wladis_Kata.ModeManager;
 using static Wladis_Kata.Extensions;
@@ -24,14 +23,14 @@ namespace Wladis_Kata
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
-                    SpellsManager.Q.TryToCast(target, ComboMenu);
+                    SpellsManager.Q.Cast(target);
                 }
             //Cast E
             if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue)
                     {
                 if (!ComboMenu["El"].Cast<CheckBox>().CurrentValue || !Player.Instance.IsInAutoAttackRange(target))
                 {
-                    SpellsManager.E.TryToCast(target, ComboMenu);
+                    SpellsManager.E.Cast(target);
                 }
             }
 

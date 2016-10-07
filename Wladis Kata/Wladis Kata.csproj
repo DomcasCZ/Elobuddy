@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -73,13 +73,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="T2IN1 Lib">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\T2IN1 Lib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Acitve.cs" />
     <Compile Include="AutoLevel.cs" />
+    <Compile Include="ColorSlider.cs" />
     <Compile Include="Combo.cs" />
     <Compile Include="Damageindicator.cs" />
     <Compile Include="DrawingsManager.cs" />
@@ -87,6 +85,7 @@
     <Compile Include="Harass.cs" />
     <Compile Include="Killsteal.cs" />
     <Compile Include="LaneClear.cs" />
+    <Compile Include="lib.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="ModeManager.cs" />
     <Compile Include="Program.cs" />

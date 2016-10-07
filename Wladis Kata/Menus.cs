@@ -4,9 +4,8 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
-using T2IN1_Lib.DataBases;
 using static Wladis_Kata.WarJumper;
+using static Wladis_Kata.Skins;
 
 namespace Wladis_Kata
 {
@@ -130,10 +129,10 @@ namespace Wladis_Kata
             MiscMenu.AddSeparator(25);
             MiscMenu.AddGroupLabel("Skin Changer");
 
-            var skinList = Skins.SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
+            var skinList = SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
             if (skinList != null)
             {
-                MiscMenu.CreateComboBox("Choose the skin", "skinComboBox", skinList.Skins);
+                MiscMenu.Add("SkinComboBox", new ComboBox ("Choose the skin", skinList.Skins));
                 MiscMenu.Get<ComboBox>("skinComboBox").OnValueChange +=
                     delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
                     {
@@ -142,15 +141,16 @@ namespace Wladis_Kata
             }
 
             DrawingsMenu.AddGroupLabel("Setting");
-            DrawingsMenu.CreateCheckBox(" - Draw Spell Range only if Spell is Ready.", "readyDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator.", "damageDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Percent.", "perDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Statistics.", "statDraw", false);
+            DrawingsMenu.Add("readyDraw", new CheckBox (" - Draw Spell Range only if Spell is Ready."));
+            DrawingsMenu.Add("damageDraw", new CheckBox (" - Draw Damage Indicator."));
+            DrawingsMenu.Add("perDraw", new CheckBox (" - Draw Damage Indicator Percent."));
+            DrawingsMenu.Add("statDraw", new CheckBox (" - Draw Damage Indicator Statistics.", false));
             DrawingsMenu.AddGroupLabel("Spells");
-            DrawingsMenu.CreateCheckBox(" - Draw Q.", "qDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw W.", "wDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw E.", "eDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw R.", "rDraw");
+            DrawingsMenu.Add("readyDraw", new CheckBox(" - Draw Spell Range only if Spell is Ready."));
+            DrawingsMenu.Add("qDraw", new CheckBox("- draw Q"));
+            DrawingsMenu.Add("wDraw", new CheckBox("- draw W"));
+            DrawingsMenu.Add("eDraw", new CheckBox("- draw E"));
+            DrawingsMenu.Add("rDraw", new CheckBox("- draw R"));
             DrawingsMenu.AddLabel("It will only draw if ready");
             DrawingsMenu.AddGroupLabel("Drawings Color");
             QColorSlide = new ColorSlide(DrawingsMenu, "qColor", Color.CornflowerBlue, "Q Color:");
@@ -161,12 +161,12 @@ namespace Wladis_Kata
                 "DamageIndicator Color:");
 
             MiscMenu.AddGroupLabel("Auto Level UP");
-            MiscMenu.CreateCheckBox("Activate Auto Leveler", "activateAutoLVL", false);
+            MiscMenu.Add("activateAutoLVL", new CheckBox ("Activate Auto Leveler", false));
             MiscMenu.AddLabel("The Auto Leveler will always Focus R than the rest of the Spells");
-            MiscMenu.CreateComboBox("1 Spell to Focus", "firstFocus", new List<string> { "Q", "W", "E" });
-            MiscMenu.CreateComboBox("2 Spell to Focus", "secondFocus", new List<string> { "Q", "W", "E" }, 1);
-            MiscMenu.CreateComboBox("3 Spell to Focus", "thirdFocus", new List<string> { "Q", "W", "E" }, 2);
-            MiscMenu.CreateSlider("Delay Slider", "delaySlider", 200, 150, 500);
+            MiscMenu.Add("firstFocus", new ComboBox ("1 Spell to Focus", new List<string> { "Q", "W", "E" }));
+            MiscMenu.Add("secondFocus", new ComboBox ("2 Spell to Focus", new List<string> { "Q", "W", "E" }, 1));
+            MiscMenu.Add("thirdFocus", new ComboBox ("3 Spell to Focus", new List<string> { "Q", "W", "E" }, 2));
+            MiscMenu.Add("delaySlider", new Slider ("Delay Slider", 200, 150, 500));
         }
     }
 }

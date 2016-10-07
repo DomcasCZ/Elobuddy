@@ -4,9 +4,9 @@ using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
 using SharpDX.Direct3D9;
-using T2IN1_Lib;
 using Color = System.Drawing.Color;
 using Line = EloBuddy.SDK.Rendering.Line;
+using EloBuddy.SDK.Menu.Values;
 
 namespace Wladis_Kata
 {
@@ -56,7 +56,7 @@ namespace Wladis_Kata
             {
                 var damage = enemy.GetRealDamage();
 
-                if (Menus.DrawingsMenu.GetCheckBoxValue("damageDraw"))
+                if (Menus.DrawingsMenu["damageDraw"].Cast<CheckBox>().CurrentValue)
                 {
                     var dmgPer = (enemy.TotalShieldHealth() - damage > 0 ? enemy.TotalShieldHealth() - damage : 0) /
                                  enemy.TotalShieldMaxHealth();
@@ -70,7 +70,7 @@ namespace Wladis_Kata
                     Line.DrawLine(colour, Thick, initPoint, endPoint);
                 }
 
-                if (Menus.DrawingsMenu.GetCheckBoxValue("statDraw"))
+                if (Menus.DrawingsMenu["statDraw"].Cast<CheckBox>().CurrentValue)
                 {
                     //Statistics
                     var posXStat = (int)enemy.HPBarPosition[0] - 46;
@@ -80,7 +80,7 @@ namespace Wladis_Kata
                     _Font2.DrawText(null, mathStat, posXStat, posYStat, Menus.DamageIndicatorColorSlide.GetSharpColor());
                 }
 
-                if (Menus.DrawingsMenu.GetCheckBoxValue("perDraw"))
+                if (Menus.DrawingsMenu["perDraw"].Cast<CheckBox>().CurrentValue)
                 {
                     //Percent
                     var posXPer = (int)enemy.HPBarPosition[0] - 28;
