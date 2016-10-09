@@ -4,7 +4,7 @@ using EloBuddy.SDK;
 
 namespace Wladis_Kata
 {
-    internal static class SpellsManager
+    internal static class target
     {
         public static Spell.Targeted Q;
         public static Spell.Active W;

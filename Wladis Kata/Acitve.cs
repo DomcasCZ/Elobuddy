@@ -32,7 +32,7 @@ namespace Wladis_Kata
         {
             if (sender.IsAlly && sender is Obj_AI_Base && sender.Name.ToLower().Contains("ward") && sender.Distance(_Player) < 600 && _jumpPos.Distance(sender) < 200)
             {
-                SpellsManager.E.Cast((Obj_AI_Base)sender);
+                target.E.Cast((Obj_AI_Base)sender);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Wladis_Kata
                     .FirstOrDefault(a => a.IsAlly && a.Distance(_jumpPos) < 100);
             if (ward != null)
             {
-                if (SpellsManager.E.IsReady())
+                if (target.E.IsReady())
                 {
                     Player.CastSpell(SpellSlot.E, ward);
                 }
@@ -83,7 +83,7 @@ namespace Wladis_Kata
                 {
                     return;
                 }
-                if (SpellsManager.E.IsReady() && LastWard + 400 < Environment.TickCount)
+                if (target.E.IsReady() && LastWard + 400 < Environment.TickCount)
                 {
                     GetWardSlot().Cast(_jumpPos);
                     LastWard = Environment.TickCount;

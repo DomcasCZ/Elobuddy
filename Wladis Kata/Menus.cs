@@ -49,7 +49,10 @@ namespace Wladis_Kata
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.AddSeparator();
+            ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "Q>E>W", "E>Q>W"));
+            ComboMenu.AddSeparator();
             ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range"));
+            ComboMenu.AddLabel("Dont use E on almost not killable enemys");
             ComboMenu.AddSeparator();
             ComboMenu.Add("Ignite", new CheckBox("- Use Ignite", false));
             ComboMenu.AddLabel("It will only use ignite, when the enemy isn't killable with Combo");
@@ -68,6 +71,11 @@ namespace Wladis_Kata
             //ComboMenu.AddLabel("with '< Half R range' is ment that, R will be casted, when enemy is in half of the R range or closer");
             ComboMenu.AddSeparator(15);
             ComboMenu.Add("Rhealth", new Slider("- R if enemy health % < Slider %", 0, 1, 100));
+            ComboMenu.AddSeparator();
+            ComboMenu.Add("AutoKill", new CheckBox("Auto kill with combo", false));
+            ComboMenu.Add("AutoKillenemysinrange", new Slider("only autokill if < x enemies surround the target", 5, 1 , 5));
+            ComboMenu.AddSeparator(15);
+            //ComboMenu.Add("Status", new CheckBox("disable status drawings", false));
 
             WardjumpMenu.AddGroupLabel("Wardjump Settings");
             var a = WardjumpMenu.Add("alwaysMax", new CheckBox("Always Jump To Max Range"));

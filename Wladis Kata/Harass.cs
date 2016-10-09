@@ -8,56 +8,56 @@ namespace Wladis_Kata
     {
         public static void Execute1()
         {
-            var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var qtarget = TargetSelector.GetTarget(target.Q.Range, DamageType.Magical);
 
             if ((qtarget == null) || qtarget.IsInvulnerable)
                 return;
             //Cast Q
             if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
-                if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-            SpellsManager.Q.Cast(qtarget);
+                if (qtarget.IsValidTarget(target.Q.Range) && target.Q.IsReady())
+            target.Q.Cast(qtarget);
 
-            var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
+            var wtarget = TargetSelector.GetTarget(target.W.Range, DamageType.Mixed);
 
             if ((wtarget == null) || wtarget.IsInvulnerable)
                 return;
             //Cast W
             if (Menus.HarassMenu["W"].Cast<CheckBox>().CurrentValue)
-                if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                    SpellsManager.W.Cast(wtarget);
+                if (wtarget.IsValidTarget(target.W.Range) && target.W.IsReady())
+                    target.W.Cast(wtarget);
 
-            var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
+            var etarget = TargetSelector.GetTarget(target.E.Range, DamageType.Magical);
 
             if ((etarget == null) || etarget.IsInvulnerable)
                 return;
             //Cast E
             if (Menus.HarassMenu["E"].Cast<CheckBox>().CurrentValue)
-                if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                    SpellsManager.E.Cast(etarget);
+                if (etarget.IsValidTarget(target.E.Range) && target.E.IsReady())
+                    target.E.Cast(etarget);
 
 
         }
 
         public static void Execute7()
         {
-            var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var qtarget = TargetSelector.GetTarget(target.Q.Range, DamageType.Magical);
 
             if ((qtarget == null) || qtarget.IsInvulnerable)
                 return;
 
-                if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.Cast(qtarget);
+                if (qtarget.IsValidTarget(target.Q.Range) && target.Q.IsReady())
+                    target.Q.Cast(qtarget);
         }
 
-        public static void Execute8()
+        public static void Execute9()
         {
-            var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
+            var wtarget = TargetSelector.GetTarget(target.W.Range, DamageType.Mixed);
 
             if ((wtarget == null) || wtarget.IsInvulnerable)
                 return;
             //Cast W
-                if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                    SpellsManager.W.Cast(wtarget);
+                if (wtarget.IsValidTarget(target.W.Range) && target.W.IsReady())
+                    target.W.Cast(wtarget);
         }
 
     }

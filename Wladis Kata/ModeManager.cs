@@ -24,9 +24,18 @@ namespace Wladis_Kata
         {
             var orbMode = Orbwalker.ActiveModesFlags;
             var playerMana = Player.Instance.ManaPercent;
+            var target = TargetSelector.GetTarget(Wladis_Kata.target.E.Range, DamageType.Mixed);
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
-                Execute();
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && (ComboMenu["ComboLogic"].Cast<ComboBox>().CurrentValue == 0))
+                Combo.Execute20();
+
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && (ComboMenu["ComboLogic"].Cast<ComboBox>().CurrentValue == 1))
+                Combo.Execute12();
+
+            if (ComboMenu["AutoKill"].Cast<CheckBox>().CurrentValue)
+                if (target.CountAlliesInRange(450) <= ComboMenu["AutoKillenemysinrange"].Cast<Slider>().CurrentValue)
+                    if (target.Health <= target.GetRealDamage()) 
+                           Execute11();
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass))
                 Harass.Execute1();
@@ -41,7 +50,7 @@ namespace Wladis_Kata
                 Harass.Execute7();
 
             if (HarassMenu["AutoW"].Cast<CheckBox>().CurrentValue)
-                Harass.Execute8();
+                Harass.Execute9();
 
             if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute2();
@@ -54,7 +63,11 @@ namespace Wladis_Kata
 
             if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute5();
-            
+
+            if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
+                Execute6();
+
+
         }
         private static void Player_OnIssueOrder(Obj_AI_Base sender, PlayerIssueOrderEventArgs args)
         {
@@ -74,13 +87,13 @@ namespace Wladis_Kata
 
         private static bool HasRBuff()
         {
-            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
+            var target = TargetSelector.GetTarget(Wladis_Kata.target.E.Range, DamageType.Mixed);
             return myhero.HasBuff("KatarinaR") || Player.Instance.Spellbook.IsChanneling ||
                    myhero.HasBuff("katarinarsound"); //|| target.HasBuff("Grevious") && sender.IsMe
         }
         private static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
-            var target = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Mixed);
+            var target = TargetSelector.GetTarget(Wladis_Kata.target.R.Range, DamageType.Mixed);
 
             if ((target == null) || target.IsInvulnerable)
                 return;
@@ -95,7 +108,7 @@ namespace Wladis_Kata
                 if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
 (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
                 args.Process = false;
-             if (!SpellsManager.Q.IsOnCooldown && SpellsManager.W.IsOnCooldown && SpellsManager.E.IsOnCooldown) args.Process = true;
+             if (!Wladis_Kata.target.Q.IsOnCooldown && Wladis_Kata.target.W.IsOnCooldown && Wladis_Kata.target.E.IsOnCooldown) args.Process = true;
 
 
                 if (!(MiscMenu["Humanizer"].Cast<CheckBox>().CurrentValue))
@@ -124,7 +137,6 @@ namespace Wladis_Kata
                 Orbwalker.DisableMovement = false;
                 Orbwalker.DisableAttacking = false;
             }
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo)) Execute();
         }
        
 

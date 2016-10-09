@@ -4,7 +4,8 @@ using EloBuddy.SDK.Rendering;
 using System.Drawing;
 using EloBuddy.SDK;
 using static Wladis_Kata.Menus;
-using static Wladis_Kata.SpellsManager;
+using static Wladis_Kata.Combo;
+using static Wladis_Kata.target;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Wladis_Kata
@@ -18,19 +19,18 @@ namespace Wladis_Kata
             Drawing.OnEndScene += Drawing_OnEndScene;
             DamageIndicator.Init();
         }
-
-
-
+        
 
         private static void Drawing_OnDraw(EventArgs args)
         {
             var readyDraw = DrawingsMenu["readyDraw"].Cast<CheckBox>().CurrentValue;
-            var target = TargetSelector.GetTarget(SpellsManager.E.Range+20000, DamageType.Mixed);
+            var target = TargetSelector.GetTarget(Wladis_Kata.target.E.Range+20000, DamageType.Mixed);
             //Drawings
             if (DrawingsMenu["qDraw"].Cast<CheckBox>().CurrentValue && readyDraw
                 ? Q.IsReady()
                 : DrawingsMenu["qDraw"].Cast<CheckBox>().CurrentValue)
                 Circle.Draw(QColorSlide.GetSharpColor(), Q.Range, 1f, Player.Instance);
+            
 
             if (DrawingsMenu["wDraw"].Cast<CheckBox>().CurrentValue && readyDraw
                 ? W.IsReady()
@@ -52,6 +52,29 @@ namespace Wladis_Kata
             Drawing.DrawText(Drawing.WorldToScreen(target.Position).X - 60,
                 Drawing.WorldToScreen(target.Position).Y + 10,
                 Color.Gold, "Killable with Combo");
+
+            
+
+            /*if (ComboMenu["Status"].Cast<CheckBox>().CurrentValue)
+            {
+                StatusText.Color = ComboMenu["AutoKill"].Cast<CheckBox>().CurrentValue ? Color.White : Color.Red;
+                DrawText.TextValue = "Autokill " + (ComboMenu["AutoKill"].Cast<CheckBox>().CurrentValue ? "Enabled" : "Disabled");
+                StatusText.Position = Player.Instance.Position.WorldToScreen() - new Vector2(StatusText.Bounding.Width / 2, -25);
+                StatusText.Draw();
+            }
+
+            if (!(ComboMenu["Status"].Cast<CheckBox>().CurrentValue))
+            {
+                if (ComboMenu["AutoKill"].Cast<CheckBox>().CurrentValue)
+                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 60,
+        Drawing.WorldToScreen(myhero.Position).Y + 1,
+        Color.White, "Autokill enabled");
+
+                if (!(ComboMenu["AutoKill"].Cast<CheckBox>().CurrentValue))
+                    Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 60,
+        Drawing.WorldToScreen(myhero.Position).Y + 1,
+        Color.Red, "Autokill disabled");
+            }*/
         }
         public static void DrawText(string msg, AIHeroClient Hero, Color color)
         {
@@ -60,6 +83,7 @@ namespace Wladis_Kata
 
 
         }
+        
 
 
 

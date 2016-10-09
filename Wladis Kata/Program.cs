@@ -34,7 +34,7 @@ namespace Wladis_Kata
         private static void Loading_OnLoadingComplete(EventArgs bla)
         {
             if (Player.Instance.Hero != Champion.Katarina) return;
-            SpellsManager.InitializeSpells();
+            target.InitializeSpells();
             Menus.CreateMenu();
             ModeManager.InitializeModes();
             DrawingsManager.InitializeDrawings();
@@ -42,7 +42,7 @@ namespace Wladis_Kata
                 Obj_AI_Base.OnProcessSpellCast += delegate (Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
                 {
                     if (!(MiscMenu["Humanizer"].Cast<CheckBox>().CurrentValue))
-                        if (sender.IsMe && (int)args.Slot == 3)
+                        if (sender.IsMe && (int)args.Slot == 3 && (int)args.Slot == 0)
                     {
                         LockedSpellCasts = true;
                     }
@@ -51,7 +51,7 @@ namespace Wladis_Kata
             Obj_AI_Base.OnSpellCast += delegate (Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
             {
                 if (!(MiscMenu["Humanizer"].Cast<CheckBox>().CurrentValue))
-                    if (sender.IsMe && (int)args.Slot == 3)
+                    if (sender.IsMe && (int)args.Slot == 3 && (int)args.Slot == 0)
                     {
                         LockedSpellCasts = false;
                     }
