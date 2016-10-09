@@ -5,7 +5,7 @@ namespace Dark_Syndra
 {
     internal class Flee
     {
-        public static void Execute()
+        public static void Execute10()
         {
 
             if (Menus.FleeMenu["E"].Cast<CheckBox>().CurrentValue)

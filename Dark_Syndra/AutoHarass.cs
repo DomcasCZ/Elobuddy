@@ -1,7 +1,6 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 
 
 
@@ -18,7 +17,7 @@ namespace Dark_Syndra
             //Cast Q
             if (Menus.HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue)
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+                SpellsManager.Q.Cast(qtarget);
         }
 
         public static void Execute7()
@@ -31,7 +30,7 @@ namespace Dark_Syndra
             if (Menus.HarassMenu["AutoW"].Cast<CheckBox>().CurrentValue)
             if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
                 SpellsManager.W.Cast(Functions.GrabWPost(true));
-            SpellsManager.W.TryToCast(wtarget, Menus.HarassMenu);
+            SpellsManager.W.Cast(wtarget);
         }
     }
 }

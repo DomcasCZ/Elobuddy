@@ -1,8 +1,9 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 using static Dark_Syndra.Menus;
+using static Dark_Syndra.Functions;
+using System.Linq;
 
 namespace Dark_Syndra
 {
@@ -10,47 +11,36 @@ namespace Dark_Syndra
     {
         public static void Execute()
         {
-            var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var sphere =
+    ObjectManager.Get<Obj_AI_Base>().FirstOrDefault(a => a.Name == "Seed" && a.IsValid);
 
-            if ((qtarget == null) || qtarget.IsInvulnerable)
+            var target = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Magical);
+
+            if ((target == null) || target.IsInvulnerable)
                 return;
             //Cast Q
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
-                if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.TryToCast(qtarget, ComboMenu);
-
-            var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Magical);
-
-            if ((wtarget == null) || wtarget.IsInvulnerable)
-                return;
+                if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+                {
+                    var pred = SpellsManager.Q.GetPrediction(target);
+                    SpellsManager.Q.Cast(pred.CastPosition);
+                }
+                    SpellsManager.W.GetPrediction(target);
+            SpellsManager.Q.Cast(target);
             //Cast W
             if (ComboMenu["W"].Cast<CheckBox>().CurrentValue)
-                if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                    SpellsManager.W.Cast(Functions.GrabWPost(true));
-            SpellsManager.W.TryToCast(wtarget, ComboMenu);
-
-            var qetarget = TargetSelector.GetTarget(SpellsManager.QE.Range, DamageType.Magical);
-
-            if ((qetarget == null) || qetarget.IsInvulnerable)
-                return;
-
-            if (ComboMenu["QE"].Cast<CheckBox>().CurrentValue)
-                if (SpellsManager.Q.IsReady() && SpellsManager.E.IsReady() &&
-                    qetarget.IsValidTarget(SpellsManager.QE.Range) && SpellsManager.Q.Cast() && SpellsManager.E.Cast())
+                if (target.IsValidTarget(SpellsManager.W.Range+200) && SpellsManager.W.IsReady() && !target.IsDead)
                 {
-                    var b = SpellsManager.Q.TryToCast(qetarget, ComboMenu) &&
-                            SpellsManager.E.TryToCast(qetarget, ComboMenu);
+                    var pred = SpellsManager.W.GetPrediction(target);
+                    SpellsManager.W.Cast(Functions.GrabWPost(true));
+                    SpellsManager.W.Cast(pred.CastPosition);
                 }
 
-
-            var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
-
-            if ((etarget == null) || etarget.IsInvulnerable)
-                return;
-            //Cast E
-            if (FleeMenu["E"].Cast<CheckBox>().CurrentValue)
-                if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                    SpellsManager.E.TryToCast(etarget, FleeMenu);
+            if (ComboMenu["QE"].Cast<CheckBox>().CurrentValue)
+                if (target.IsValidTarget(SpellsManager.QE.Range) && SpellsManager.E.IsReady())
+                    if (sphere.CountEnemyMinionsInRange(300) >= 1)
+                        SpellsManager.Q.Cast(target);
+                    SpellsManager.E.Cast(target);
 
 
             //Cast r
@@ -58,17 +48,12 @@ namespace Dark_Syndra
             //   if (rtarget.IsValidTarget(SpellsManager.R.Range) && SpellsManager.R.IsReady())
             //      SpellsManager.R.TryToCast(SpellsManager.R.GetKillableHero(), Menus.ComboMenu);
 
-            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
 
-            if ((rtarget == null) || rtarget.IsInvulnerable)
-                return;
-
-
-            if (SpellsManager.R.IsReady() && rtarget.IsValidTarget(SpellsManager.R.Range) &&
-                Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
-                SpellsManager.RDamage(SpellSlot.R, rtarget))
+            if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range) && !target.HasUndyingBuff() &&
+                Prediction.Health.GetPrediction(target, SpellsManager.R.CastDelay) <=
+                SpellsManager.RDamage(SpellSlot.R, target))
             {
-                SpellsManager.R.TryToCast(rtarget, ComboMenu);
+                SpellsManager.R.Cast(target);
             }
 
 

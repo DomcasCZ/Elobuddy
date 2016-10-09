@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
@@ -71,21 +71,21 @@ namespace Dark_Syndra
                     if (E.IsReady())
                         dmg += new float[] { 60 , 105 , 150 , 195 , 240 }[sLevel] + 0.6f * ap;
                     break;
-                    //    case SpellSlot.R:
-                    //      if (R.IsReady())
-                    //         dmg += new float[] { 270, 405, 540 }[sLevel] + 0.6f * ap * (Spheres.Spheres());
-                    //     break;
+                        case SpellSlot.R:
+                         if (R.IsReady())
+                         dmg += new float[] { 300, 400, 500 }[sLevel] + 0.6f * ap * (BallsCount());
+                        break;
             }
             return Player.Instance.CalculateDamageOnUnit(target, damageType, dmg - 10);
 
         }
 
-        internal static float RDamage(SpellSlot r, AIHeroClient rtarget)
+        public static float RDamage(SpellSlot r, AIHeroClient rtarget)
         {
             var ap = Player.Instance.FlatMagicDamageMod;
             var index = Player.GetSpell(SpellSlot.R).Level - 1;
             var mindmg = new float[] { 90, 135, 180 }[index] + 0.6f * ap;
-            var maxdmg = new float[] { 210, 975, 325 }[index] + 1.4f * ap;
+            var maxdmg = new float[] { 210, 265, 325 }[index] + 1.4f * ap;
             var perballdmg = new float[] {30, 45, 60}[index]*0.2f*ap*(BallsCount());
 
             return Player.Instance.CalculateDamageOnUnit(rtarget, DamageType.Magical, Math.Min(mindmg, maxdmg) + perballdmg);

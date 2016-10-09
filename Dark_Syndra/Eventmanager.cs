@@ -6,7 +6,7 @@ using EloBuddy.SDK.Events;
 using EloBuddy.SDK.Menu.Values;
 using SharpDX;
 
-namespace KA_Syndra
+namespace Dark_Syndra
 {
     internal static class EventsManager
     {

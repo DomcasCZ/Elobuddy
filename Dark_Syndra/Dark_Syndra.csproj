@@ -40,9 +40,6 @@
     <Reference Include="EloBuddy.SDK">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\EloBuddy.SDK.dll</HintPath>
     </Reference>
-    <Reference Include="Mario`s Lib">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\Mario`s Lib.dll</HintPath>
-    </Reference>
     <Reference Include="SharpDX">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\SharpDX.dll</HintPath>
     </Reference>
@@ -58,15 +55,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="T2IN1 Lib">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\T2IN1 Lib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active.cs" />
     <Compile Include="AutoHarass.cs" />
     <Compile Include="AutoLevel.cs" />
     <Compile Include="Cleaners.cs" />
+    <Compile Include="ColorSlider.cs" />
     <Compile Include="Combo.cs" />
     <Compile Include="Consumable.cs" />
     <Compile Include="DamageIndicator.cs" />
@@ -79,6 +74,7 @@
     <Compile Include="Harass.cs" />
     <Compile Include="KillSteal.cs" />
     <Compile Include="LaneClear.cs" />
+    <Compile Include="Lib.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="ModeManager.cs" />
     <Compile Include="Offensive.cs" />

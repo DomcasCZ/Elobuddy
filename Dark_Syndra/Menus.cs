@@ -4,8 +4,7 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
-using T2IN1_Lib.DataBases;
+using static Dark_Syndra.Skins;
 
 namespace Dark_Syndra
 {
@@ -42,14 +41,13 @@ namespace Dark_Syndra
             DrawingsMenu = FirstMenu.AddSubMenu("• Drawings", DrawingsMenuId);
             MiscMenu = FirstMenu.AddSubMenu("• Misc", MiscMenuId);
 
-            
+
             ComboMenu.AddGroupLabel("Combo Settings");
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("QE", new CheckBox("- Use Q - E"));
             ComboMenu.Add("WE", new CheckBox("- Use W - E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
-            ComboMenu.AddLabel("Dont use SDK Beta Prediction");
 
             //ComboMenu.AddGroupLabel("Summoner Settings");
             //ComboMenu.Add("Smite", new CheckBox("- Use Smite"));
@@ -59,7 +57,7 @@ namespace Dark_Syndra
             HarassMenu.Add("Q", new CheckBox("- Use Q"));
             HarassMenu.Add("W", new CheckBox("- Use W"));
             HarassMenu.Add("Qe", new CheckBox("- Use Q - E"));
-            HarassMenu.CreateSlider("Mana must be higher than [{0}%] to use Harass Spells", "manaSlider", 50);
+            HarassMenu.Add("manaSlider", new Slider ("Mana must be higher than [{0}%] to use Harass Spells", 50, 0 , 100));
 
             HarassMenu.AddGroupLabel("Auto Harass");
             HarassMenu.Add("AutoQ", new CheckBox("- Q",false));
@@ -73,8 +71,8 @@ namespace Dark_Syndra
             LaneClearMenu.Add("Q", new CheckBox("- Use Q"));
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
             LaneClearMenu.Add("E", new CheckBox("- Use E"));
-            LaneClearMenu.CreateSlider("Mana must be higher than [{0}%] to use Lane Clear Spells", "manaSlider", 50);
-
+            LaneClearMenu.Add("manaSlider", new Slider("Mana must be higher than [{0}%] to use Harass Spells", 50, 0, 100));
+            
             KillStealMenu.AddGroupLabel("Killsteal Settings");
             KillStealMenu.Add("Q", new CheckBox("- Use Q"));
             KillStealMenu.Add("W", new CheckBox("- Use W"));
@@ -91,10 +89,10 @@ namespace Dark_Syndra
 
             MiscMenu.AddGroupLabel("Skin Changer");
 
-            var skinList = Skins.SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
+            var skinList = SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
             if (skinList != null)
             {
-                MiscMenu.CreateComboBox("Choose the skin", "skinComboBox", skinList.Skins);
+                MiscMenu.Add("SkinComboBox", new ComboBox("Choose the skin", skinList.Skins));
                 MiscMenu.Get<ComboBox>("skinComboBox").OnValueChange +=
                     delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
                     {
@@ -103,33 +101,32 @@ namespace Dark_Syndra
             }
 
             DrawingsMenu.AddGroupLabel("Setting");
-            DrawingsMenu.CreateCheckBox(" - Draw Spell Range only if Spell is Ready.", "readyDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator.", "damageDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Percent.", "perDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Statistics.", "statDraw", false);
+            DrawingsMenu.Add("readyDraw", new CheckBox(" - Draw Spell Range only if Spell is Ready."));
+            DrawingsMenu.Add("damageDraw", new CheckBox(" - Draw Damage Indicator."));
+            DrawingsMenu.Add("perDraw", new CheckBox(" - Draw Damage Indicator Percent."));
+            DrawingsMenu.Add("statDraw", new CheckBox(" - Draw Damage Indicator Statistics.", false));
             DrawingsMenu.AddGroupLabel("Spells");
-            DrawingsMenu.CreateCheckBox(" - Draw Q.", "qDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw W.", "wDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw E.", "eDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw Q - E.", "QeDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw R.", "rDraw");
-            DrawingsMenu.AddLabel("*Only draw if ready*");
+            DrawingsMenu.Add("readyDraw", new CheckBox(" - Draw Spell Range only if Spell is Ready."));
+            DrawingsMenu.Add("qDraw", new CheckBox("- draw Q"));
+            DrawingsMenu.Add("wDraw", new CheckBox("- draw W"));
+            DrawingsMenu.Add("eDraw", new CheckBox("- draw E"));
+            DrawingsMenu.Add("rDraw", new CheckBox("- draw R"));
+            DrawingsMenu.AddLabel("It will only draw if ready");
             DrawingsMenu.AddGroupLabel("Drawings Color");
             QColorSlide = new ColorSlide(DrawingsMenu, "qColor", Color.CornflowerBlue, "Q Color:");
             WColorSlide = new ColorSlide(DrawingsMenu, "wColor", Color.White, "W Color:");
             EColorSlide = new ColorSlide(DrawingsMenu, "eColor", Color.Coral, "E Color:");
-            QEColorSlide = new ColorSlide(DrawingsMenu, "qeColor", Color.Gold, "QE Color:");
             RColorSlide = new ColorSlide(DrawingsMenu, "rColor", Color.Red, "R Color:");
-            DamageIndicatorColorSlide = new ColorSlide(DrawingsMenu, "healthColor", Color.YellowGreen,
+            DamageIndicatorColorSlide = new ColorSlide(DrawingsMenu, "healthColor", Color.Gold,
                 "DamageIndicator Color:");
 
             MiscMenu.AddGroupLabel("Auto Level UP");
-            MiscMenu.CreateCheckBox("Activate Auto Leveler", "activateAutoLVL", false);
+            MiscMenu.Add("activateAutoLVL", new CheckBox("Activate Auto Leveler", false));
             MiscMenu.AddLabel("The Auto Leveler will always Focus R than the rest of the Spells");
-            MiscMenu.CreateComboBox("1 Spell to Focus", "firstFocus", new List<string> { "Q", "W", "E" });
-            MiscMenu.CreateComboBox("2 Spell to Focus", "secondFocus", new List<string> { "Q", "W", "E" }, 1);
-            MiscMenu.CreateComboBox("3 Spell to Focus", "thirdFocus", new List<string> { "Q", "W", "E" }, 2);
-            MiscMenu.CreateSlider("Delay Slider", "delaySlider", 200, 150, 500);
+            MiscMenu.Add("firstFocus", new ComboBox("1 Spell to Focus", new List<string> { "Q", "W", "E" }));
+            MiscMenu.Add("secondFocus", new ComboBox("2 Spell to Focus", new List<string> { "Q", "W", "E" }, 1));
+            MiscMenu.Add("thirdFocus", new ComboBox("3 Spell to Focus", new List<string> { "Q", "W", "E" }, 2));
+            MiscMenu.Add("delaySlider", new Slider("Delay Slider", 200, 150, 500));
         }
     }
 }

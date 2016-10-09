@@ -2,7 +2,6 @@
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 using static Dark_Syndra.Menus;
 
 namespace Dark_Syndra
@@ -23,22 +22,19 @@ namespace Dark_Syndra
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
                 Combo.Execute();
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass)&& (playerMana > HarassMenu.GetSliderValue("manaSlider")))
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass)&& (playerMana > HarassMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 Harass.Execute1();
             
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Flee))
-                Flee.Execute();
+                Flee.Execute10();
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear) && (playerMana > LaneClearMenu.GetSliderValue("manaSlider")))
-                LaneClear.Execute();
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear) && (playerMana > LaneClearMenu["manaSlider"].Cast<Slider>().CurrentValue))
+                LaneClear.Execute2();
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear) && (playerMana > LaneClearMenu.GetSliderValue("manaSlider")))
-                LaneClear.Execute();
-
-            if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
+            if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 AutoHarass.Execute6();
 
-            if (HarassMenu["AutoW"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
+            if (HarassMenu["AutoW"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 AutoHarass.Execute7();
 
             if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue)

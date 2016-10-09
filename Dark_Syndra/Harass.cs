@@ -1,7 +1,6 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 
 
 
@@ -18,7 +17,7 @@ namespace Dark_Syndra
             //Cast Q
             if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+                    SpellsManager.Q.Cast(qtarget);
 
             var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Magical);
 
@@ -28,7 +27,7 @@ namespace Dark_Syndra
             if (Menus.HarassMenu["W"].Cast<CheckBox>().CurrentValue)
                 if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
                     SpellsManager.W.Cast(Functions.GrabWPost(true));
-            SpellsManager.W.TryToCast(wtarget, Menus.HarassMenu);
+            SpellsManager.W.Cast(wtarget);
             
         }
 
