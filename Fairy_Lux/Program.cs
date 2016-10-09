@@ -20,7 +20,7 @@ namespace Fairy_Lux
             DrawingsManager.InitializeDrawings();
 
             Chat.Print("Fairy Lux Loaded!");
-            Chat.Print("Credits to ExRaZor and T2N1Scar");
+            Chat.Print("Credits to ExRaZor and Tarakan");
         }
     }
 }

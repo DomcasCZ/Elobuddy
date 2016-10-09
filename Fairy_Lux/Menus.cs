@@ -4,8 +4,7 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
-using T2IN1_Lib.DataBases;
+using static Fairy_Lux.Skins;
 
 namespace Fairy_Lux
 {
@@ -60,7 +59,7 @@ namespace Fairy_Lux
             HarassMenu.AddGroupLabel("Harass Settings");
             HarassMenu.Add("Q", new CheckBox("- Use Q"));
             HarassMenu.Add("E", new CheckBox("- Use E"));
-            HarassMenu.CreateSlider("Mana must be higher than [{0}%] to use Harass Spells", "manaSlider", 50);
+            HarassMenu.Add("ManaSlider", new Slider ("Mana must be higher than [{0}%] to use Harass Spells", 40, 0, 100));
 
             HarassMenu.AddGroupLabel("Auto Harass");
             HarassMenu.Add("AutoQ", new CheckBox("- Use Q", false));
@@ -73,13 +72,13 @@ namespace Fairy_Lux
             LaneClearMenu.AddGroupLabel("Lane Clear Settings");
             LaneClearMenu.Add("Q", new CheckBox("- Use Q"));
             LaneClearMenu.Add("E", new CheckBox("- Use E"));
-            LaneClearMenu.CreateSlider("Mana must be higher than [{0}%] to use Lane Clear Spells", "manaSlider", 50);
+            LaneClearMenu.Add("ManaSlider", new Slider("Mana must be higher than [{0}%] to use Harass Spells", 40, 0, 100));
 
             WMenu.AddGroupLabel("W Settings");
             WMenu.Add("W", new CheckBox("- Use W"));
             WMenu.AddLabel("It will only use W if an enemy is in range");
-            WMenu.CreateSlider("HP must be lower that[{0}%] to use W", "dangerSlider", 80);
-            WMenu.CreateSlider("Mana must be higher than [{0}%] to use W", "manaSlider", 50);
+            WMenu.Add("dangerSlider", new Slider ("HP must be lower that[{0}%] to use W", 80, 0 , 100));
+            WMenu.Add("ManaSlider", new Slider("Mana must be higher than [{0}%] to use Harass Spells", 40, 0, 100));
 
             KillStealMenu.AddGroupLabel("Killsteal Settings");
             KillStealMenu.Add("Q", new CheckBox("- Use Q"));
@@ -96,10 +95,10 @@ namespace Fairy_Lux
             MiscMenu.Add("Gapcloser", new CheckBox("- Gapcloser"));
             MiscMenu.AddGroupLabel("Skin Changer");
 
-            var skinList = Skins.SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
+            var skinList = SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
             if (skinList != null)
             {
-                MiscMenu.CreateComboBox("Choose the skin", "skinComboBox", skinList.Skins);
+                MiscMenu.Add("SkinComboBox", new ComboBox("Choose the skin", skinList.Skins));
                 MiscMenu.Get<ComboBox>("skinComboBox").OnValueChange +=
                     delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
                     {
@@ -108,15 +107,16 @@ namespace Fairy_Lux
             }
 
             DrawingsMenu.AddGroupLabel("Setting");
-            DrawingsMenu.CreateCheckBox(" - Draw Spell Range only if Spell is Ready.", "readyDraw", false);
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator.", "damageDraw", false);
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Percent.", "perDraw", false);
-            DrawingsMenu.CreateCheckBox(" - Draw Damage Indicator Statistics.", "statDraw", false);
+            DrawingsMenu.Add("readyDraw", new CheckBox(" - Draw Spell Range only if Spell is Ready."));
+            DrawingsMenu.Add("damageDraw", new CheckBox(" - Draw Damage Indicator."));
+            DrawingsMenu.Add("perDraw", new CheckBox(" - Draw Damage Indicator Percent."));
+            DrawingsMenu.Add("statDraw", new CheckBox(" - Draw Damage Indicator Statistics.", false));
             DrawingsMenu.AddGroupLabel("Spells");
-            DrawingsMenu.CreateCheckBox(" - Draw Q.", "qDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw W.", "wDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw E.", "eDraw");
-            DrawingsMenu.CreateCheckBox(" - Draw R.", "rDraw");
+            DrawingsMenu.Add("readyDraw", new CheckBox(" - Draw Spell Range only if Spell is Ready."));
+            DrawingsMenu.Add("qDraw", new CheckBox("- draw Q"));
+            DrawingsMenu.Add("wDraw", new CheckBox("- draw W"));
+            DrawingsMenu.Add("eDraw", new CheckBox("- draw E"));
+            DrawingsMenu.Add("rDraw", new CheckBox("- draw R"));
             DrawingsMenu.AddLabel("It will only draw if ready");
             DrawingsMenu.AddGroupLabel("Drawings Color");
             QColorSlide = new ColorSlide(DrawingsMenu, "qColor", Color.CornflowerBlue, "Q Color:");
@@ -127,12 +127,12 @@ namespace Fairy_Lux
                 "DamageIndicator Color:");
 
             MiscMenu.AddGroupLabel("Auto Level UP");
-            MiscMenu.CreateCheckBox("Activate Auto Leveler", "activateAutoLVL", false);
+            MiscMenu.Add("activateAutoLVL", new CheckBox("Activate Auto Leveler", false));
             MiscMenu.AddLabel("The Auto Leveler will always Focus R than the rest of the Spells");
-            MiscMenu.CreateComboBox("1 Spell to Focus", "firstFocus", new List<string> { "Q", "W", "E" });
-            MiscMenu.CreateComboBox("2 Spell to Focus", "secondFocus", new List<string> { "Q", "W", "E" }, 1);
-            MiscMenu.CreateComboBox("3 Spell to Focus", "thirdFocus", new List<string> { "Q", "W", "E" }, 2);
-            MiscMenu.CreateSlider("Delay Slider", "delaySlider", 200, 150, 500);
+            MiscMenu.Add("firstFocus", new ComboBox("1 Spell to Focus", new List<string> { "Q", "W", "E" }));
+            MiscMenu.Add("secondFocus", new ComboBox("2 Spell to Focus", new List<string> { "Q", "W", "E" }, 1));
+            MiscMenu.Add("thirdFocus", new ComboBox("3 Spell to Focus", new List<string> { "Q", "W", "E" }, 2));
+            MiscMenu.Add("delaySlider", new Slider("Delay Slider", 200, 150, 500));
         }
     }
 }

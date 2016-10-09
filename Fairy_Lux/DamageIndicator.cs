@@ -4,17 +4,14 @@ using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
 using SharpDX.Direct3D9;
-using T2IN1_Lib;
-using static Fairy_Lux.Menus;
-using static Fairy_Lux.Extensions;
 using Color = System.Drawing.Color;
 using Line = EloBuddy.SDK.Rendering.Line;
+using EloBuddy.SDK.Menu.Values;
 
 namespace Fairy_Lux
 {
     internal class DamageIndicator
     {
-
         //Offsets
         private const float YOff = 9.8f;
         private const float XOff = 0;
@@ -59,7 +56,7 @@ namespace Fairy_Lux
             {
                 var damage = enemy.GetTotalDamage();
 
-                if (DrawingsMenu.GetCheckBoxValue("damageDraw"))
+                if (Menus.DrawingsMenu["damageDraw"].Cast<CheckBox>().CurrentValue)
                 {
                     var dmgPer = (enemy.TotalShieldHealth() - damage > 0 ? enemy.TotalShieldHealth() - damage : 0) /
                                  enemy.TotalShieldMaxHealth();
@@ -69,27 +66,27 @@ namespace Fairy_Lux
                     var endPoint = new Vector2((int)(enemy.HPBarPosition.X + XOff + currentHPPer * Width) + 1,
                         (int)enemy.HPBarPosition.Y + YOff);
 
-                    var colour = Color.FromArgb(180, DamageIndicatorColorSlide.GetSystemColor());
+                    var colour = Color.FromArgb(180, Menus.DamageIndicatorColorSlide.GetSystemColor());
                     Line.DrawLine(colour, Thick, initPoint, endPoint);
                 }
 
-                if (DrawingsMenu.GetCheckBoxValue("statDraw"))
+                if (Menus.DrawingsMenu["statDraw"].Cast<CheckBox>().CurrentValue)
                 {
                     //Statistics
                     var posXStat = (int)enemy.HPBarPosition[0] - 46;
                     var posYStat = (int)enemy.HPBarPosition[1] + 12;
                     var mathStat = "- " + Math.Round(damage) + " / " +
                                    Math.Round(enemy.Health - damage);
-                    _Font2.DrawText(null, mathStat, posXStat, posYStat, DamageIndicatorColorSlide.GetSharpColor());
+                    _Font2.DrawText(null, mathStat, posXStat, posYStat, Menus.DamageIndicatorColorSlide.GetSharpColor());
                 }
 
-                if (DrawingsMenu.GetCheckBoxValue("perDraw"))
+                if (Menus.DrawingsMenu["perDraw"].Cast<CheckBox>().CurrentValue)
                 {
                     //Percent
                     var posXPer = (int)enemy.HPBarPosition[0] - 28;
                     var posYPer = (int)enemy.HPBarPosition[1];
                     _Font.DrawText(null, string.Concat(Math.Ceiling((int)damage / enemy.TotalShieldHealth() * 100), "%"),
-                        posXPer, posYPer, DamageIndicatorColorSlide.GetSharpColor());
+                        posXPer, posYPer, Menus.DamageIndicatorColorSlide.GetSharpColor());
                 }
             }
         }

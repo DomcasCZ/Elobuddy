@@ -2,9 +2,7 @@
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 using static Fairy_Lux.Menus;
-using static Fairy_Lux.Active;
 
 namespace Fairy_Lux
 {
@@ -24,19 +22,19 @@ namespace Fairy_Lux
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
                 Combo.Execute();
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass) && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass) && (playerMana > HarassMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 Harass.Execute1();
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Flee))
                 Flee.Execute();
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear) && (playerMana > LaneClearMenu.GetSliderValue("manaSlider")))
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear) && (playerMana > LaneClearMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 LaneClear.Execute();
 
-            if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
+            if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 Autoharass.Execute7();
 
-            if (WMenu["W"].Cast<CheckBox>().CurrentValue && (playerMana > HarassMenu.GetSliderValue("manaSlider")))
+            if (WMenu["W"].Cast<CheckBox>().CurrentValue && (playerMana > WMenu["manaSlider"].Cast<Slider>().CurrentValue))
                 Active.Execute6();
 
             if (HarassMenu["AutoE"].Cast<CheckBox>().CurrentValue) 

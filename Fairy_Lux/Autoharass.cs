@@ -2,7 +2,6 @@
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 
 namespace Fairy_Lux
 {
@@ -16,7 +15,7 @@ namespace Fairy_Lux
                 return;
             //Cast Q
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+                    SpellsManager.Q.Cast(qtarget);
 
         }
 
@@ -28,7 +27,7 @@ namespace Fairy_Lux
                 return;
             //Cast E
             if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                SpellsManager.E.TryToCast(etarget, Menus.HarassMenu);
+                SpellsManager.E.Cast(etarget);
         }
     }
 }

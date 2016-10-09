@@ -1,8 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
-using static Fairy_Lux.Menus;
 
 namespace Fairy_Lux
 {
@@ -20,7 +17,7 @@ namespace Fairy_Lux
                 SpellsManager.GetRealDamage(qtarget, SpellSlot.Q))
             {
                 var prediction = SpellsManager.Q.GetPrediction(qtarget);
-                SpellsManager.Q.TryToCast(qtarget, KillStealMenu);
+                SpellsManager.Q.Cast(qtarget);
             }
         }
 
@@ -52,7 +49,7 @@ namespace Fairy_Lux
                 SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
             {
                 var prediction = SpellsManager.Q.GetPrediction(rtarget);
-                SpellsManager.Q.TryToCast(rtarget, KillStealMenu);
+                SpellsManager.Q.Cast(rtarget);
             }
 
         }

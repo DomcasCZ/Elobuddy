@@ -1,7 +1,6 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 using static Fairy_Lux.Menus;
 
 namespace Fairy_Lux
@@ -16,14 +15,19 @@ namespace Fairy_Lux
         public static void Execute()
         {
 
-            var target = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
             if ((target == null) || target.IsInvulnerable)
+                return;
+
+            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
+
+            if ((rtarget == null) || rtarget.IsInvulnerable)
                 return;
             //Cast E
             if (ComboMenu["E"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                    SpellsManager.E.TryToCast(target, ComboMenu);
+                    SpellsManager.E.Cast(target);
             if (myhero.HasBuff("Detonate"))
             {
                 SpellsManager.E.Cast();
@@ -34,16 +38,16 @@ namespace Fairy_Lux
                 if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
                     var prediction = SpellsManager.Q.GetPrediction(target);
-                    SpellsManager.Q.TryToCast(target, ComboMenu);
+                    SpellsManager.Q.Cast(target);
                 }
 
-            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && target.Health > target.GetRealDamage())
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range) &&
-                        Prediction.Health.GetPrediction(target, SpellsManager.R.CastDelay) <=
-                        SpellsManager.GetRealDamage(target, SpellSlot.R))
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && rtarget.Health > rtarget.GetRealDamage())
+                    if (SpellsManager.R.IsReady() && rtarget.IsValidTarget(SpellsManager.R.Range) &&
+                        Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
+                        SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
                     {
-                            var prediction = SpellsManager.R.GetPrediction(target);
-                            SpellsManager.R.TryToCast(target,ComboMenu);
+                            var prediction = SpellsManager.R.GetPrediction(rtarget);
+                            SpellsManager.R.Cast(rtarget);
                     }
 
 

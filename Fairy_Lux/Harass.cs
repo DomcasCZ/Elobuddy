@@ -1,7 +1,6 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using T2IN1_Lib;
 
 namespace Fairy_Lux
 {
@@ -18,18 +17,19 @@ namespace Fairy_Lux
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
                     var prediction = SpellsManager.Q.GetPrediction(qtarget);
-                    SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
+                    SpellsManager.Q.Cast(qtarget);
                 }
-            SpellsManager.Q.TryToCast(qtarget, Menus.HarassMenu);
-
             var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
             if ((etarget == null) || etarget.IsInvulnerable)
                 return;
             //Cast E
             if (Menus.HarassMenu["E"].Cast<CheckBox>().CurrentValue)
-                if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady()) 
-                    SpellsManager.E.TryToCast(etarget, Menus.HarassMenu);
+                if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
+                {
+                    var prediction = SpellsManager.Q.GetPrediction(qtarget);
+                    SpellsManager.E.Cast(etarget);
+                }
 
         }
 
