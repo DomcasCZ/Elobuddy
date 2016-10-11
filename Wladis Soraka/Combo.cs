@@ -24,7 +24,7 @@ namespace Wladis_Soraka
 
             //Cast E
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
-                if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+                if (target.IsValidTarget(SpellsManager.Q.Range+100) && SpellsManager.Q.IsReady())
                 {
                     var pred = SpellsManager.Q.GetPrediction(target);
                     SpellsManager.Q.Cast(pred.CastPosition);

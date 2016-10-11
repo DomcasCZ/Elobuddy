@@ -3,7 +3,9 @@ using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 using static Wladis_Soraka.Menus;
+using static Wladis_Soraka.Combo;
 using EloBuddy.SDK.Events;
+using System.Linq;
 
 namespace Wladis_Soraka
 {
@@ -17,8 +19,9 @@ namespace Wladis_Soraka
         private static void Game_OnTick(EventArgs args)
         {
             var orbMode = Orbwalker.ActiveModesFlags;
+            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.W.Range);
             var playerMana = Player.Instance.ManaPercent;
-            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
+            var enemy = EntityManager.Heroes.Enemies.FirstOrDefault(hero => !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.E.Range);
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
                 Combo.Execute();
@@ -40,11 +43,20 @@ namespace Wladis_Soraka
 
             if (HealMenu["R"].Cast<CheckBox>().CurrentValue || HealMenu["RYou"].Cast<CheckBox>().CurrentValue)
                 HealSettings.Execute8();
-            
-            if (MiscMenu["EStun"].Cast<CheckBox>().CurrentValue)
-            if (target.IsCharmed || target.IsStunned || target.IsTaunted || target.IsRooted || target.IsFeared)
+
+            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && SpellsManager.W.IsReady())
             {
-                var pred = SpellsManager.E.GetPrediction(target);
+                SpellsManager.W.Cast(sdl);
+            }
+
+            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && myhero.Distance(enemy) <= SpellsManager.E.Range && SpellsManager.W.IsReady())
+            {
+                SpellsManager.W.Cast(sdl);
+            }
+
+                if (MiscMenu["EStun"].Cast<CheckBox>().CurrentValue && enemy.IsCharmed || enemy.IsStunned || enemy.IsTaunted || enemy.IsRooted || enemy.IsFeared)
+            {
+                var pred = SpellsManager.E.GetPrediction(enemy);
                 SpellsManager.E.Cast(pred.CastPosition);
             }
         }

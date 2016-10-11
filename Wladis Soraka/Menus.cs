@@ -37,16 +37,16 @@ namespace Wladis_Soraka
 
             ComboMenu.AddGroupLabel("Combo Settings");
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
-            ComboMenu.AddSeparator();
+            ComboMenu.AddSeparator(5);
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.AddSeparator();
 
-            ComboMenu.AddLabel("Harass");
+            ComboMenu.AddGroupLabel("Harass");
             ComboMenu.Add("QHarass", new CheckBox("- use Q"));
             ComboMenu.Add("EHarass", new CheckBox("- use E"));
-            ComboMenu.AddSeparator();
-            ComboMenu.Add("AutoQ", new CheckBox("- Auto Q"));
-            ComboMenu.Add("AutoE", new CheckBox("- Auto E"));
+            ComboMenu.AddSeparator(5);
+            ComboMenu.Add("AutoQ", new CheckBox("- Auto Q", false));
+            ComboMenu.Add("AutoE", new CheckBox("- Auto E", false));
             ComboMenu.AddSeparator();
             ComboMenu.Add("ManaSliderHarass", new Slider("- Don't use Harass spells when mana % < X", 40, 1, 100));
             ComboMenu.AddSeparator();
@@ -74,9 +74,17 @@ namespace Wladis_Soraka
             HealMenu.Add("RAllyHealth", new Slider("- Use R if ally health % < X", 20, 1, 100));
             HealMenu.Add("REnemyInRange", new Slider("- Use R if ally has enemy inrange < X", 550, 1, 1500));
             HealMenu.AddLabel("For Example : 550 = Soraka W range");
+            HealMenu.AddSeparator(5);
+            HealMenu.Add("SpeedBuff", new CheckBox("- W to give ally speed buff"));
+            HealMenu.AddLabel("Will give your ally speed buff with W, if you have hit Q");
+            HealMenu.Add("SpeedBuffFlee", new CheckBox("- Speed buff when enemy flee", false));
+            HealMenu.Add("SpeedBuffEnemy", new CheckBox("- Speed buff when enemy is near"));
 
+            MiscMenu.AddGroupLabel("Misc");
             MiscMenu.Add("Gapcloser", new CheckBox("- Gapclose with E"));
             MiscMenu.Add("EStun", new CheckBox("- E on cc'd enemies"));
+            MiscMenu.AddLabel("There is a support mode in Orbwalker by the way");
+            MiscMenu.AddSeparator();
             MiscMenu.AddGroupLabel("Skin Changer");
 
             var skinList = SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);
