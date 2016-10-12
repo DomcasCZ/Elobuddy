@@ -42,7 +42,7 @@ namespace Wladis_Soraka
                     SpellsManager.E.Cast(pred.CastPosition);
                 }
 
-            if (HealMenu["AutoW"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && myhero.HealthPercent > HealMenu["Myhealth"].Cast<Slider>().CurrentValue && sdl.HealthPercent < HealMenu["WAllyHealth"].Cast<Slider>().CurrentValue)
+            if (!myhero.IsRecalling() && HealMenu["AutoW"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && myhero.HealthPercent > HealMenu["Myhealth"].Cast<Slider>().CurrentValue && sdl.HealthPercent < HealMenu["WAllyHealth"].Cast<Slider>().CurrentValue)
             {
                 SpellsManager.W.Cast(sdl);
             }

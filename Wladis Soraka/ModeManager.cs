@@ -44,12 +44,12 @@ namespace Wladis_Soraka
             if (HealMenu["R"].Cast<CheckBox>().CurrentValue || HealMenu["RYou"].Cast<CheckBox>().CurrentValue)
                 HealSettings.Execute8();
 
-            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && SpellsManager.W.IsReady())
+            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && myhero.Distance(enemy) <= SpellsManager.E.Range && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
             {
                 SpellsManager.W.Cast(sdl);
             }
 
-            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && myhero.Distance(enemy) <= SpellsManager.E.Range && SpellsManager.W.IsReady())
+            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && myhero.Distance(enemy) <= SpellsManager.E.Range && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
             {
                 SpellsManager.W.Cast(sdl);
             }

@@ -75,7 +75,7 @@ namespace Wladis_Soraka
             HealMenu.Add("REnemyInRange", new Slider("- Use R if ally has enemy inrange < X", 550, 1, 1500));
             HealMenu.AddLabel("For Example : 550 = Soraka W range");
             HealMenu.AddSeparator(5);
-            HealMenu.Add("SpeedBuff", new CheckBox("- W to give ally speed buff"));
+            HealMenu.Add("SpeedBuff", new CheckBox("- W to give ally speed buff", false));
             HealMenu.AddLabel("Will give your ally speed buff with W, if you have hit Q");
             HealMenu.Add("SpeedBuffFlee", new CheckBox("- Speed buff when enemy flee", false));
             HealMenu.Add("SpeedBuffEnemy", new CheckBox("- Speed buff when enemy is near"));
