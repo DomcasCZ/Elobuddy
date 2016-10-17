@@ -25,15 +25,13 @@ namespace Dark_Syndra
                     var pred = SpellsManager.Q.GetPrediction(target);
                     SpellsManager.Q.Cast(pred.CastPosition);
                 }
-                    SpellsManager.W.GetPrediction(target);
-            SpellsManager.Q.Cast(target);
             //Cast W
             if (ComboMenu["W"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.W.Range+200) && SpellsManager.W.IsReady() && !target.IsDead)
                 {
                     var pred = SpellsManager.W.GetPrediction(target);
                     SpellsManager.W.Cast(Functions.GrabWPost(true));
-                    SpellsManager.W.Cast(pred.CastPosition);
+                    Core.DelayAction(() => SpellsManager.W.Cast(pred.CastPosition), 10);
                 }
 
             if (ComboMenu["QE"].Cast<CheckBox>().CurrentValue)

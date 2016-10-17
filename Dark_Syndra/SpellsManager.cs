@@ -15,7 +15,6 @@ namespace Dark_Syndra
         public static Spell.Skillshot E;
         public static Spell.Targeted R;
         public static Spell.Skillshot QE;
-        public static Spell.Skillshot WE;
         public static List<Spell.SpellBase> SpellList = new List<Spell.SpellBase>();
 
 
@@ -36,10 +35,6 @@ namespace Dark_Syndra
             R = new Spell.Targeted(SpellSlot.R, 675);
 
             QE = new Spell.Skillshot(SpellSlot.E, 1100, SkillShotType.Linear, 600, 2400, 18)
-            {
-                AllowedCollisionCount = int.MaxValue
-            };
-            WE = new Spell.Skillshot(SpellSlot.E, 1100, SkillShotType.Circular, 600, 2401, 18)
             {
                 AllowedCollisionCount = int.MaxValue
             };

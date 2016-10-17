@@ -2,6 +2,7 @@
 using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
+using EloBuddy.SDK.Menu.Values;
 
 namespace Dark_Syndra
 {
@@ -17,8 +18,8 @@ namespace Dark_Syndra
             {
                 return sphere.Position;
             }
-            if (!onlyQ)
-            {
+            if (Menus.ComboMenu["W"].Cast<CheckBox>().CurrentValue)
+            { 
                 var minion = EntityManager.MinionsAndMonsters.GetLaneMinions()
                     .OrderByDescending(m => m.Health)
                     .FirstOrDefault(m => m.IsValidTarget(SpellsManager.W.Range) && m.IsEnemy);

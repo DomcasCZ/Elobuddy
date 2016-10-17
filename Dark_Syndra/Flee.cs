@@ -1,4 +1,5 @@
 ﻿using EloBuddy;
+using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Dark_Syndra
@@ -11,10 +12,13 @@ namespace Dark_Syndra
             if (Menus.FleeMenu["E"].Cast<CheckBox>().CurrentValue)
                 if (SpellsManager.Q.IsReady() && SpellsManager.E.IsReady())
                 {
-                    var b = SpellsManager.Q.Cast(Game.CursorPos);
+                    SpellsManager.Q.Cast(Game.CursorPos);
+                }
+            if (Menus.FleeMenu["E"].Cast<CheckBox>().CurrentValue)
+                if (SpellsManager.E.IsReady())
+                {
                     SpellsManager.E.Cast(Game.CursorPos);
                 }
-
         }
     }
 }

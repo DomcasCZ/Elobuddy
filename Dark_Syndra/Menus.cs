@@ -46,7 +46,6 @@ namespace Dark_Syndra
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("QE", new CheckBox("- Use Q - E"));
-            ComboMenu.Add("WE", new CheckBox("- Use W - E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
 
             //ComboMenu.AddGroupLabel("Summoner Settings");
@@ -71,7 +70,7 @@ namespace Dark_Syndra
             LaneClearMenu.Add("Q", new CheckBox("- Use Q"));
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
             LaneClearMenu.Add("E", new CheckBox("- Use E"));
-            LaneClearMenu.Add("manaSlider", new Slider("Mana must be higher than [{0}%] to use Harass Spells", 50, 0, 100));
+            LaneClearMenu.Add("manaSlider", new Slider("Mana must be higher than [{0}%] to use LaneClear Spells", 50, 0, 100));
             
             KillStealMenu.AddGroupLabel("Killsteal Settings");
             KillStealMenu.Add("Q", new CheckBox("- Use Q"));
