@@ -23,6 +23,86 @@ namespace Wladis_Gragas
             if ((target == null) || target.IsInvulnerable)
                 return;
 
+            if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
+            {
+                if (!ComboMenu["EDon't"].Cast<CheckBox>().CurrentValue || !Player.Instance.IsInAutoAttackRange(target))
+                    SpellsManager.E.Cast(target);
+            }
+
+            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
+                if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+                {
+                    var prediction = SpellsManager.Q.GetPrediction(target);
+                    SpellsManager.Q.Cast(prediction.CastPosition);
+                }
+
+            if (myhero.HasBuff("GragasQ") && SpellsManager.Q.IsReady())
+            {
+                SpellsManager.Q.Cast(target);
+            }
+
+            if (ComboMenu["W"].Cast<CheckBox>().CurrentValue)
+                if (target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.W.IsReady())
+                {
+                    SpellsManager.W.Cast();
+                }
+
+            var Summ = TargetSelector.GetTarget(Ignite.Range, DamageType.Mixed);
+
+            if ((Summ == null) || Summ.IsInvulnerable)
+                return;
+            //Ignite
+            if (ComboMenu["Ignite"].Cast<CheckBox>().CurrentValue)
+                if (Player.Instance.CountEnemiesInRange(600) >= 1 && Ignite.IsReady() && Ignite.IsLearned && Summ.IsValidTarget(Ignite.Range) && target.HealthPercent <= ComboMenu["IgniteHealth"].Cast<Slider>().CurrentValue)
+                    if (target.Health >
+                  target.GetRealDamage())
+                        Ignite.Cast(Summ);
+
+            var R = SpellsManager.R;
+            var insecpos = Menus.insecpos;
+            var mov = Menus.movingawaypos;
+            var eqpos = Menus.eqpos;
+            var alvo = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
+
+            eqpos = myhero.Position.Extend(alvo, R.Range + 300).To3D();
+            insecpos = myhero.Position.Extend(alvo.Position, myhero.Distance(alvo) + 200).To3D();
+            mov = myhero.Position.Extend(alvo.Position, myhero.Distance(alvo) + 300).To3D();
+
+            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
+
+            if ((rtarget == null) || rtarget.IsInvulnerable)
+                return;
+
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu["RLogic"].Cast<ComboBox>().CurrentValue == 1)
+                if (rtarget.IsValidTarget(SpellsManager.R.Range))
+                {
+                    if (alvo.IsFacing(myhero) == false && alvo.IsMoving & (R.IsInRange(insecpos) && alvo.Distance(insecpos) < 300))
+                        R.Cast(mov);
+
+                    if (R.IsInRange(insecpos) && alvo.Distance(insecpos) < 300 && alvo.IsFacing(myhero) && alvo.IsMoving)
+                        R.Cast(eqpos);
+
+                    else if (R.IsInRange(insecpos) && alvo.Distance(insecpos) < 300)
+                        R.Cast(insecpos);
+                }
+
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu["RLogic"].Cast<ComboBox>().CurrentValue == 0)
+                if (rtarget.IsValidTarget(SpellsManager.R.Range))
+                {
+                    SpellsManager.R.Cast(rtarget);
+                }
+        }
+
+        // Combo Q>E>W
+
+        public static void Execute7()
+        {
+
+            var target = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+
+            if ((target == null) || target.IsInvulnerable)
+                return;
+
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
@@ -36,10 +116,10 @@ namespace Wladis_Gragas
             }
 
             if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                {
-                 if (!ComboMenu["EDon't"].Cast<CheckBox>().CurrentValue || !Player.Instance.IsInAutoAttackRange(target))
-                        SpellsManager.E.Cast(target);
-                }
+            {
+                if (!ComboMenu["EDon't"].Cast<CheckBox>().CurrentValue || !Player.Instance.IsInAutoAttackRange(target))
+                    SpellsManager.E.Cast(target);
+            }
 
             if (ComboMenu["W"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.W.IsReady())
@@ -158,4 +238,9 @@ namespace Wladis_Gragas
                 }
         }
     }
+
+    // Combo E>Q>W
+
+
+
 }

@@ -49,6 +49,8 @@ namespace Wladis_Gragas
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.AddLabel("Press T for a insec R ");
             ComboMenu.AddSeparator();
+            ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "E>Q>W", "Q>E>W"));
+            ComboMenu.AddSeparator();
             ComboMenu.Add("EDon't", new CheckBox("- Don't use E if enemy is in AA range", false));
             ComboMenu.AddSeparator();
             ComboMenu.Add("RLogic", new ComboBox(" R Logic ", 0, "R insec", "Normal R"));

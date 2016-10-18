@@ -22,8 +22,11 @@ namespace Wladis_Gragas
         {
             var orbMode = Orbwalker.ActiveModesFlags;
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && (ComboMenu["ComboLogic"].Cast<ComboBox>().CurrentValue == 1))
                 Execute();
+
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && (ComboMenu["ComboLogic"].Cast<ComboBox>().CurrentValue == 0))
+                Execute7();
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass))
                 Harass.Execute1();
