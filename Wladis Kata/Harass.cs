@@ -1,7 +1,9 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
+using System.Linq;
 using static Wladis_Kata.Menus;
+using static Wladis_Kata.Combo;
 
 namespace Wladis_Kata
 {
@@ -13,6 +15,9 @@ namespace Wladis_Kata
 
             if ((qtarget == null) || qtarget.IsInvulnerable)
                 return;
+
+            var minionq = EntityManager.MinionsAndMonsters.EnemyMinions.LastOrDefault(minion => minion.Distance(myhero) <= SpellsManager.Q.Range);
+
             //Cast Q
             if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
@@ -21,8 +26,14 @@ namespace Wladis_Kata
                         Core.DelayAction(() => SpellsManager.Q.Cast(qtarget), HumanizeMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
                     else SpellsManager.Q.Cast(qtarget);
                 }
+            if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
+                if (!qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+                    if (qtarget.Distance(minionq) <= 300)
+                    {
+                        SpellsManager.Q.Cast(minionq);
+                    }
 
-            var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
+                var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
 
             if ((wtarget == null) || wtarget.IsInvulnerable)
                 return;

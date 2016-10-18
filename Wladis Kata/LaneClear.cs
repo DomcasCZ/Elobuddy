@@ -14,7 +14,7 @@ namespace Wladis_Kata
             var minionq = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                 EntityManager.UnitTeam.Enemy,
                 Player.Instance.ServerPosition, SpellsManager.Q.Range)
-                                    .FirstOrDefault();
+                                    .Last();
             //Cast Q
             if (Menus.LaneClearMenu["Q"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady() && SpellsManager.Q.IsInRange(minionq))
             {
@@ -47,10 +47,11 @@ namespace Wladis_Kata
                         .FirstOrDefault();
 
             if (Menus.LastHitMenu["Q"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady())
-                    if (SpellsManager.Q.IsReady() && minionq.IsValidTarget(SpellsManager.Q.Range) &&
+                    /*if (SpellsManager.Q.IsReady() && minionq.IsValidTarget(SpellsManager.Q.Range) &&
                    Prediction.Health.GetPrediction(minionq, SpellsManager.Q.CastDelay) <=
-                  SpellsManager.GetRealDamage(minionq, SpellSlot.Q))
-                {
+                  SpellsManager.GetRealDamage(minionq, SpellSlot.Q))*/
+                    if (minionq.Health < SpellsManager.GetRealDamage(minionq, SpellSlot.Q))
+                  {
                     SpellsManager.Q.Cast(minionq);
                 }
                   var minionw = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
@@ -59,10 +60,11 @@ namespace Wladis_Kata
                .FirstOrDefault();
 
             if (Menus.LastHitMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady())
-                if (SpellsManager.W.IsReady() && minionw.IsValidTarget((SpellsManager.W.Range)) &&
+               /* if (SpellsManager.W.IsReady() && minionw.IsValidTarget((SpellsManager.W.Range)) &&
                 Prediction.Health.GetPrediction(minionw, SpellsManager.W.CastDelay) <=
-                SpellsManager.GetRealDamage(minionw, SpellSlot.W))
-                {
+                SpellsManager.GetRealDamage(minionw, SpellSlot.W))*/
+                    if (minionw.Health < SpellsManager.GetRealDamage(minionw, SpellSlot.W) && SpellsManager.Q.IsOnCooldown)
+                    {
                     SpellsManager.W.Cast();
                 }
                  var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
@@ -71,9 +73,10 @@ namespace Wladis_Kata
                 .FirstOrDefault();
 
             if (Menus.LastHitMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady())
-                   if (SpellsManager.E.IsReady() && minione.IsValidTarget((SpellsManager.E.Range)) &&
-                  Prediction.Health.GetPrediction(minione, SpellsManager.E.CastDelay) <=
-                  SpellsManager.GetRealDamage(minione, SpellSlot.E))
+                /* if (SpellsManager.E.IsReady() && minione.IsValidTarget((SpellsManager.E.Range)) &&
+                Prediction.Health.GetPrediction(minione, SpellsManager.E.CastDelay) <=
+                SpellsManager.GetRealDamage(minione, SpellSlot.E))*/
+                if (minione.Health < SpellsManager.GetRealDamage(minione, SpellSlot.E))
                 {
                     SpellsManager.E.Cast(minione);
                 }

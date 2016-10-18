@@ -4,7 +4,6 @@ using EloBuddy.SDK.Rendering;
 using System.Drawing;
 using EloBuddy.SDK;
 using static Wladis_Kata.Menus;
-using static Wladis_Kata.Combo;
 using static Wladis_Kata.SpellsManager;
 using EloBuddy.SDK.Menu.Values;
 
@@ -47,8 +46,8 @@ namespace Wladis_Kata
                 : DrawingsMenu["rDraw"].Cast<CheckBox>().CurrentValue)
                 Circle.Draw(EColorSlide.GetSharpColor(), R.Range, 1f, Player.Instance);
 
-            if (!(target.Health <=
-                  target.GetRealDamage())) return;
+            if (target.Health <=
+                  target.GetRealDamage())
             Drawing.DrawText(Drawing.WorldToScreen(target.Position).X - 60,
                 Drawing.WorldToScreen(target.Position).Y + 10,
                 Color.Gold, "Killable with Combo");
