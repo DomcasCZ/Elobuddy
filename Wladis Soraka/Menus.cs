@@ -37,30 +37,29 @@ namespace Wladis_Soraka
 
             ComboMenu.AddGroupLabel("Combo Settings");
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
-            ComboMenu.AddSeparator(5);
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.AddSeparator();
 
             ComboMenu.AddGroupLabel("Harass");
-            ComboMenu.Add("QHarass", new CheckBox("- use Q"));
-            ComboMenu.Add("EHarass", new CheckBox("- use E"));
+            ComboMenu.Add("QHarass", new CheckBox("- Use Q"));
+            ComboMenu.Add("EHarass", new CheckBox("- Use E"));
             ComboMenu.AddSeparator(5);
             ComboMenu.Add("AutoQ", new CheckBox("- Auto Q", false));
             ComboMenu.Add("AutoE", new CheckBox("- Auto E", false));
             ComboMenu.AddSeparator();
-            ComboMenu.Add("ManaSliderHarass", new Slider("- Don't use Harass spells when mana % < X", 40, 1, 100));
+            ComboMenu.Add("ManaSliderHarass", new Slider("- Don't use Harass if mana is lower than [{0}%]", 40, 1, 100));
             ComboMenu.AddSeparator();
 
             ComboMenu.AddGroupLabel("Flee");
             ComboMenu.Add("QFlee", new CheckBox("- use Q", false));
-            ComboMenu.Add("EFlee", new CheckBox("- use W"));
+            ComboMenu.Add("EFlee", new CheckBox("- use E"));
             ComboMenu.AddSeparator();
 
             ComboMenu.AddGroupLabel("LaneClear Settings");
             ComboMenu.Add("QMinion", new CheckBox("- Use Q"));
             ComboMenu.Add("EMinion", new CheckBox("- Use E", false));
             ComboMenu.Add("MinionSlider", new Slider("- Use Q on X minions >", 3, 1, 8));
-            ComboMenu.Add("ManaSlider", new Slider("- Don't use LaneClear when mana % < X", 60, 1, 100));
+            ComboMenu.Add("ManaSlider", new Slider("- Don't use LaneClear if mana is lower than [{0}%]", 60, 1, 100));
             ComboMenu.AddSeparator();
 
             HealMenu.AddGroupLabel("- W- settings");
@@ -82,7 +81,8 @@ namespace Wladis_Soraka
 
             MiscMenu.AddGroupLabel("Misc");
             MiscMenu.Add("Gapcloser", new CheckBox("- Gapclose with E"));
-            MiscMenu.Add("EStun", new CheckBox("- E on cc'd enemies"));
+            //MiscMenu.Add("EStun", new CheckBox("- E on cc'd enemies"));
+            MiscMenu.Add("EInterrupt", new CheckBox("- E to interrupt dangerous enemy spells"));
             MiscMenu.AddLabel("There is a support mode in Orbwalker by the way");
             MiscMenu.AddSeparator();
             MiscMenu.AddGroupLabel("Skin Changer");

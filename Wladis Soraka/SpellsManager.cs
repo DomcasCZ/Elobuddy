@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
@@ -28,7 +26,7 @@ namespace Wladis_Soraka
             {
                 AllowedCollisionCount = int.MaxValue
             };
-            R = new Spell.Active(SpellSlot.R, int.MaxValue);
+            R = new Spell.Active(SpellSlot.R, 30000);
             
         }
     }

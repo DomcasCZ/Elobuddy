@@ -4,7 +4,6 @@ using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 using static Wladis_Soraka.Combo;
 using static Wladis_Soraka.Menus;
-using System;
 
 namespace Wladis_Soraka
 {
@@ -12,7 +11,6 @@ namespace Wladis_Soraka
     {
         public static void Execute6()
         {
-            var test = EntityManager.Heroes.Allies.Where(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.W.Range);
 
             var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.W.Range);
 

@@ -22,7 +22,7 @@ namespace Wladis_Soraka
             if ((target == null) || target.IsInvulnerable)
                 return;
 
-            //Cast E
+
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.Q.Range+100) && SpellsManager.Q.IsReady())
                 {
@@ -39,6 +39,7 @@ namespace Wladis_Soraka
                 if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
                 {
                     var pred = SpellsManager.E.GetPrediction(target);
+                    Core.DelayAction(() => SpellsManager.E.Cast(pred.CastPosition), 20);
                     SpellsManager.E.Cast(pred.CastPosition);
                 }
 

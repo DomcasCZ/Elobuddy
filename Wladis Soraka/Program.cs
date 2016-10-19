@@ -20,7 +20,6 @@ namespace Wladis_Soraka
             DrawingsManager.InitializeDrawings();
 
             Chat.Print("<font color='#FA5858'>Wladis Soraka loaded</font>");
-            Chat.Print("Credits to ExRaZor and T2N1Scar");
         }
     }
 }

@@ -6,6 +6,7 @@ using static Wladis_Soraka.Menus;
 using static Wladis_Soraka.Combo;
 using EloBuddy.SDK.Events;
 using System.Linq;
+using EloBuddy.SDK.Enumerations;
 
 namespace Wladis_Soraka
 {
@@ -14,14 +15,16 @@ namespace Wladis_Soraka
         public static void InitializeModes()
         {
             Game.OnTick += Game_OnTick;
+            Gapcloser.OnGapcloser += Gapcloser_OnGapcloser;
+            Interrupter.OnInterruptableSpell += KInterrupter;
         }
 
         private static void Game_OnTick(EventArgs args)
         {
             var orbMode = Orbwalker.ActiveModesFlags;
-            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.W.Range);
+            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie && hero.IsInRange(myhero, SpellsManager.W.Range));
             var playerMana = Player.Instance.ManaPercent;
-            var enemy = EntityManager.Heroes.Enemies.FirstOrDefault(hero => !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.E.Range);
+            var enemy = EntityManager.Heroes.Enemies.FirstOrDefault(hero => !hero.IsDead && !hero.IsZombie && hero.IsInRange(myhero, SpellsManager.E.Range));
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo))
                 Combo.Execute();
@@ -44,31 +47,37 @@ namespace Wladis_Soraka
             if (HealMenu["R"].Cast<CheckBox>().CurrentValue || HealMenu["RYou"].Cast<CheckBox>().CurrentValue)
                 HealSettings.Execute8();
 
-            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && myhero.Distance(enemy) <= SpellsManager.E.Range && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
+            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && enemy.IsInRange(myhero, SpellsManager.E.Range) && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
             {
                 SpellsManager.W.Cast(sdl);
             }
 
-            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && myhero.Distance(enemy) <= SpellsManager.E.Range && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
+            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && enemy.IsInRange(myhero, SpellsManager.E.Range) && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
             {
                 SpellsManager.W.Cast(sdl);
             }
 
-                if (MiscMenu["EStun"].Cast<CheckBox>().CurrentValue && enemy.IsCharmed || enemy.IsStunned || enemy.IsTaunted || enemy.IsRooted || enemy.IsFeared)
+            /*if (MiscMenu["EStun"].Cast<CheckBox>().CurrentValue && enemy.IsCharmed || enemy.IsStunned || enemy.IsTaunted || enemy.IsRooted || enemy.IsFeared)
             {
                 var pred = SpellsManager.E.GetPrediction(enemy);
                 SpellsManager.E.Cast(pred.CastPosition);
-            }
+            }*/
         }
 
         private static void Gapcloser_OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
         {
-            if (Menus.MiscMenu["Gapcloser"].Cast<CheckBox>().CurrentValue)
-                if (!sender.IsEnemy) return;
-
-            if (sender.IsValidTarget(SpellsManager.E.Range))
+            if (sender.IsEnemy && sender is AIHeroClient && sender.Distance(myhero) < SpellsManager.E.Range && SpellsManager.E.IsReady() && MiscMenu["GapCloser"].Cast<CheckBox>().CurrentValue)
             {
                 SpellsManager.E.Cast(sender.Position);
+            }
+        }
+
+        static void KInterrupter(Obj_AI_Base sender, Interrupter.InterruptableSpellEventArgs args)
+        {
+
+            if (args.DangerLevel == DangerLevel.High && sender.IsEnemy && sender is AIHeroClient && sender.Distance(myhero) < SpellsManager.E.Range && SpellsManager.E.IsReady() && MiscMenu["EInterrupt"].Cast<CheckBox>().CurrentValue)
+            {
+                SpellsManager.E.Cast(sender);
             }
         }
     }

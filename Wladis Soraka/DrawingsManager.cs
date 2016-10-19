@@ -23,9 +23,9 @@ namespace Wladis_Soraka
 
         private static void Drawing_OnDraw(EventArgs args)
         {
-            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.R.Range);
+            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= R.Range);
             var readyDraw = DrawingsMenu["readyDraw"].Cast<CheckBox>().CurrentValue;
-            var target = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Mixed);
+            var target = TargetSelector.GetTarget(R.Range, DamageType.Mixed);
             //Drawings
             if (DrawingsMenu["qDraw"].Cast<CheckBox>().CurrentValue && readyDraw
                 ? Q.IsReady()
@@ -43,7 +43,7 @@ namespace Wladis_Soraka
                 : DrawingsMenu["eDraw"].Cast<CheckBox>().CurrentValue)
                 Circle.Draw(EColorSlide.GetSharpColor(), E.Range, 1f, Player.Instance);
 
-            if (sdl.HealthPercent < HealMenu["RAllyHealth"].Cast<Slider>().CurrentValue && HealMenu["Rtext"].Cast<CheckBox>().CurrentValue && SpellsManager.R.IsReady() && sdl.CountEnemiesInRange(HealMenu["REnemyInRange"].Cast<Slider>().CurrentValue) >= 1)
+            if (sdl.HealthPercent < HealMenu["RAllyHealth"].Cast<Slider>().CurrentValue && HealMenu["Rtext"].Cast<CheckBox>().CurrentValue && R.IsReady() && sdl.CountEnemiesInRange(HealMenu["REnemyInRange"].Cast<Slider>().CurrentValue) >= 1)
             Drawing.DrawText(Drawing.WorldToScreen(myhero.Position).X - 60,
                 Drawing.WorldToScreen(myhero.Position).Y + 10,
                 Color.Gold, "Ally need R");
