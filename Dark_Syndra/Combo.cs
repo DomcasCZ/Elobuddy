@@ -30,13 +30,14 @@ namespace Dark_Syndra
                 if (target.IsValidTarget(SpellsManager.W.Range+200) && SpellsManager.W.IsReady() && !target.IsDead)
                 {
                     var pred = SpellsManager.W.GetPrediction(target);
+                    Core.DelayAction(() => SpellsManager.W.Cast(pred.CastPosition), 10);
                     SpellsManager.W.Cast(Functions.GrabWPost(true));
                     Core.DelayAction(() => SpellsManager.W.Cast(pred.CastPosition), 10);
                 }
 
             if (ComboMenu["QE"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.QE.Range) && SpellsManager.E.IsReady())
-                    if (sphere.CountEnemyMinionsInRange(300) >= 1)
+                    if (sphere.CountEnemiesInRange(75) >= 1)
                         SpellsManager.Q.Cast(target);
                     SpellsManager.E.Cast(target);
 
