@@ -8,7 +8,6 @@ namespace Dark_Syndra
 {
     internal class Functions
     {
-        public static object QE { get; internal set; }
 
         public static Vector3 GrabWPost(bool onlyQ)
         {
@@ -31,6 +30,27 @@ namespace Dark_Syndra
             return new Vector3();
         }
 
+        public static void QE(Vector3 position)
+        {
+            if (SpellsManager.Q.IsReady() && SpellsManager.E.IsReady())
+            {
+                SpellsManager.Q.Cast(Player.Instance.Position.Extend(position, SpellsManager.E.Range - 10).To3D());
+                SpellsManager.E.Cast(Player.Instance.Position.Extend(position, SpellsManager.E.Range - 10).To3D());
+            }
+        }
 
+        public static Vector3 GrabWPostt(bool onlyQ)
+        {
+            if (Menus.LaneClearMenu["W"].Cast<CheckBox>().CurrentValue)
+            {
+                var minion = EntityManager.MinionsAndMonsters.GetLaneMinions()
+                    .FirstOrDefault(m => m.IsValidTarget(SpellsManager.W.Range) && m.IsEnemy);
+                if (minion != null)
+                {
+                    return minion.Position;
+                }
+            }
+            return new Vector3();
+        }
     }
 }

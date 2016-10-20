@@ -1,14 +1,21 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-using static Dark_Syndra.Menus;
-using static Dark_Syndra.Functions;
+using System;
 using System.Linq;
+using static Dark_Syndra.Menus;
 
 namespace Dark_Syndra
 {
     internal static class Combo
     {
+        public static AIHeroClient myhero
+        {
+            get { return ObjectManager.Player; }
+        }
+
+        private static int lastWCast;
+
         public static void Execute()
         {
             var sphere =
@@ -18,7 +25,7 @@ namespace Dark_Syndra
 
             if ((target == null) || target.IsInvulnerable)
                 return;
-            //Cast Q
+
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
@@ -27,19 +34,41 @@ namespace Dark_Syndra
                 }
             //Cast W
             if (ComboMenu["W"].Cast<CheckBox>().CurrentValue)
-                if (target.IsValidTarget(SpellsManager.W.Range+200) && SpellsManager.W.IsReady() && !target.IsDead)
-                {
+                if (target.IsValidTarget(SpellsManager.W.Range + 100) && SpellsManager.W.IsReady() && !target.IsDead)
+            {
                     var pred = SpellsManager.W.GetPrediction(target);
-                    Core.DelayAction(() => SpellsManager.W.Cast(pred.CastPosition), 10);
-                    SpellsManager.W.Cast(Functions.GrabWPost(true));
-                    Core.DelayAction(() => SpellsManager.W.Cast(pred.CastPosition), 10);
+
+                    if (Player.Instance.Spellbook.GetSpell(SpellSlot.W).ToggleState != 2 &&
+                        lastWCast + 700 < Environment.TickCount)
+                    {
+                        SpellsManager.W.Cast(Functions.GrabWPost(true));
+                        lastWCast = Environment.TickCount;
+                    }
+                    if (Player.Instance.Spellbook.GetSpell(SpellSlot.W).ToggleState >= 1 &&
+                        lastWCast + 300 < Environment.TickCount)
+                    {
+                        SpellsManager.W.Cast(pred.CastPosition);
+                    }
+
+
+
                 }
 
-            if (ComboMenu["QE"].Cast<CheckBox>().CurrentValue)
+            if (myhero.HasBuff("SyndraW"))
+            {
+                var pred = SpellsManager.W.GetPrediction(target);
+                SpellsManager.W.Cast(pred.CastPosition);
+            }
+            /*if (ComboMenu["QE"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.QE.Range) && SpellsManager.E.IsReady())
-                    if (sphere.CountEnemiesInRange(75) >= 1)
+                    if (Sphere.CountEnemiesInRange(75) >= 1)
                         SpellsManager.Q.Cast(target);
-                    SpellsManager.E.Cast(target);
+            SpellsManager.E.Cast(target);*/
+
+            if (target.IsValidTarget(SpellsManager.QE.Range) && SpellsManager.E.IsReady())
+                if (sphere.CountEnemiesInRange(75) >= 1)
+                    SpellsManager.Q.Cast(target);
+            SpellsManager.E.Cast(target);
 
 
             //Cast r

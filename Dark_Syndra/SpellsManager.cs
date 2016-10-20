@@ -16,11 +16,10 @@ namespace Dark_Syndra
         public static Spell.Targeted R;
         public static Spell.Skillshot QE;
         public static List<Spell.SpellBase> SpellList = new List<Spell.SpellBase>();
-
-
+        
         public static void InitializeSpells()
         {
-            Q = new Spell.Skillshot(SpellSlot.Q, 820, SkillShotType.Circular, 600, int.MaxValue, 125)
+            Q = new Spell.Skillshot(SpellSlot.Q, 820, SkillShotType.Circular, 550, int.MaxValue, 125)
             {
                 AllowedCollisionCount = int.MaxValue
             };
@@ -40,7 +39,6 @@ namespace Dark_Syndra
             };
             Obj_AI_Base.OnLevelUp += AutoLevel.Obj_AI_Base_OnLevelUp;
         }
-
 
         #region Damages
 
@@ -77,11 +75,12 @@ namespace Dark_Syndra
 
         public static float RDamage(SpellSlot r, AIHeroClient rtarget)
         {
+
             var ap = Player.Instance.FlatMagicDamageMod;
             var index = Player.GetSpell(SpellSlot.R).Level - 1;
-            var mindmg = new float[] { 90, 135, 180 }[index] + 0.6f * ap;
-            var maxdmg = new float[] { 190, 230, 270 }[index] + 1.4f * ap;
-            var perballdmg = new float[] {30, 45, 60}[index]*0.2f*ap*(BallsCount());
+            var mindmg = new float[] { 270, 405, 540 }[index] + 0.6f * ap;
+            var maxdmg = new float[] { 630, 975, 1260 }[index] + 1.4f * ap;
+            var perballdmg = (new float[] { 90, 135, 180 }[index] + 0.2f * ap) * BallsCount();
 
             return Player.Instance.CalculateDamageOnUnit(rtarget, DamageType.Magical, Math.Min(mindmg, maxdmg) + perballdmg);
         }
