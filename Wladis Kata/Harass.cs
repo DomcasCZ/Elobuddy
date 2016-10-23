@@ -85,7 +85,7 @@ namespace Wladis_Kata
                 return;
             //Cast W
                 if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                SpellsManager.W.Cast(wtarget);
+                SpellsManager.W.Cast();
         }
 
     }
