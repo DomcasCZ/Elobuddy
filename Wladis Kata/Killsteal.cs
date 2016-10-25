@@ -45,18 +45,5 @@ namespace Wladis_Kata
                 SpellsManager.E.Cast(etarget);
             }
         }
-        public static void Execute5()
-        {
-            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Mixed);
-            if ((rtarget == null) || rtarget.IsInvulnerable)
-                return;
-            //Cast R
-            if (SpellsManager.R.IsReady() && rtarget.IsValidTarget((SpellsManager.R.Range)) &&
-                Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
-                SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
-            {
-                SpellsManager.R.Cast(rtarget);
-            }
-        }
     }
 }

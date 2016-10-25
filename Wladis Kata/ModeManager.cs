@@ -61,9 +61,6 @@ namespace Wladis_Kata
             if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute4();
 
-            if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
-                KillSteal.Execute5();
-
             if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
                 Execute6();
 

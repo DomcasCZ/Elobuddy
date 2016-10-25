@@ -51,7 +51,7 @@ namespace Wladis_Kata
                 return;
             //Ignite
             if (ComboMenu["Ignite"].Cast<CheckBox>().CurrentValue)
-                if (Player.Instance.CountEnemiesInRange(600) >= 1 && Ignite.IsReady() && Ignite.IsLearned && Summ.IsValidTarget(Ignite.Range) && target.HealthPercent <= ComboMenu["IgniteHealth"].Cast<Slider>().CurrentValue)
+                if (Player.Instance.CountEnemiesInRange(600) >= 1 && Ignite.IsReady() && Ignite.IsLearned && Summ.IsValidTarget(Ignite.Range))
                     if (target.Health >
                   target.GetRealDamage())
                         Ignite.Cast(Summ);
@@ -60,7 +60,7 @@ namespace Wladis_Kata
             if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
             {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue) 
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300)) 
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
@@ -70,7 +70,7 @@ namespace Wladis_Kata
 
 
                 if (ComboMenu["R2"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
@@ -79,7 +79,7 @@ namespace Wladis_Kata
                     }
 
                 if (ComboMenu["R3"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.W.Range) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.W.Range))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
@@ -181,7 +181,7 @@ namespace Wladis_Kata
             if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
             {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
@@ -191,7 +191,7 @@ namespace Wladis_Kata
 
 
                 if (ComboMenu["R2"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
@@ -200,7 +200,7 @@ namespace Wladis_Kata
                     }
 
                 if (ComboMenu["R3"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.W.Range) && target.HealthPercent <= ComboMenu["Rhealth"].Cast<Slider>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.W.Range))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
