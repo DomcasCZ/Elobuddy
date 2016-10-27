@@ -67,8 +67,8 @@ namespace Wladis_Kata
             ComboMenu.Add("R2", new CheckBox("- R on half range or closer", false));
             ComboMenu.Add("R3", new CheckBox("- R on W range"));
             ComboMenu.AddSeparator();
-            ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting"));
-            ComboMenu.Add("Rendblock", new CheckBox("- End the Block when Q W E is ready"));
+            ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting", false));
+            ComboMenu.Add("Rendblock", new CheckBox("- End the Block when Q W E is ready", false));
             ComboMenu.AddLabel("It will always end the block when target is out of R range and it will cast spells again");
             ComboMenu.AddSeparator();
             ComboMenu.Add("AutoKill", new CheckBox("Auto kill with combo", false));
