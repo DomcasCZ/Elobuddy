@@ -114,14 +114,17 @@ namespace Wladis_Kata
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
             LaneClearMenu.Add("E", new CheckBox("- Use E", false));
             LaneClearMenu.AddSeparator();
-            LaneClearMenu.Add("WX", new Slider("- Will hit x minions with W", 0, 1, 6));
+            LaneClearMenu.Add("WX", new Slider("- Will hit x minions with W", 2, 1, 6));
 
             HumanizeMenu.AddGroupLabel("Humanizer settings");
             HumanizeMenu.Add("Humanize", new CheckBox("- Use Humanizer", false));
             HumanizeMenu.Add("HumanizeQ", new Slider("- Humanize Q", 0, 0, 200));
             HumanizeMenu.Add("HumanizeW", new Slider("- Humanize W", 0, 0, 200));
             HumanizeMenu.Add("HumanizeE", new Slider("- Humanize E", 0, 0, 200));
-
+            HumanizeMenu.Add("HumanizeR", new Slider("- Humanize R", 0, 0, 200));
+            HumanizeMenu.AddGroupLabel("Please use for every spell the same value");
+            HumanizeMenu.AddGroupLabel("because it will cast the skill with the lower value before");
+                
             LastHitMenu.AddGroupLabel("Last hit Settings");
             LastHitMenu.Add("Q", new CheckBox("- Use Q"));
             LastHitMenu.Add("W", new CheckBox("- Use W"));

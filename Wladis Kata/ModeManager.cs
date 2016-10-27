@@ -99,7 +99,7 @@ namespace Wladis_Kata
                 if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
                     (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
                     args.Process = false;
-                 if (target == null) args.Process = true;
+                 if (target.Distance(myhero) < SpellsManager.R.Range) args.Process = true;
 
             if (ComboMenu["Rblock"].Cast<CheckBox>().CurrentValue && ComboMenu["Rendblock"].Cast<CheckBox>().CurrentValue)
                 if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&

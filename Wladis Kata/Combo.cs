@@ -55,16 +55,17 @@ namespace Wladis_Kata
                     if (target.Health >
                   target.GetRealDamage())
                         Ignite.Cast(Summ);
-
-            //var R1 = GetSlotFromComboBox(Menus.MiscMenu.GetComboBoxValue("R1"));
-            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
+            
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsOnCooldown && SpellsManager.W.IsOnCooldown && SpellsManager.E.IsOnCooldown)
             {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
-                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300)) 
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(300))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
-                        SpellsManager.R.Cast();
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
                         rStart = Environment.TickCount;
                     }
 
@@ -74,7 +75,9 @@ namespace Wladis_Kata
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
-                        SpellsManager.R.Cast();
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
                         rStart = Environment.TickCount;
                     }
 
@@ -83,7 +86,9 @@ namespace Wladis_Kata
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
-                        SpellsManager.R.Cast();
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
                         rStart = Environment.TickCount;
                     }
             }
@@ -121,17 +126,45 @@ namespace Wladis_Kata
                     Core.DelayAction(() => SpellsManager.W.Cast(), HumanizeMenu["HumanizeW"].Cast<Slider>().CurrentValue);
                 else SpellsManager.W.Cast();
                 }
-                
-                
+
+
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsOnCooldown && SpellsManager.W.IsOnCooldown && SpellsManager.E.IsOnCooldown)
+            {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
                     if (SpellsManager.R.IsReady() && target.IsValidTarget(300))
                     {
-                    Orbwalker.DisableAttacking = true;
-                    Orbwalker.DisableMovement = true;
-                    SpellsManager.R.Cast();
-                    rStart = Environment.TickCount;
+                        Orbwalker.DisableAttacking = true;
+                        Orbwalker.DisableMovement = true;
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
+                        rStart = Environment.TickCount;
                     }
-            
+
+
+                if (ComboMenu["R2"].Cast<CheckBox>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.R.Range))
+                    {
+                        Orbwalker.DisableAttacking = true;
+                        Orbwalker.DisableMovement = true;
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
+                        rStart = Environment.TickCount;
+                    }
+
+                if (ComboMenu["R3"].Cast<CheckBox>().CurrentValue)
+                    if (SpellsManager.R.IsReady() && target.IsValidTarget(SpellsManager.W.Range))
+                    {
+                        Orbwalker.DisableAttacking = true;
+                        Orbwalker.DisableMovement = true;
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
+                        rStart = Environment.TickCount;
+                    }
+            }
+
         }
         // Combo  E Q W
         public static void Execute12()
@@ -178,14 +211,16 @@ namespace Wladis_Kata
                         Ignite.Cast(Summ);
 
             //var R1 = GetSlotFromComboBox(Menus.MiscMenu.GetComboBoxValue("R1"));
-            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue)
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsOnCooldown && SpellsManager.W.IsOnCooldown && SpellsManager.E.IsOnCooldown)
             {
                 if (ComboMenu["R1"].Cast<CheckBox>().CurrentValue)
                     if (SpellsManager.R.IsReady() && target.IsValidTarget(300))
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
-                        SpellsManager.R.Cast();
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
                         rStart = Environment.TickCount;
                     }
 
@@ -195,7 +230,9 @@ namespace Wladis_Kata
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
-                        SpellsManager.R.Cast();
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
                         rStart = Environment.TickCount;
                     }
 
@@ -204,7 +241,9 @@ namespace Wladis_Kata
                     {
                         Orbwalker.DisableAttacking = true;
                         Orbwalker.DisableMovement = true;
-                        SpellsManager.R.Cast();
+                        if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                            Core.DelayAction(() => SpellsManager.R.Cast(), HumanizeMenu["HumanizeR"].Cast<Slider>().CurrentValue);
+                        else SpellsManager.R.Cast();
                         rStart = Environment.TickCount;
                     }
             }
