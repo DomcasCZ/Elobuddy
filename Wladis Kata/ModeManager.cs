@@ -19,7 +19,7 @@ namespace Wladis_Kata
             Spellbook.OnCastSpell += Spellbook_OnCastSpell;
         }
         public static float rStart;
-
+        
         private static void Game_OnTick(EventArgs args)
         {
             var orbMode = Orbwalker.ActiveModesFlags;
@@ -42,9 +42,6 @@ namespace Wladis_Kata
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear))
                 LaneClear.Execute10();
-
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
-                LaneClear.Execute8();
 
             if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue)
                 Harass.Execute7();
@@ -123,6 +120,10 @@ namespace Wladis_Kata
 
         private static void Game_OnUpdate(EventArgs args)
         {
+            var orbMode = Orbwalker.ActiveModesFlags;
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
+                LaneClear.Execute8();
+
             if (HasRBuff())
             {
                 Orbwalker.DisableMovement = true;

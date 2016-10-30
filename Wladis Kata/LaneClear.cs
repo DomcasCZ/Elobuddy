@@ -50,10 +50,10 @@ namespace Wladis_Kata
                   {
                 SpellsManager.Q.Cast(minionq);
                 }
-                  var minionw = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
-                EntityManager.UnitTeam.Enemy,
-                Player.Instance.ServerPosition, SpellsManager.W.Range)
-               .FirstOrDefault(m => m.Health < SpellsManager.GetRealDamage(m, SpellSlot.W) && SpellsManager.Q.IsOnCooldown);
+            var minionw = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
+          EntityManager.UnitTeam.Enemy,
+          Player.Instance.ServerPosition, SpellsManager.W.Range)
+         .FirstOrDefault(m => m.Health < SpellsManager.GetRealDamage(m, SpellSlot.W) && !(m.Health < SpellsManager.GetRealDamage(m, SpellSlot.Q)));
 
             if (Menus.LastHitMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && SpellsManager.Q.IsOnCooldown && minionw.IsValidTarget(SpellsManager.W.Range))
                     {
