@@ -23,7 +23,7 @@ namespace Wladis_Soraka
 
         private static void Drawing_OnDraw(EventArgs args)
         {
-            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= R.Range);
+            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie);
             var readyDraw = DrawingsMenu["readyDraw"].Cast<CheckBox>().CurrentValue;
             var target = TargetSelector.GetTarget(R.Range, DamageType.Mixed);
             //Drawings

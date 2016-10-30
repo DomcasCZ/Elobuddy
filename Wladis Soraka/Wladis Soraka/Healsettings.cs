@@ -11,10 +11,10 @@ namespace Wladis_Soraka
     {
         public static void Execute6()
         {
-
+            
             var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.W.Range);
 
-            var target = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            if (!(sdl.IsInRange(myhero, SpellsManager.W.Range)) )return;
             
             if (!myhero.IsRecalling() && HealMenu["AutoW"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && myhero.HealthPercent > HealMenu["Myhealth"].Cast<Slider>().CurrentValue && sdl.HealthPercent < HealMenu["WAllyHealth"].Cast<Slider>().CurrentValue)
             {
@@ -24,9 +24,7 @@ namespace Wladis_Soraka
 
         public static void Execute8()
         {
-            var test = EntityManager.Heroes.Allies.Where(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.R.Range);
-            var allytoheal = test.FirstOrDefault(x => !x.IsInShopRange());
-            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.R.Range);
+            var sdl = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie);
 
             if (SpellsManager.R.IsReady() && HealMenu["R"].Cast<CheckBox>().CurrentValue && sdl.HealthPercent < HealMenu["RAllyHealth"].Cast<Slider>().CurrentValue && sdl.CountEnemiesInRange(HealMenu["REnemyInRange"].Cast<Slider>().CurrentValue) >= 1)
             {

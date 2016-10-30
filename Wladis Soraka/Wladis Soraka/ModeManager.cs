@@ -17,6 +17,7 @@ namespace Wladis_Soraka
             Game.OnTick += Game_OnTick;
             Gapcloser.OnGapcloser += Gapcloser_OnGapcloser;
             Interrupter.OnInterruptableSpell += KInterrupter;
+            Game.OnUpdate += Game_OnUpdate;
         }
 
         private static void Game_OnTick(EventArgs args)
@@ -44,17 +45,17 @@ namespace Wladis_Soraka
             if (HealMenu["AutoW"].Cast<CheckBox>().CurrentValue)
                 HealSettings.Execute6();
 
-            if (HealMenu["R"].Cast<CheckBox>().CurrentValue || HealMenu["RYou"].Cast<CheckBox>().CurrentValue)
-                HealSettings.Execute8();
-
-            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && enemy.IsInRange(myhero, SpellsManager.E.Range) && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
+            if (sdl.IsInRange(myhero, SpellsManager.W.Range))
             {
-                SpellsManager.W.Cast(sdl);
-            }
+                if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffFlee"].Cast<CheckBox>().CurrentValue && enemy.IsFleeing && enemy.IsInRange(myhero, SpellsManager.E.Range) && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
+                {
+                    SpellsManager.W.Cast(sdl);
+                }
 
-            if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && enemy.IsInRange(myhero, SpellsManager.E.Range) && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
-            {
-                SpellsManager.W.Cast(sdl);
+                if (HealMenu["SpeedBuff"].Cast<CheckBox>().CurrentValue && HealMenu["SpeedBuffEnemy"].Cast<CheckBox>().CurrentValue && enemy.IsInRange(myhero, SpellsManager.E.Range) && SpellsManager.W.IsReady() && !sdl.HasBuff("SorakaQRegen") && myhero.HasBuff("SorakaQRegen"))
+                {
+                    SpellsManager.W.Cast(sdl);
+                }
             }
 
             /*if (MiscMenu["EStun"].Cast<CheckBox>().CurrentValue && enemy.IsCharmed || enemy.IsStunned || enemy.IsTaunted || enemy.IsRooted || enemy.IsFeared)
@@ -63,6 +64,14 @@ namespace Wladis_Soraka
                 SpellsManager.E.Cast(pred.CastPosition);
             }*/
         }
+
+        private static void Game_OnUpdate(EventArgs args)
+        {
+
+            if (HealMenu["R"].Cast<CheckBox>().CurrentValue || HealMenu["RYou"].Cast<CheckBox>().CurrentValue)
+                HealSettings.Execute8();
+        }
+        
 
         private static void Gapcloser_OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
         {
