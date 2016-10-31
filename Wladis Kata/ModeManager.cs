@@ -49,13 +49,13 @@ namespace Wladis_Kata
             if (HarassMenu["AutoW"].Cast<CheckBox>().CurrentValue)
                 Harass.Execute9();
 
-            if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue)
+            if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue && (!HasRBuff()))
                 KillSteal.Execute2();
 
-            if (KillStealMenu["W"].Cast<CheckBox>().CurrentValue)
+            if (KillStealMenu["W"].Cast<CheckBox>().CurrentValue && (!HasRBuff()))
                 KillSteal.Execute3();
 
-            if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue)
+            if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue && (!HasRBuff()))
                 KillSteal.Execute4();
 
             if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
@@ -102,10 +102,11 @@ namespace Wladis_Kata
                 if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
                 (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
                 args.Process = false;
-             if (!SpellsManager.Q.IsOnCooldown && SpellsManager.W.IsOnCooldown && SpellsManager.E.IsOnCooldown) args.Process = true;
+             if (SpellsManager.Q.IsReady() && SpellsManager.W.IsReady() && SpellsManager.E.IsReady() && target.HealthPercent < 30) args.Process = true;
+             else if (target.Distance(myhero) > SpellsManager.R.Range) args.Process = true;
 
-             
-                if (sender.Owner.IsMe && (int)args.Slot == 3 && Player.GetSpell(args.Slot).IsReady)
+
+            if (sender.Owner.IsMe && (int)args.Slot == 3 && Player.GetSpell(args.Slot).IsReady)
                 {
                     if (LockedSpellCasts)
                     {

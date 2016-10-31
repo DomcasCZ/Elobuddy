@@ -64,11 +64,11 @@ namespace Wladis_Kata
             //ComboMenu.Add("R-Logic", new ComboBox(" R-Logic ", 2, "< Half R range", "In R range", "In W Range"));
             ComboMenu.AddLabel("If you want perfekt R, disable your Evade or set it to dodge dangerous only");
             ComboMenu.Add("R1", new CheckBox("- R on full range", false));
-            ComboMenu.Add("R2", new CheckBox("- R on half range or closer", false));
-            ComboMenu.Add("R3", new CheckBox("- R on W range"));
+            ComboMenu.Add("R2", new CheckBox("- R on half range or closer"));
+            ComboMenu.Add("R3", new CheckBox("- R on W range", false));
             ComboMenu.AddSeparator();
-            ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting", false));
-            ComboMenu.Add("Rendblock", new CheckBox("- End the Block when Q W E is ready", false));
+            ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting"));
+            ComboMenu.Add("Rendblock", new CheckBox("- End the Block when Q W E is ready"));
             ComboMenu.AddLabel("It will always end the block when target is out of R range and it will cast spells again");
             ComboMenu.AddSeparator();
             ComboMenu.Add("AutoKill", new CheckBox("Auto kill with combo", false));
@@ -114,7 +114,7 @@ namespace Wladis_Kata
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
             LaneClearMenu.Add("E", new CheckBox("- Use E", false));
             LaneClearMenu.AddSeparator();
-            LaneClearMenu.Add("WX", new Slider("- Will hit x minions with W", 2, 1, 6));
+            LaneClearMenu.Add("WX", new Slider("- Will hit X minions with W", 2, 1, 6));
 
             HumanizeMenu.AddGroupLabel("Humanizer settings");
             HumanizeMenu.Add("Humanize", new CheckBox("- Use Humanizer", false));

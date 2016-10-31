@@ -44,7 +44,7 @@ namespace Wladis_Kata
                     break;
                 case SpellSlot.W:
                     if (W.IsReady())
-                        dmg += new float[] { 40, 75, 110, 145, 180 }[sLevel] + 0.25f * ap + 0.6f * ad;
+                        dmg += new float[] { 30, 50, 75, 100, 140 }[sLevel] + 0.25f * ap + 0.6f * ad;
                     break;
                 case SpellSlot.E:
                     if (E.IsReady())
