@@ -10,23 +10,7 @@ namespace Wladis_Cassiopeia
 {
     internal class Loader
     {
-        private static bool _lockedSpellcasts;
-
-        public static bool LockedSpellCasts
-        {
-            get { return _lockedSpellcasts; }
-            set
-            {
-                _lockedSpellcasts = value;
-                if (value)
-                {
-                    _lockedTime = Core.GameTickCount;
-                }
-            }
-        }
-
-        private static int _lockedTime;
-
+        
         private static void Main(string[] args)
         {
             Loading.OnLoadingComplete += Loading_OnLoadingComplete;
@@ -40,31 +24,8 @@ namespace Wladis_Cassiopeia
             ModeManager.InitializeModes();
             DrawingsManager.InitializeDrawings();
 
-            Obj_AI_Base.OnProcessSpellCast += delegate (Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
-            {
-                if (sender.IsMe && (int)args.Slot < 3)
-                {
-                    LockedSpellCasts = true;
-                }
-            };
-
-            Obj_AI_Base.OnSpellCast += delegate (Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
-            {
-                if (sender.IsMe && (int)args.Slot < 3)
-                {
-                    LockedSpellCasts = false;
-                }
-            };
-            Game.OnTick += delegate
-            {
-                if (_lockedTime > 0 && LockedSpellCasts && Core.GameTickCount - _lockedTime > 250)
-                {
-                    LockedSpellCasts = false;
-                }
-            };
-
             Chat.Print("<font color='#FA5858'>Wladis Cassiopeia loaded</font>");
-            Chat.Print("Credits to Hellsing and Ouija");
+            Chat.Print("Credits to Apollyon, Uzumaki Boruto and Ouija");
         }
         public static Item Zhonyas = new Item(ItemId.Zhonyas_Hourglass);
         public static Item Seraph = new Item(ItemId.Seraphs_Embrace);
