@@ -81,7 +81,7 @@ namespace Wladis_Cassiopeia
             var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                  EntityManager.UnitTeam.Enemy,
                   Player.Instance.ServerPosition, SpellsManager.E.Range)
-                        .FirstOrDefault(m => SpellsManager.E.IsReady() && m.IsValidTarget((SpellsManager.E.Range)) &&
+                        .FirstOrDefault(m => SpellsManager.E.IsReady() && m.IsValidTarget(SpellsManager.E.Range) &&
                 Prediction.Health.GetPrediction(m, SpellsManager.E.CastDelay) <=
                 SpellsManager.GetRealDamage(m, SpellSlot.E));
 

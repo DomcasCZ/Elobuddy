@@ -60,7 +60,7 @@ namespace Wladis_Cassiopeia
 
         public static void Execute5()
         {
-            var target = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Magical);
 
             if ((target == null) || target.IsInvulnerable)
                 return;
@@ -77,7 +77,7 @@ namespace Wladis_Cassiopeia
 
         public static void Execute6()
         {
-            var target = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
             if ((target == null) || target.IsInvulnerable)
                 return;

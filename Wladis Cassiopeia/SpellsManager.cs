@@ -22,9 +22,9 @@ namespace Wladis_Cassiopeia
         {
             Q = new Spell.Skillshot(SpellSlot.Q, 850, SkillShotType.Circular, castDelay = 1, spellWidth = 130);
 
-            W = new Spell.Skillshot(SpellSlot.W, 850, SkillShotType.Circular, 250, 3000, 180);
+            W = new Spell.Skillshot(SpellSlot.W, 800, SkillShotType.Circular, 250, 3000, 180);
 
-            E = new Spell.Targeted(SpellSlot.E, 850);
+            E = new Spell.Targeted(SpellSlot.E, 750);
 
             R = new Spell.Skillshot(SpellSlot.R, 850, SkillShotType.Cone, spellWidth = 90, castDelay = 500);
 
@@ -54,7 +54,7 @@ namespace Wladis_Cassiopeia
                     break;
                 case SpellSlot.E:
                     if (E.IsReady() && !(target.HasBuffOfType(BuffType.Poison)))
-                        dmg += new float[] { 62, 68, 80, 88, 110 }[sLevel] + 0.10f * ap;
+                        dmg += new float[] { 64, 70, 80, 90, 110 }[sLevel] + 0.10f * ap;
                     if (E.IsReady() && target.HasBuffOfType(BuffType.Poison))
                         dmg += new float[] { 66, 100, 154, 192, 222 }[sLevel] + 0.55f * ap;
                     break;                  //60, 105, 150, 195, 240
