@@ -51,6 +51,8 @@ namespace Wladis_Cassiopeia
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.Add("ROnly", new CheckBox("- Use R only if enemy is facing you"));
             ComboMenu.AddSeparator();
+            ComboMenu.Add("FlashR", new KeyBind("Use flash + R", false, KeyBind.BindTypes.HoldActive, 'G'));
+            ComboMenu.AddSeparator();
             ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "W>Q>E", "Q>W>E"));
             ComboMenu.AddSeparator();
             ComboMenu.Add("Ignite", new CheckBox("- Use Ignite", false));
@@ -86,6 +88,7 @@ namespace Wladis_Cassiopeia
             LaneClearMenu.AddGroupLabel("LastHit");
             LaneClearMenu.Add("ELastHit", new CheckBox("- Use E"));
             LaneClearMenu.Add("EPoison", new CheckBox("- Only lasthit if minion is poisoned", false));
+            LaneClearMenu.Add("AutoLastHitKey", new KeyBind("Auto Lasthit Toggle Key", false, KeyBind.BindTypes.PressToggle, 'H'));
 
             FleeMenu.AddGroupLabel("Flee");
             FleeMenu.Add("W", new CheckBox("- Use W"));

@@ -46,26 +46,12 @@ namespace Wladis_Cassiopeia
         }
         public static Spell.Targeted Ignite = new Spell.Targeted(ReturnSlot("summonerdot"), 600);
 
+        public static Spell.Targeted Flash = new Spell.Targeted(ReturnSlot("summonerflash"), 425);
+
         public static SpellSlot ReturnSlot(string Name)
         {
             return Player.Instance.GetSpellSlotFromName(Name);
         }
-
-        public static string[] SmiteNames => new[]
-{
-            "s5_summonersmiteplayerganker", "s5_summonersmiteduel",
-            "s5_summonersmitequick", "itemsmiteaoe", "summonersmite"
-        };
-
-        public static SpellSlot ReturnSlot(string[] Name)
-        {
-            if (SmiteNames.Contains(Player.Instance.Spellbook.GetSpell(SpellSlot.Summoner1).Name.ToLower()))
-                return SpellSlot.Summoner1;
-
-            if (SmiteNames.Contains(Player.Instance.Spellbook.GetSpell(SpellSlot.Summoner2).Name.ToLower()))
-                return SpellSlot.Summoner2;
-
-            return SpellSlot.Unknown;
-        }
+        
     }
 }

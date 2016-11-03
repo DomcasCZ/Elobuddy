@@ -22,7 +22,7 @@ namespace Wladis_Cassiopeia
         {
             var orbMode = Orbwalker.ActiveModesFlags;
 
-            if (SpellsManager.E.IsReady() && LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue)
+            if (SpellsManager.E.IsReady() && (LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue || LaneClearMenu["AutoLastHitKey"].Cast<CheckBox>().CurrentValue))
             {
                 Orbwalker.DisableAttacking = true;
             }
@@ -33,6 +33,9 @@ namespace Wladis_Cassiopeia
             }
 
             if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
+                LaneClear.Execute13();
+
+            if (LaneClearMenu["AutoLastHitKey"].Cast<KeyBind>().CurrentValue)
                 LaneClear.Execute13();
         }
         private static void Game_OnTick(EventArgs args)
@@ -74,6 +77,8 @@ namespace Wladis_Cassiopeia
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Flee))
                 Flee.Execute12();
 
+            if (ComboMenu["FlashR"].Cast<KeyBind>().CurrentValue)
+                Execute20();
 
         }
 

@@ -6,6 +6,7 @@ using static Wladis_Cassiopeia.Menus;
 using static Wladis_Cassiopeia.Loader;
 using static Wladis_Cassiopeia.ModeManager;
 using System.Linq;
+using EloBuddy.SDK.Enumerations;
 
 namespace Wladis_Cassiopeia
 {
@@ -149,6 +150,24 @@ namespace Wladis_Cassiopeia
                         Zhonyas.Cast();
             }
         }
+
+        public static void Execute20()
+        {
+            Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                var target = TargetSelector.GetTarget(SpellsManager.FlashR.Range, DamageType.Magical);
+                //var target = TargetSelector.SelectedTarget;
+                if (target.IsValidTarget(SpellsManager.FlashR.Range))
+                {
+                    var Flashh = EloBuddy.Player.Instance.ServerPosition.Extend(target.ServerPosition, Flash.Range);
+
+                    if (Flash.IsReady() && target.IsValidTarget())
+                    {
+                    Flash.Cast(Flashh.To3DWorld());
+                    SpellsManager.FlashR.Cast(target.Position);
+                    }
+                }
+            }
+        
     }
 }
     

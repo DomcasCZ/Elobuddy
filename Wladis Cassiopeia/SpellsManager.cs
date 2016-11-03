@@ -13,6 +13,7 @@ namespace Wladis_Cassiopeia
         private static int castDelay;
 
         public static Spell.Skillshot Q;
+        public static Spell.Skillshot FlashR;
         public static Spell.Skillshot W;
         public static Spell.Targeted E;
         public static Spell.Skillshot R;
@@ -27,6 +28,8 @@ namespace Wladis_Cassiopeia
             E = new Spell.Targeted(SpellSlot.E, 750);
 
             R = new Spell.Skillshot(SpellSlot.R, 850, SkillShotType.Cone, spellWidth = 90, castDelay = 500);
+
+            FlashR = new Spell.Skillshot(SpellSlot.R, 1100, SkillShotType.Cone, spellWidth = 90, castDelay = 500);
 
             Obj_AI_Base.OnLevelUp += AutoLevel.Obj_AI_Base_OnLevelUp;
         }

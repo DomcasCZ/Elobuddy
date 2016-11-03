@@ -15,7 +15,7 @@ namespace Wladis_Cassiopeia
             //Cast E
             if (SpellsManager.R.IsReady() && rtarget.IsValidTarget((SpellsManager.R.Range)) &&
                 Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
-                SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
+                SpellsManager.GetRealDamage(rtarget, SpellSlot.R) && !rtarget.IsDead)
             {
                 SpellsManager.R.Cast(rtarget);
             }

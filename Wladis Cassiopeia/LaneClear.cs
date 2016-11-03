@@ -16,7 +16,7 @@ namespace Wladis_Cassiopeia
                   Player.Instance.ServerPosition, SpellsManager.E.Range)
                         .LastOrDefault(m => SpellsManager.E.IsReady() && m.IsValidTarget(SpellsManager.E.Range));
 
-            var minion = EntityManager.MinionsAndMonsters.GetLaneMinions().Where(m => m.IsValidTarget(SpellsManager.E.Range)).OrderBy(m => m.Health <= SpellsManager.GetRealDamage(m, SpellSlot.E)).ThenBy(m => !m.HasBuffOfType(BuffType.Poison)).ThenBy(m => m.Health).FirstOrDefault();
+            var minion = EntityManager.MinionsAndMonsters.GetLaneMinions().Where(m => m.IsValidTarget(SpellsManager.E.Range)).OrderBy(m => !(m.Health <= SpellsManager.GetRealDamage(m, SpellSlot.E))).ThenBy(m => !m.HasBuffOfType(BuffType.Poison)).ThenBy(m => m.Health).FirstOrDefault();
 
             var minions =
                  EntityManager.MinionsAndMonsters.GetLaneMinions()
