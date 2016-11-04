@@ -20,7 +20,7 @@ namespace Wladis_Cassiopeia
             if ((target == null) || target.IsInvulnerable)
                 return;
 
-            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue)
+            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu[target.ChampionName].Cast<CheckBox>().CurrentValue)
             {
                 if (!ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue)
                 {
@@ -30,7 +30,7 @@ namespace Wladis_Cassiopeia
                 }
             }
 
-            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue && !target.IsFleeing)
+            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue && !target.IsFleeing && ComboMenu[target.ChampionName].Cast<CheckBox>().CurrentValue)
             {
                 if (HumanizerMenu["Humanize"].Cast<CheckBox>().CurrentValue)
                     Core.DelayAction(() => SpellsManager.R.Cast(target), HumanizerMenu["HumanizeR"].Cast<Slider>().CurrentValue);
@@ -85,7 +85,7 @@ namespace Wladis_Cassiopeia
             if ((target == null) || target.IsInvulnerable)
                 return;
 
-            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue)
+            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu[target.ChampionName].Cast<CheckBox>().CurrentValue)
             {
                 if (!ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue)
                 {

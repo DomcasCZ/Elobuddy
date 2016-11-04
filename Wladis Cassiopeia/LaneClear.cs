@@ -11,11 +11,6 @@ namespace Wladis_Cassiopeia
         public static void Execute3()
         {
 
-            var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
-                 EntityManager.UnitTeam.Enemy,
-                  Player.Instance.ServerPosition, SpellsManager.E.Range)
-                        .LastOrDefault(m => SpellsManager.E.IsReady() && m.IsValidTarget(SpellsManager.E.Range));
-
             var minion = EntityManager.MinionsAndMonsters.GetLaneMinions().Where(m => m.IsValidTarget(SpellsManager.E.Range)).OrderBy(m => !(m.Health <= SpellsManager.GetRealDamage(m, SpellSlot.E))).ThenBy(m => !m.HasBuffOfType(BuffType.Poison)).ThenBy(m => m.Health).FirstOrDefault();
 
             var minions =
@@ -57,9 +52,9 @@ namespace Wladis_Cassiopeia
                 }
             }
 
-            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && myhero.ManaPercent >= Menus.LaneClearMenu["ManaSlider"].Cast<Slider>().CurrentValue && minione.IsValidTarget(SpellsManager.E.Range))
+            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && myhero.ManaPercent >= Menus.LaneClearMenu["ManaSlider"].Cast<Slider>().CurrentValue && minion.IsValidTarget(SpellsManager.E.Range))
             {
-                if (Menus.LaneClearMenu["EOnly"].Cast<CheckBox>().CurrentValue && minione.HasBuffOfType(BuffType.Poison))
+                if (Menus.LaneClearMenu["EOnly"].Cast<CheckBox>().CurrentValue && minion.HasBuffOfType(BuffType.Poison))
                 {
                     SpellsManager.E.Cast(minion);
                 }
@@ -69,7 +64,7 @@ namespace Wladis_Cassiopeia
                 }
             }
 
-            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && minione.IsValidTarget(SpellsManager.E.Range))
+            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && minion.IsValidTarget(SpellsManager.E.Range))
             {
                 SpellsManager.E.Cast(minion);
             }
@@ -93,6 +88,27 @@ namespace Wladis_Cassiopeia
             if (Menus.LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue && Menus.LaneClearMenu["EPoison"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && minione.IsValidTarget(SpellsManager.E.Range) && minione.HasBuffOfType(BuffType.Poison))
             {
                 SpellsManager.E.Cast(minione);
+            }
+        }
+
+        public static void Execute14()
+        {
+            var jungleMonsters = EntityManager.MinionsAndMonsters.GetJungleMonsters().OrderByDescending(x => x.Health).FirstOrDefault(x => x.IsValidTarget(SpellsManager.Q.Range));
+            if (jungleMonsters == null) return;
+
+            if (SpellsManager.Q.IsReady() && SpellsManager.Q.IsInRange(jungleMonsters) && Menus.JungleClearMenu["Q"].Cast<CheckBox>().CurrentValue && myhero.ManaPercent >= Menus.JungleClearMenu["ManaSlider"].Cast<Slider>().CurrentValue)
+
+                SpellsManager.Q.Cast(jungleMonsters.Position);
+
+            if (SpellsManager.W.IsReady() && SpellsManager.W.IsInRange(jungleMonsters) && Menus.JungleClearMenu["W"].Cast<CheckBox>().CurrentValue && myhero.ManaPercent >= Menus.JungleClearMenu["ManaSlider"].Cast<Slider>().CurrentValue)
+            {
+                SpellsManager.W.Cast(jungleMonsters.Position);
+
+            }
+            if (SpellsManager.E.IsReady() && SpellsManager.E.IsInRange(jungleMonsters) && Menus.JungleClearMenu["E"].Cast<CheckBox>().CurrentValue && myhero.ManaPercent >= Menus.JungleClearMenu["ManaSlider"].Cast<Slider>().CurrentValue)
+            {
+                SpellsManager.E.Cast(jungleMonsters);
+
             }
         }
     }

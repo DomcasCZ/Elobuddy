@@ -5,12 +5,12 @@ using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using static Wladis_Cassiopeia.Skins;
+using EloBuddy.SDK;
 
 namespace Wladis_Cassiopeia
 {
     internal class Menus
     {
-        public static SharpDX.Vector3 insecpos, eqpos, movingawaypos;
         public const string DrawingsMenuId = "drawingsmenuid";
         public const string MiscMenuId = "miscmenuid";
         public static Menu FirstMenu;
@@ -19,6 +19,7 @@ namespace Wladis_Cassiopeia
         public static Menu HarassMenu;
         public static Menu FleeMenu;
         public static Menu LaneClearMenu;
+        public static Menu JungleClearMenu;
         public static Menu MiscMenu;
         public static Menu HumanizerMenu;
         public static Menu KillStealMenu;
@@ -37,6 +38,7 @@ namespace Wladis_Cassiopeia
             ComboMenu = FirstMenu.AddSubMenu("• Combo ");
             HarassMenu = FirstMenu.AddSubMenu("• Harass");
             LaneClearMenu = FirstMenu.AddSubMenu("• LaneClear");
+            JungleClearMenu = FirstMenu.AddSubMenu("• JungleClear");
             FleeMenu = FirstMenu.AddSubMenu("• Flee");
             KillStealMenu = FirstMenu.AddSubMenu("• Killsteal");
             HumanizerMenu = FirstMenu.AddSubMenu("• Humanizer");
@@ -59,6 +61,12 @@ namespace Wladis_Cassiopeia
             ComboMenu.AddLabel("It will only use ignite, when the enemy isn't killable with Combo");
             ComboMenu.AddSeparator(15);
             ComboMenu.Add("IgniteHealth", new Slider("- Ignite if enemy Hp % < Slider %", 40, 1, 100));
+            ComboMenu.AddSeparator(15);
+            ComboMenu.AddLabel("R usage on");
+            foreach (var Enemy in EntityManager.Heroes.Enemies)
+            {
+                ComboMenu.Add(Enemy.ChampionName, new CheckBox("R on " + Enemy.ChampionName));
+            }
 
             HarassMenu.AddGroupLabel("Harass Settings");
             HarassMenu.Add("Q", new CheckBox("- Use Q"));
@@ -89,6 +97,12 @@ namespace Wladis_Cassiopeia
             LaneClearMenu.Add("ELastHit", new CheckBox("- Use E"));
             LaneClearMenu.Add("EPoison", new CheckBox("- Only lasthit if minion is poisoned", false));
             LaneClearMenu.Add("AutoLastHitKey", new KeyBind("Auto Lasthit Toggle Key", false, KeyBind.BindTypes.PressToggle, 'H'));
+
+            JungleClearMenu.AddGroupLabel("Jungle clear Settings");
+            JungleClearMenu.Add("Q", new CheckBox("- Use Q"));
+            JungleClearMenu.Add("W", new CheckBox("- Use W", false));
+            JungleClearMenu.Add("E", new CheckBox("- Use E"));
+            JungleClearMenu.Add("ManaSlider", new Slider("- Don't use JungleClear when mana is under [{0}%]", 30, 1, 100));
 
             FleeMenu.AddGroupLabel("Flee");
             FleeMenu.Add("W", new CheckBox("- Use W"));

@@ -80,6 +80,10 @@ namespace Wladis_Cassiopeia
             if (ComboMenu["FlashR"].Cast<KeyBind>().CurrentValue)
                 Execute20();
 
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.JungleClear))
+                LaneClear.Execute14();
+
+
         }
 
         static void Gapcloser_OnGapCloser(Obj_AI_Base sender, Gapcloser.GapcloserEventArgs args)
