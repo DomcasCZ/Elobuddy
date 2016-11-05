@@ -53,7 +53,7 @@ namespace Wladis_Cassiopeia
             if (orbMode.HasFlag(Orbwalker.ActiveModes.Harass))
                 Harass.Execute2();
 
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear))
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear) && myhero.ManaPercent > LaneClearMenu["ManaSlider"].Cast<Slider>().CurrentValue)
                 LaneClear.Execute3();
 
             if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue)
