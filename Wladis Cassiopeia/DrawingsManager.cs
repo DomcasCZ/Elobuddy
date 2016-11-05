@@ -45,7 +45,8 @@ namespace Wladis_Cassiopeia
                 ? R.IsReady()
                 : DrawingsMenu["rDraw"].Cast<CheckBox>().CurrentValue)
                 Circle.Draw(EColorSlide.GetSharpColor(), R.Range, 1f, Player.Instance);
-
+            
+             if ( target == null ) return;
             if (target.Health >
                   target.GetRealDamage()) return;
             Drawing.DrawText(Drawing.WorldToScreen(target.Position).X - 60,
