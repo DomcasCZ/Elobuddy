@@ -7,6 +7,7 @@ using static Wladis_Cassiopeia.Loader;
 using static Wladis_Cassiopeia.ModeManager;
 using System.Linq;
 using EloBuddy.SDK.Enumerations;
+using System.Collections.Generic;
 
 namespace Wladis_Cassiopeia
 {
@@ -20,6 +21,9 @@ namespace Wladis_Cassiopeia
             if ((target == null) || target.IsInvulnerable)
                 return;
 
+            var Poisoned = EntityManager.Heroes.Enemies.FirstOrDefault(e => e.IsValidTarget(SpellsManager.E.Range) && e.HasBuffOfType(BuffType.Poison));
+            //var Poisoned = EntityManager.Heroes.Enemies.Where(e => e.IsValidTarget(SpellsManager.E.Range)).OrderBy(e => e.HasBuffOfType(BuffType.Poison)).ThenBy(e => target).FirstOrDefault;
+
             if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu[target.ChampionName].Cast<CheckBox>().CurrentValue)
             {
                 if (!ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue)
@@ -30,7 +34,7 @@ namespace Wladis_Cassiopeia
                 }
             }
 
-            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue && !target.IsFleeing && ComboMenu[target.ChampionName].Cast<CheckBox>().CurrentValue)
+            if (SpellsManager.R.IsReady() && ComboMenu["R"].Cast<CheckBox>().CurrentValue && ComboMenu["ROnly"].Cast<CheckBox>().CurrentValue && !target.IsFleeing && ComboMenu[target.ChampionName].Cast<CheckBox>().CurrentValue) // IsFleeing is shit I know
             {
                 if (HumanizerMenu["Humanize"].Cast<CheckBox>().CurrentValue)
                     Core.DelayAction(() => SpellsManager.R.Cast(target), HumanizerMenu["HumanizeR"].Cast<Slider>().CurrentValue);
@@ -54,7 +58,14 @@ namespace Wladis_Cassiopeia
                 else SpellsManager.Q.Cast(prediction.CastPosition);
             }
 
-            if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.E.Range))
+            if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && Poisoned.IsValidTarget(SpellsManager.E.Range) && ComboMenu["EOnly"].Cast<CheckBox>().CurrentValue)
+                {
+                    if (HumanizerMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                        Core.DelayAction(() => SpellsManager.E.Cast(Poisoned), HumanizerMenu["HumanizeE"].Cast<Slider>().CurrentValue);
+                    else SpellsManager.E.Cast(Poisoned);
+                }
+            
+           else if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.E.Range))
             {
                 if (HumanizerMenu["Humanize"].Cast<CheckBox>().CurrentValue)
                     Core.DelayAction(() => SpellsManager.E.Cast(target), HumanizerMenu["HumanizeE"].Cast<Slider>().CurrentValue);

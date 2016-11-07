@@ -50,10 +50,14 @@ namespace Wladis_Cassiopeia
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("E", new CheckBox("- Use E"));
+            ComboMenu.Add("EOnly", new CheckBox("- First priority to poisoned enemies"));
+            ComboMenu.AddSeparator();
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.Add("ROnly", new CheckBox("- Use R only if enemy is facing you"));
             ComboMenu.AddSeparator();
             ComboMenu.Add("FlashR", new KeyBind("Use flash + R", false, KeyBind.BindTypes.HoldActive, 'G'));
+            ComboMenu.AddSeparator();
+            ComboMenu.Add("AAOff", new CheckBox("Disable autoattacks in Combo", false));
             ComboMenu.AddSeparator();
             ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "W>Q>E", "Q>W>E"));
             ComboMenu.AddSeparator();
@@ -96,6 +100,7 @@ namespace Wladis_Cassiopeia
             LaneClearMenu.AddGroupLabel("LastHit");
             LaneClearMenu.Add("ELastHit", new CheckBox("- Use E"));
             LaneClearMenu.Add("EPoison", new CheckBox("- Only lasthit if minion is poisoned", false));
+            LaneClearMenu.Add("EAA", new CheckBox("- Enable autoattacks while lasthitting", false));
             LaneClearMenu.Add("AutoLastHitKey", new KeyBind("Auto Lasthit Toggle Key", false, KeyBind.BindTypes.PressToggle, 'H'));
 
             JungleClearMenu.AddGroupLabel("Jungle clear Settings");

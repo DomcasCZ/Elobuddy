@@ -10,3 +10,4 @@ C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Wladis Cassiopeia\Wladis 
 C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Wladis Cassiopeia\Wladis Cassiopeia\obj\Release\Wladis Cassiopeia.exe
 C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Wladis Cassiopeia\Wladis Cassiopeia\obj\Release\Wladis Cassiopeia.pdb
 C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Wladis Cassiopeia\Wladis Cassiopeia\obj\Release\Wladis Cassiopeia.csprojResolveAssemblyReference.cache
+C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Wladis Cassiopeia\Wladis Cassiopeia\bin\Release\EloBuddy.Sandbox.dll

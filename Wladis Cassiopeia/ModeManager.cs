@@ -22,12 +22,12 @@ namespace Wladis_Cassiopeia
         {
             var orbMode = Orbwalker.ActiveModesFlags;
 
-            if (SpellsManager.E.IsReady() && (LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue || LaneClearMenu["AutoLastHitKey"].Cast<CheckBox>().CurrentValue))
+            if (SpellsManager.E.IsReady() && !LaneClearMenu["EAA"].Cast<CheckBox>().CurrentValue && (LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue || LaneClearMenu["AutoLastHitKey"].Cast<CheckBox>().CurrentValue))
             {
                 Orbwalker.DisableAttacking = true;
             }
 
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit) && !LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue)
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) || ComboMenu["AAOff"].Cast<CheckBox>().CurrentValue || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit) && !LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue)
             {
                 Orbwalker.DisableAttacking = false;
             }
