@@ -15,7 +15,10 @@ namespace Fairy_Lux
                 return;
             //Cast Q
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.Cast(qtarget);
+            {
+                var prediction = SpellsManager.Q.GetPrediction(qtarget);
+                SpellsManager.Q.Cast(prediction.CastPosition);
+            }
 
         }
 
@@ -27,7 +30,10 @@ namespace Fairy_Lux
                 return;
             //Cast E
             if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                SpellsManager.E.Cast(etarget);
+            {
+                var pred = SpellsManager.E.GetPrediction(etarget);
+                SpellsManager.E.Cast(pred.CastPosition);
+            }
         }
     }
 }

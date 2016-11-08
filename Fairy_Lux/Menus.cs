@@ -44,17 +44,11 @@ namespace Fairy_Lux
 
 
             ComboMenu.AddGroupLabel("Combo Settings");
-          //  ComboMenu.Add("Combo1", new CheckBox("Combo 1"));
-          //  ComboMenu.AddLabel("Combo 1= E - Q - R");
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
-           // ComboMenu.AddLabel("             -            ");
-           // ComboMenu.Add("Combo2", new CheckBox("Combo 2"));
-           // ComboMenu.AddLabel("Combo 2= Q - E - R");
-           // ComboMenu.Add("Q1", new CheckBox("- Use Q"));
-            //ComboMenu.Add("E1", new CheckBox("- Use E"));
-           // ComboMenu.Add("R1", new CheckBox("- Use R"));
+            ComboMenu.AddSeparator();
+            ComboMenu.Add("ComboLogic", new ComboBox("- Combo Logic", 0, "E > Q > R", "Q > E > R"));
 
             HarassMenu.AddGroupLabel("Harass Settings");
             HarassMenu.Add("Q", new CheckBox("- Use Q"));
@@ -65,8 +59,6 @@ namespace Fairy_Lux
             HarassMenu.Add("AutoQ", new CheckBox("- Use Q", false));
             HarassMenu.Add("AutoE", new CheckBox("- Use E ", false));
             HarassMenu.AddLabel("Autoharras casts spells from itself, when the enemy is in range");
-            //HarassMenu.AddLabel("*Autoharass will come soon*");
-            //HarassMenu.AddLabel("*Autoharass will come soon*");
 
 
             LaneClearMenu.AddGroupLabel("Lane Clear Settings");
@@ -75,10 +67,14 @@ namespace Fairy_Lux
             LaneClearMenu.Add("ManaSlider", new Slider("Mana must be higher than [{0}%] to use Harass Spells", 40, 0, 100));
 
             WMenu.AddGroupLabel("W Settings");
-            WMenu.Add("W", new CheckBox("- Use W"));
+            WMenu.Add("W", new CheckBox("- Use W for myself"));
             WMenu.AddLabel("It will only use W if an enemy is in range");
             WMenu.Add("dangerSlider", new Slider ("HP must be lower that[{0}%] to use W", 80, 0 , 100));
-            WMenu.Add("ManaSlider", new Slider("Mana must be higher than [{0}%] to use Harass Spells", 40, 0, 100));
+            WMenu.Add("ManaSlider", new Slider("Mana must be higher than [{0}%] to use W", 40, 0, 100));
+            WMenu.AddSeparator();
+            WMenu.Add("WAlly", new CheckBox("- Use W for allies"));
+            WMenu.Add("dangerSliderAlly", new Slider("HP from ally must be lower that[{0}%] to use W", 60, 0, 100));
+            WMenu.Add("ManaSliderAlly", new Slider("Mana must be higher than [{0}%] to use W for allies", 40, 0, 100));
 
             KillStealMenu.AddGroupLabel("Killsteal Settings");
             KillStealMenu.Add("Q", new CheckBox("- Use Q"));

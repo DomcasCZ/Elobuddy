@@ -17,7 +17,7 @@ namespace Fairy_Lux
                 if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
                     var prediction = SpellsManager.Q.GetPrediction(qtarget);
-                    SpellsManager.Q.Cast(qtarget);
+                    SpellsManager.Q.Cast(prediction.CastPosition);
                 }
             var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
@@ -27,8 +27,8 @@ namespace Fairy_Lux
             if (Menus.HarassMenu["E"].Cast<CheckBox>().CurrentValue)
                 if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
                 {
-                    var prediction = SpellsManager.Q.GetPrediction(qtarget);
-                    SpellsManager.E.Cast(etarget);
+                    var prediction = SpellsManager.E.GetPrediction(qtarget);
+                    SpellsManager.E.Cast(prediction.CastPosition);
                 }
 
         }

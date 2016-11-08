@@ -20,34 +20,36 @@ namespace Fairy_Lux
             if ((target == null) || target.IsInvulnerable)
                 return;
 
-            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
-
-            if ((rtarget == null) || rtarget.IsInvulnerable)
-                return;
             //Cast E
-            if (ComboMenu["E"].Cast<CheckBox>().CurrentValue)
-                if (target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
-                    SpellsManager.E.Cast(target);
-            if (myhero.HasBuff("Detonate"))
+            if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
+                {
+                    var pred = SpellsManager.E.GetPrediction(target);
+                    SpellsManager.E.Cast(pred.CastPosition);
+                }
+
+            if (myhero.HasBuff("LuxEEnd"))
             {
                 SpellsManager.E.Cast();
             }
             
             //Cast Q
-            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
-                if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
                     var prediction = SpellsManager.Q.GetPrediction(target);
-                    SpellsManager.Q.Cast(target);
+                    SpellsManager.Q.Cast(prediction.CastPosition);
                 }
 
-            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && rtarget.Health > rtarget.GetRealDamage())
-                    if (SpellsManager.R.IsReady() && rtarget.IsValidTarget(SpellsManager.R.Range) &&
+            var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
+
+            if ((rtarget == null) || rtarget.IsInvulnerable)
+                return;
+
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && SpellsManager.R.IsReady() && rtarget.IsValidTarget(SpellsManager.R.Range) &&
                         Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                         SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
                     {
                             var prediction = SpellsManager.R.GetPrediction(rtarget);
-                            SpellsManager.R.Cast(rtarget);
+                            SpellsManager.R.Cast(prediction.CastPosition);
                     }
 
 
@@ -56,42 +58,43 @@ namespace Fairy_Lux
 
         }
 
-        /*public static void Execute8()
+           public static void ExecuteCombo2()
         {
-            var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
-            if ((qtarget == null) || qtarget.IsInvulnerable)
+            if ((target == null) || target.IsInvulnerable)
                 return;
-            //Cast Q
-            if (ComboMenu["Q2"].Cast<CheckBox>().CurrentValue)
-                if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    SpellsManager.Q.TryToCast(qtarget, ComboMenu);
 
-
-            var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
-
-            if ((etarget == null) || etarget.IsInvulnerable)
-                return;
+            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+            {
+                var prediction = SpellsManager.Q.GetPrediction(target);
+                SpellsManager.Q.Cast(target);
+            }
             //Cast E
-            if (ComboMenu["E2"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsOnCooldown)
-                if (etarget.IsValidTarget(SpellsManager.E.Range+300) && SpellsManager.E.IsReady())
-                    SpellsManager.E.TryToCast(etarget, ComboMenu);
+            if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
+            {
+                var pred = SpellsManager.E.GetPrediction(target);
+                SpellsManager.E.Cast(pred.CastPosition);
+            }
 
-
+            if (myhero.HasBuff("LuxEEnd"))
+            {
+                SpellsManager.E.Cast();
+            }
+            
             var rtarget = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Magical);
 
             if ((rtarget == null) || rtarget.IsInvulnerable)
                 return;
 
-            if (ComboMenu["R2"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsOnCooldown &&
-                SpellsManager.E.IsOnCooldown)
-                if (SpellsManager.R.IsReady() && rtarget.IsValidTarget(SpellsManager.R.Range) &&
-                    Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
-                    SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
-                {
-                    SpellsManager.R.Cast(rtarget);
-                }
-        }*/
+            if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && SpellsManager.R.IsReady() && rtarget.IsValidTarget(SpellsManager.R.Range) &&
+                        Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
+                        SpellsManager.GetRealDamage(rtarget, SpellSlot.R))
+            {
+                var prediction = SpellsManager.R.GetPrediction(rtarget);
+                SpellsManager.R.Cast(prediction.CastPosition);
+            }
+        }
     }
 }
 

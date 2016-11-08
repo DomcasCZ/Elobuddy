@@ -12,10 +12,16 @@ namespace Fairy_Lux
         public static void Execute6()
         {
             var playerMana = Player.Instance.ManaPercent;
-            var herohealth = WMenu["dangerSlider"].Cast<Slider>().CurrentValue;
-            if (W.IsReady() && WMenu["W"].Cast<CheckBox>().CurrentValue && myhero.HealthPercent < herohealth && playerMana > WMenu["manaSlider"].Cast<Slider>().CurrentValue && myhero.CountEnemiesInRange(500) >= 1)
+            if (W.IsReady() && WMenu["W"].Cast<CheckBox>().CurrentValue && myhero.HealthPercent < WMenu["dangerSlider"].Cast<Slider>().CurrentValue && playerMana > WMenu["manaSlider"].Cast<Slider>().CurrentValue && myhero.CountEnemiesInRange(500) >= 1)
             {
                 W.Cast(myhero.Position);
+            }
+
+            var Ally = EntityManager.Heroes.Allies.FirstOrDefault(hero => !hero.IsMe && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(myhero) <= SpellsManager.W.Range && hero.CountEnemiesInRange(500) >= 1);
+
+            if (WMenu["WAlly"].Cast<CheckBox>().CurrentValue && myhero.ManaPercent > WMenu["manaSliderAlly"].Cast<Slider>().CurrentValue && W.IsReady() && Ally.HealthPercent < WMenu["dangerSliderAlly"].Cast<Slider>().CurrentValue)
+            {
+                W.Cast(Ally.Position);
             }
         }
 

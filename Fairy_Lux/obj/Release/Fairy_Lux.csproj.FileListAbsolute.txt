@@ -9,3 +9,4 @@ C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Fairy_Lux\Fairy_Lux\bin\R
 C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Fairy_Lux\Fairy_Lux\bin\Release\Newtonsoft.Json.dll
 C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Fairy_Lux\Fairy_Lux\obj\Release\Fairy_Lux.exe
 C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Fairy_Lux\Fairy_Lux\obj\Release\Fairy_Lux.pdb
+C:\Users\LADISLA\Documents\Visual Studio 2015\Projects\Fairy_Lux\Fairy_Lux\bin\Release\EloBuddy.Sandbox.dll

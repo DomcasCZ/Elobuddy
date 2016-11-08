@@ -19,7 +19,7 @@ namespace Fairy_Lux
             ModeManager.InitializeModes();
             DrawingsManager.InitializeDrawings();
 
-            Chat.Print("Fairy Lux Loaded!");
+            Chat.Print("Fairy Lux Loaded!", System.Drawing.Color.Red);
             Chat.Print("Credits to ExRaZor and Tarakan");
         }
     }

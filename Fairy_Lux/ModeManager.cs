@@ -48,6 +48,9 @@ namespace Fairy_Lux
 
             if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute5();
+
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && ComboMenu["ComboLogic"].Cast<ComboBox>().CurrentValue == 1)
+                Combo.ExecuteCombo2();
             
 
 
