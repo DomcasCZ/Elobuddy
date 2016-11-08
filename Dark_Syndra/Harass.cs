@@ -1,15 +1,18 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
-
-
+using System;
 
 namespace Dark_Syndra
 {
     internal static class Harass
     {
+
+        private static int lastWCast;
+
         public static void Execute1()
         {
+
             var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
 
             if ((qtarget == null) || qtarget.IsInvulnerable)
@@ -26,8 +29,21 @@ namespace Dark_Syndra
             //Cast W
             if (Menus.HarassMenu["W"].Cast<CheckBox>().CurrentValue)
                 if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                    SpellsManager.W.Cast(Functions.GrabWPost(true));
-            SpellsManager.W.Cast(wtarget);
+                {
+                    var pred = SpellsManager.W.GetPrediction(wtarget);
+
+                    if (Player.Instance.Spellbook.GetSpell(SpellSlot.W).ToggleState != 2 &&
+                        lastWCast + 700 < Environment.TickCount)
+                    {
+                        SpellsManager.W.Cast(Functions.GrabWPost(true));
+                        lastWCast = Environment.TickCount;
+                    }
+                    if (Player.Instance.Spellbook.GetSpell(SpellSlot.W).ToggleState >= 1 &&
+                        lastWCast + 300 < Environment.TickCount)
+                    {
+                        SpellsManager.W.Cast(pred.CastPosition);
+                    }
+                }
             
         }
 

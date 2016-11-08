@@ -30,12 +30,14 @@ namespace Dark_Syndra
             return new Vector3();
         }
 
-        public static void QE(Vector3 position)
+        public static void QE(Vector2 position)
         {
             if (SpellsManager.Q.IsReady() && SpellsManager.E.IsReady())
             {
-                SpellsManager.Q.Cast(Player.Instance.Position.Extend(position, SpellsManager.E.Range - 10).To3D());
-                SpellsManager.E.Cast(Player.Instance.Position.Extend(position, SpellsManager.E.Range - 10).To3D());
+                var target = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Magical);
+                var pred = SpellsManager.Q.GetPrediction(target);
+                SpellsManager.Q.Cast(Player.Instance.Position.Extend(pred.CastPosition, SpellsManager.E.Range - 10).To3D());
+                SpellsManager.E.Cast(Player.Instance.Position.Extend(pred.CastPosition, SpellsManager.E.Range - 10).To3D());
             }
         }
 

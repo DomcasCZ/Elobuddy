@@ -5,6 +5,7 @@ using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using static Dark_Syndra.Skins;
+using EloBuddy.SDK;
 
 namespace Dark_Syndra
 {
@@ -47,6 +48,14 @@ namespace Dark_Syndra
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("QE", new CheckBox("- Use Q - E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
+            ComboMenu.AddSeparator();
+            ComboMenu.AddLabel("R usage on");
+            foreach (var Enemy in EntityManager.Heroes.Enemies)
+            {
+                ComboMenu.Add(Enemy.ChampionName, new CheckBox("R on " + Enemy.ChampionName));
+            }
+            ComboMenu.AddSeparator();
+            ComboMenu.Add("Ignite", new CheckBox("- Use Ignite"));
 
             //ComboMenu.AddGroupLabel("Summoner Settings");
             //ComboMenu.Add("Smite", new CheckBox("- Use Smite"));
@@ -109,6 +118,7 @@ namespace Dark_Syndra
             DrawingsMenu.Add("qDraw", new CheckBox("- draw Q"));
             DrawingsMenu.Add("wDraw", new CheckBox("- draw W"));
             DrawingsMenu.Add("eDraw", new CheckBox("- draw E"));
+            DrawingsMenu.Add("qeDraw", new CheckBox("- draw QE"));
             DrawingsMenu.Add("rDraw", new CheckBox("- draw R"));
             DrawingsMenu.AddLabel("It will only draw if ready");
             DrawingsMenu.AddGroupLabel("Drawings Color");
