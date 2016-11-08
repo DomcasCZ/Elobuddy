@@ -86,51 +86,11 @@ namespace PetBuddy
             if (Pet.Hp <= 0) return;
 
             #region Images
-            switch (Pet.Lvl)
-            {
-                case 1:
             if (Pet.Lvl == 1)
             {
                 TextureLoader.Load("PetLevel1", Resources.Level1);
                 PetLevel1Sprite = new Sprite(() => TextureLoader["PetLevel1"]);
                     }
-                    break;
-                case 2:
-            if (Pet.Lvl >= 2 && Pet.Lvl < 5)
-            {
-                PetLevel2Sprite = new Sprite(() => TextureLoader["PetLevel2"]);
-                TextureLoader.Load("PetLevel2", Resources.Level2);
-                    }
-                    break;
-                case 3:
-            if (Pet.Lvl >= 5 && Pet.Lvl < 10 && Menus.PetMenu["Marksman"].Cast<CheckBox>().CurrentValue)
-            {
-                TextureLoader.Load("PetLevel5_Marksman", Resources.Lvl5___Marksman);
-                PetLevel5_MarksmanSprite = new Sprite(() => TextureLoader["PetLevel5_Marksman"]);
-            }
-                    break;
-                case 4:
-            if (Pet.Lvl >= 10 && Pet.Lvl < 15 && Menus.PetMenu["Marksman"].Cast<CheckBox>().CurrentValue)
-            {
-                TextureLoader.Load("PetLevel10_Marksman", Resources.Lvl10___Marksman);
-                PetLevel10_MarksmanSprite = new Sprite(() => TextureLoader["PetLevel10_Marksman"]);
-            }
-                    break;
-                case 5:
-            if (Pet.Lvl >= 15 && Pet.Lvl < 20 && Menus.PetMenu["Marksman"].Cast<CheckBox>().CurrentValue)
-            {
-                TextureLoader.Load("PetLevel15_Marksman", Resources.Lvl15___Marksman);
-                PetLevel15_MarksmanSprite = new Sprite(() => TextureLoader["PetLevel15_Marksman"]);
-            }
-                    break;
-                case 6:
-            if (Pet.Lvl >= 20 && Menus.PetMenu["Marksman"].Cast<CheckBox>().CurrentValue)
-            {
-                TextureLoader.Load("PetLevel20_Marksman", Resources.Lvl20___Marksman);
-                PetLevel20_MarksmanSprite = new Sprite(() => TextureLoader["PetLevel20_Marksman"]);
-            }
-                    break;
-        }
             
             #endregion Images
             
