@@ -11,35 +11,27 @@ namespace Wladis_Kata
     {
         public static void Execute10()
         {
-            var DaggerFirst =
-ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
-
             var minionq = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                 EntityManager.UnitTeam.Enemy,
                 Player.Instance.ServerPosition, SpellsManager.Q.Range)
-                                    .FirstOrDefault();
+                                    .Last();
             //Cast Q
-            if (Menus.LaneClearMenu["Q"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady() && minionq.IsValidTarget(SpellsManager.Q.Range))
+            if (Menus.LaneClearMenu["Q"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady() && SpellsManager.Q.IsInRange(minionq))
             {
                 SpellsManager.Q.Cast(minionq);
             }
 
-            if (Menus.LaneClearMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() &&
+            if (Menus.LaneClearMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && SpellsManager.Q.IsOnCooldown && 
                     myhero.CountEnemyMinionsInRange(SpellsManager.W.Range) >= LaneClearMenu["WX"].Cast<Slider>().CurrentValue)
             {
-                SpellsManager.W.Cast();
+                Core.DelayAction(() => SpellsManager.W.Cast(), 200);
             }
             var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                 EntityManager.UnitTeam.Enemy,
                 Player.Instance.ServerPosition, SpellsManager.E.Range)
                .FirstOrDefault();
 
-            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && !DaggerFirst.IsDead && DaggerFirst.CountEnemyMinionsInRange(400) >= 1 )
-            {
-                SpellsManager.E.Cast(DaggerFirst.Position);
-            }
-
-            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && minione.IsValidTarget(SpellsManager.E.Range) && SpellsManager.Q.IsOnCooldown)
+            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && SpellsManager.E.IsInRange(minione))
             {
                 SpellsManager.E.Cast(minione);
             }
@@ -49,35 +41,35 @@ ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" 
         public static void Execute8()
         {
             //Cast Q
-            var minionQ = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
+            var minionq = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                  EntityManager.UnitTeam.Enemy,
                   Player.Instance.ServerPosition, SpellsManager.Q.Range)
-                        .FirstOrDefault(m => SpellsManager.Q.IsReady() && m.IsValidTarget(SpellsManager.Q.Range) &&
+                        .FirstOrDefault(m => SpellsManager.Q.IsReady() && m.IsValidTarget((SpellsManager.Q.Range)) &&
                 Prediction.Health.GetPrediction(m, SpellsManager.Q.CastDelay) <=
-                SpellsManager.GetRealDamage(m, SpellSlot.E));
+                SpellsManager.GetRealDamage(m, SpellSlot.Q));
 
-            if (Menus.LaneClearMenu["QLastHit"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady() && minionQ.IsValidTarget(SpellsManager.Q.Range))
-                  {
-                    SpellsManager.Q.Cast(minionQ);
-                }
-                  var minionw = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
-                EntityManager.UnitTeam.Enemy,
-                Player.Instance.ServerPosition, SpellsManager.W.Range)
-               .FirstOrDefault();
+            if (Menus.LastHitMenu["Q"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady())
+            {
+                SpellsManager.Q.Cast(minionq);
+            }
+            var minionw = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
+          EntityManager.UnitTeam.Enemy,
+          Player.Instance.ServerPosition, SpellsManager.W.Range)
+         .FirstOrDefault(m => m.Health < SpellsManager.GetRealDamage(m, SpellSlot.W) && !(m.Health < SpellsManager.GetRealDamage(m, SpellSlot.Q)));
 
-                 var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
-                EntityManager.UnitTeam.Enemy,
-                Player.Instance.ServerPosition, SpellsManager.E.Range)
-                .FirstOrDefault();
+            if (Menus.LastHitMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && SpellsManager.Q.IsOnCooldown && minionw.IsValidTarget(SpellsManager.W.Range))
+            {
+                SpellsManager.W.Cast();
+            }
+            var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
+           EntityManager.UnitTeam.Enemy,
+           Player.Instance.ServerPosition, SpellsManager.E.Range)
+           .FirstOrDefault(m => m.Health < SpellsManager.GetRealDamage(m, SpellSlot.E));
 
-            if (Menus.LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady())
-                /* if (SpellsManager.E.IsReady() && minione.IsValidTarget((SpellsManager.E.Range)) &&
-                Prediction.Health.GetPrediction(minione, SpellsManager.E.CastDelay) <=
-                SpellsManager.GetRealDamage(minione, SpellSlot.E))*/
-                if (minione.Health < SpellsManager.GetRealDamage(minione, SpellSlot.E))
-                {
-                    SpellsManager.E.Cast(minione);
-                }
+            if (Menus.LastHitMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady())
+            {
+                SpellsManager.E.Cast(minione);
+            }
         }
     }
 }

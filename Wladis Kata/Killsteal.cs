@@ -28,7 +28,7 @@ namespace Wladis_Kata
                 Prediction.Health.GetPrediction(wtarget, SpellsManager.W.CastDelay) <=
                 SpellsManager.GetRealDamage(wtarget, SpellSlot.W))
             {
-                SpellsManager.W.Cast(wtarget);
+                SpellsManager.W.Cast();
             }
         }
 

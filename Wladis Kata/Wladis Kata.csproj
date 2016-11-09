@@ -82,7 +82,6 @@
     <Compile Include="Damageindicator.cs" />
     <Compile Include="DrawingsManager.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Function.cs" />
     <Compile Include="Harass.cs" />
     <Compile Include="Killsteal.cs" />
     <Compile Include="LaneClear.cs" />
