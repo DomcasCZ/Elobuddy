@@ -19,7 +19,14 @@ namespace Wladis_Kata
             Spellbook.OnCastSpell += Spellbook_OnCastSpell;
         }
         public static float rStart;
-        
+
+        private static bool HasRBuff()
+        {
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
+            return myhero.HasBuff("KatarinaR") || Player.Instance.Spellbook.IsChanneling ||
+                   myhero.HasBuff("katarinarsound"); //|| target.HasBuff("Grevious") && sender.IsMe
+        }
+
         private static void Game_OnTick(EventArgs args)
         {
             var orbMode = Orbwalker.ActiveModesFlags;
@@ -43,19 +50,22 @@ namespace Wladis_Kata
             if (orbMode.HasFlag(Orbwalker.ActiveModes.LaneClear))
                 LaneClear.Execute10();
 
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
+                LaneClear.Execute8();
+
             if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue)
                 Harass.Execute7();
 
-            if (HarassMenu["AutoW"].Cast<CheckBox>().CurrentValue)
-                Harass.Execute9();
+            /*if (HarassMenu["PokeHarass"].Cast<KeyBind>().CurrentValue)
+                Harass.Execute13();*/
 
-            if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue && (!HasRBuff()))
+            if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue && !(HasRBuff()))
                 KillSteal.Execute2();
 
-            if (KillStealMenu["W"].Cast<CheckBox>().CurrentValue && (!HasRBuff()))
+            if (KillStealMenu["W"].Cast<CheckBox>().CurrentValue && !(HasRBuff()))
                 KillSteal.Execute3();
 
-            if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue && (!HasRBuff()))
+            if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue && !(HasRBuff()))
                 KillSteal.Execute4();
 
             if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
@@ -78,13 +88,7 @@ namespace Wladis_Kata
                 args.Process = !myhero.HasBuff("KatarinaR");
             }
         }
-
-        private static bool HasRBuff()
-        {
-            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
-            return myhero.HasBuff("KatarinaR") || Player.Instance.Spellbook.IsChanneling ||
-                   myhero.HasBuff("katarinarsound"); //|| target.HasBuff("Grevious") && sender.IsMe
-        }
+        
         private static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
             var target = TargetSelector.GetTarget(SpellsManager.R.Range, DamageType.Mixed);
@@ -96,14 +100,14 @@ namespace Wladis_Kata
                 if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
                     (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
                     args.Process = false;
-                 if (target.Distance(myhero) < SpellsManager.R.Range) args.Process = true;
+            if (target.Distance(myhero) < SpellsManager.R.Range) args.Process = true;
 
             if (ComboMenu["Rblock"].Cast<CheckBox>().CurrentValue && ComboMenu["Rendblock"].Cast<CheckBox>().CurrentValue)
                 if (sender.Owner.IsMe && Player.Instance.Spellbook.IsChanneling &&
                 (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E))
-                args.Process = false;
-             if (SpellsManager.Q.IsReady() && SpellsManager.W.IsReady() && SpellsManager.E.IsReady() && target.HealthPercent < 30) args.Process = true;
-             else if (target.Distance(myhero) > SpellsManager.R.Range) args.Process = true;
+                    args.Process = false;
+            if (SpellsManager.Q.IsReady() && SpellsManager.W.IsReady() && SpellsManager.E.IsReady()) args.Process = true;
+            else if (target.Distance(myhero) < SpellsManager.R.Range) args.Process = true;
 
 
             if (sender.Owner.IsMe && (int)args.Slot == 3 && Player.GetSpell(args.Slot).IsReady)
@@ -121,10 +125,6 @@ namespace Wladis_Kata
 
         private static void Game_OnUpdate(EventArgs args)
         {
-            var orbMode = Orbwalker.ActiveModesFlags;
-            if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
-                LaneClear.Execute8();
-
             if (HasRBuff())
             {
                 Orbwalker.DisableMovement = true;
