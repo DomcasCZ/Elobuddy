@@ -37,10 +37,8 @@ namespace Wladis_Kata
             ComboMenu = FirstMenu.AddSubMenu("• Combo ");
             HarassMenu = FirstMenu.AddSubMenu("• Harass");
             LaneClearMenu = FirstMenu.AddSubMenu("• LaneClear");
-            LastHitMenu = FirstMenu.AddSubMenu("• Lasthit");
             HumanizeMenu = FirstMenu.AddSubMenu("• Humanizer");
             KillStealMenu = FirstMenu.AddSubMenu("• Killsteal");
-            WardjumpMenu = FirstMenu.AddSubMenu("• WardJump");
             DrawingsMenu = FirstMenu.AddSubMenu("• Drawings", DrawingsMenuId);
             MiscMenu = FirstMenu.AddSubMenu("• Misc", MiscMenuId);
 
@@ -50,85 +48,60 @@ namespace Wladis_Kata
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
+            ComboMenu.Add("EDagger", new CheckBox("- Only E on dagger", false));
             ComboMenu.AddSeparator();
-            ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "Q>E>W", "E>Q>W"));
-            ComboMenu.AddSeparator();
-            ComboMenu.Add("El", new CheckBox(" Don't Use E if enemy is in AA- range"));
-            ComboMenu.AddLabel("Dont use E on almost not killable enemys");
+            ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "Q>E>E>W>R", "E>Q>W>R"));
             ComboMenu.AddSeparator();
             ComboMenu.Add("Ignite", new CheckBox("- Use Ignite", false));
             ComboMenu.AddLabel("It will only use ignite, when the enemy isn't killable with Combo");
             ComboMenu.AddSeparator(15);
             ComboMenu.Add("IgniteHealth", new Slider("- Ignite if enemy Hp % < Slider %", 60, 1, 100));
             ComboMenu.AddSeparator(30);
-            //ComboMenu.Add("R-Logic", new ComboBox(" R-Logic ", 2, "< Half R range", "In R range", "In W Range"));
             ComboMenu.AddLabel("If you want perfekt R, disable your Evade or set it to dodge dangerous only");
-            ComboMenu.Add("R1", new CheckBox("- R on full range", false));
-            ComboMenu.Add("R2", new CheckBox("- R on half range or closer"));
-            ComboMenu.Add("R3", new CheckBox("- R on W range", false));
+            ComboMenu.Add("RSlider", new Slider("- R cast if target is in range of [{0}]", 300, 1, 625));
+            ComboMenu.AddLabel("For example: 625 is the range of R");
             ComboMenu.AddSeparator();
             ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting"));
             ComboMenu.Add("Rendblock", new CheckBox("- End the Block when Q W E is ready"));
             ComboMenu.AddLabel("It will always end the block when target is out of R range and it will cast spells again");
             ComboMenu.AddSeparator();
             ComboMenu.Add("AutoKill", new CheckBox("Auto kill with combo", false));
-            ComboMenu.Add("AutoKillenemysinrange", new Slider("only autokill if < x enemies surround the target", 5, 1 , 5));
-            ComboMenu.AddSeparator(15);
-            //ComboMenu.Add("Status", new CheckBox("disable status drawings", false));
-
-            WardjumpMenu.AddGroupLabel("Wardjump Settings");
-            var a = WardjumpMenu.Add("alwaysMax", new CheckBox("Always Jump To Max Range"));
-            var b = WardjumpMenu.Add("onlyToCursor", new CheckBox("Always Jump To Cursor", false));
-            a.OnValueChange += delegate { if (a.CurrentValue) b.CurrentValue = false; };
-            b.OnValueChange += delegate { if (b.CurrentValue) a.CurrentValue = false; };
-            WardjumpMenu.AddSeparator();
-            WardjumpMenu.AddLabel("Time Modifications");
-            WardjumpMenu.Add("checkTime", new Slider("Position Reset Time (ms)", 0, 1, 2000));
-            WardjumpMenu.AddSeparator();
-            WardjumpMenu.AddLabel("Keybind Settings");
-            var wj = WardjumpMenu.Add("wardjumpKeybind",
-    new KeyBind("WardJump", false, KeyBind.BindTypes.HoldActive, 'T'));
-            GameObject.OnCreate += GameObject_OnCreate;
-            Game.OnTick += delegate
-            {
-                if (wj.CurrentValue)
-                {
-                    WardJump(Game.CursorPos, a.CurrentValue, b.CurrentValue);
-                    return;
-                }
-            };
+            ComboMenu.Add("AutoKillenemysinrange", new Slider("only autokill if < x enemies surround the target", 3, 2 , 5));
 
             HarassMenu.AddGroupLabel("Harass Settings");
             HarassMenu.Add("Q", new CheckBox("- Use Q"));
-            HarassMenu.AddSeparator();
             HarassMenu.Add("W", new CheckBox("- Use W"));
+            HarassMenu.Add("E", new CheckBox("- Use E"));
 
             HarassMenu.AddGroupLabel("Auto Harass");
             HarassMenu.Add("AutoQ", new CheckBox("- Use Q", false));
-            HarassMenu.Add("AutoW", new CheckBox("- Use W", false));
             HarassMenu.AddLabel("Autoharras casts spells from itself, when the enemy is in range");
+
+            /*HarassMenu.AddGroupLabel("Poke Harass");
+            HarassMenu.Add("PokeHarass", new KeyBind("Poke Harass", false, KeyBind.BindTypes.HoldActive, 'T'));
+            HarassMenu.AddSeparator();
+            HarassMenu.AddLabel(" Poke Harass will use Q > W > E on Q dagger > E on W dagger");
+            HarassMenu.AddLabel("It's a smart way to harass");*/
 
 
             LaneClearMenu.AddGroupLabel("Lane Clear Settings");
             LaneClearMenu.Add("Q", new CheckBox("- Use Q"));
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
-            LaneClearMenu.Add("E", new CheckBox("- Use E", false));
+            LaneClearMenu.Add("E", new CheckBox("- Use E"));
+            LaneClearMenu.AddSeparator(5);
+            LaneClearMenu.AddLabel("It will use E on dagger");
             LaneClearMenu.AddSeparator();
-            LaneClearMenu.Add("WX", new Slider("- Will hit X minions with W", 2, 1, 6));
+            LaneClearMenu.Add("WX", new Slider("- Will hit x minions with W", 0, 1, 6));
+
+            LaneClearMenu.AddGroupLabel("Lasthit");
+            LaneClearMenu.Add("QLastHit", new CheckBox("- Use Q"));
+            LaneClearMenu.Add("ELastHit", new CheckBox("- Use E", false));
 
             HumanizeMenu.AddGroupLabel("Humanizer settings");
             HumanizeMenu.Add("Humanize", new CheckBox("- Use Humanizer", false));
             HumanizeMenu.Add("HumanizeQ", new Slider("- Humanize Q", 0, 0, 200));
             HumanizeMenu.Add("HumanizeW", new Slider("- Humanize W", 0, 0, 200));
             HumanizeMenu.Add("HumanizeE", new Slider("- Humanize E", 0, 0, 200));
-            HumanizeMenu.Add("HumanizeR", new Slider("- Humanize R", 0, 0, 200));
-            HumanizeMenu.AddGroupLabel("Please use for every spell the same value");
-            HumanizeMenu.AddGroupLabel("because it will cast the skill with the lower value before");
-                
-            LastHitMenu.AddGroupLabel("Last hit Settings");
-            LastHitMenu.Add("Q", new CheckBox("- Use Q"));
-            LastHitMenu.Add("W", new CheckBox("- Use W"));
-            LastHitMenu.Add("E", new CheckBox("- Use E", false));
 
             KillStealMenu.AddGroupLabel("Killsteal Settings");
             KillStealMenu.Add("Q", new CheckBox("- Use Q"));

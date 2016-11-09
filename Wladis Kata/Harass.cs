@@ -16,7 +16,6 @@ namespace Wladis_Kata
             if ((qtarget == null) || qtarget.IsInvulnerable)
                 return;
 
-            var minionq = EntityManager.MinionsAndMonsters.EnemyMinions.LastOrDefault(minion => minion.Distance(myhero) <= SpellsManager.Q.Range);
 
             //Cast Q
             if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
@@ -25,25 +24,6 @@ namespace Wladis_Kata
                     if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
                         Core.DelayAction(() => SpellsManager.Q.Cast(qtarget), HumanizeMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
                     else SpellsManager.Q.Cast(qtarget);
-                }
-            if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
-                if (!qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
-                    if (qtarget.Distance(minionq) <= 300)
-                    {
-                        SpellsManager.Q.Cast(minionq);
-                    }
-
-                var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
-
-            if ((wtarget == null) || wtarget.IsInvulnerable)
-                return;
-            //Cast W
-            if (Menus.HarassMenu["W"].Cast<CheckBox>().CurrentValue)
-                if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                {
-                    if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
-                        Core.DelayAction(() => SpellsManager.W.Cast(), HumanizeMenu["HumanizeW"].Cast<Slider>().CurrentValue);
-                    else SpellsManager.W.Cast();
                 }
 
             var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
@@ -58,8 +38,6 @@ namespace Wladis_Kata
                         Core.DelayAction(() => SpellsManager.E.Cast(etarget), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
                     else SpellsManager.E.Cast(etarget);
                 }
-
-
         }
 
         public static void Execute7()
@@ -69,7 +47,7 @@ namespace Wladis_Kata
             if ((qtarget == null) || qtarget.IsInvulnerable)
                 return;
 
-                if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+            if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
             {
                 if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
                     Core.DelayAction(() => SpellsManager.Q.Cast(qtarget), HumanizeMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
@@ -77,16 +55,37 @@ namespace Wladis_Kata
             }
         }
 
-        public static void Execute9()
+
+        /*public static void Execute13()
         {
-            var wtarget = TargetSelector.GetTarget(SpellsManager.W.Range, DamageType.Mixed);
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
-            if ((wtarget == null) || wtarget.IsInvulnerable)
+            if ((target == null) || target.IsInvulnerable)
                 return;
-            //Cast W
-                if (wtarget.IsValidTarget(SpellsManager.W.Range) && SpellsManager.W.IsReady())
-                SpellsManager.W.Cast();
-        }
 
+            var DaggerFirst = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+
+            if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady() && HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
+            {
+                if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                    Core.DelayAction(() => SpellsManager.Q.Cast(target), HumanizeMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
+                else SpellsManager.Q.Cast(target);
+            }
+
+            if (HarassMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady())
+            {
+                if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                    Core.DelayAction(() => SpellsManager.W.Cast(), HumanizeMenu["HumanizeW"].Cast<Slider>().CurrentValue);
+                else SpellsManager.W.Cast();
+            }
+
+            if (SpellsManager.E.IsReady() && HarassMenu["E"].Cast<CheckBox>().CurrentValue)
+            {
+                if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                    Core.DelayAction(() => SpellsManager.E.Cast(DaggerFirst.Position), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
+                else SpellsManager.E.Cast(DaggerFirst.Position);
+            }
+
+        }*/
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EloBuddy;
 using EloBuddy.SDK;
+using EloBuddy.SDK.Enumerations;
 
 namespace Wladis_Kata
 {
@@ -8,17 +9,17 @@ namespace Wladis_Kata
     {
         public static Spell.Targeted Q;
         public static Spell.Active W;
-        public static Spell.Targeted E;
+        public static Spell.Skillshot E;
         public static Spell.Active R;
         public static List<Spell.SpellBase> SpellList = new List<Spell.SpellBase>();
 
         public static void InitializeSpells()
         {
-            Q = new Spell.Targeted(SpellSlot.Q, 675);
+            Q = new Spell.Targeted(SpellSlot.Q, 625);
 
             W = new Spell.Active(SpellSlot.W, 375);
 
-            E = new Spell.Targeted(SpellSlot.E, 700);
+            E = new Spell.Skillshot(SpellSlot.E, 725, SkillShotType.Circular, 0, 0, 20);
 
             R = new Spell.Active(SpellSlot.R, 550);
 
@@ -33,6 +34,7 @@ namespace Wladis_Kata
             var ap = Player.Instance.TotalMagicalDamage;
             var ad = Player.Instance.TotalAttackDamage;
             var sLevel = Player.GetSpell(slot).Level - 1;
+            var Plevel = Player.Instance.Level - 1;
 
             var dmg = 0f;
 
@@ -40,19 +42,19 @@ namespace Wladis_Kata
             {
                 case SpellSlot.Q:
                     if (Q.IsReady())
-                        dmg += new float[] { 60, 85, 110, 135, 160 }[sLevel] + 0.45f * ap;
+                        dmg += new float[] { 75, 105, 135, 165, 195 }[sLevel] + 0.3f * ap;
                     break;
                 case SpellSlot.W:
                     if (W.IsReady())
-                        dmg += new float[] { 30, 50, 75, 100, 140 }[sLevel] + 0.25f * ap + 0.6f * ad;
+                        dmg += new float[] { 75, 140, 180, 210, 240}[sLevel] + 0.5f * ap + 1.00f *ad;
                     break;
                 case SpellSlot.E:
                     if (E.IsReady())
-                        dmg += new float[] { 40, 70, 100, 130, 160 }[sLevel] + 0.25f * ap;
-                    break;                  //60, 105, 150, 195, 240
+                        dmg += new float[] { 30, 45, 60, 75, 90 }[sLevel]+ 0.65f * ad + 0.25f * ap;
+                    break;                  
                 case SpellSlot.R:
                     if (R.IsLearned && !R.IsOnCooldown)
-                        dmg += new float[] { 250, 350, 450 }[sLevel] + 0.25f * ap + 0.375f * ad;
+                        dmg += new float[] { 300, 400, 500 }[sLevel] + 0.25f * ap + 0.375f * ad;
                     break;                  //300 400 500
             }
             
