@@ -4,7 +4,6 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using static Wladis_Kata.WarJumper;
 using static Wladis_Kata.Skins;
 
 namespace Wladis_Kata
