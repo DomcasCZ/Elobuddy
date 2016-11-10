@@ -50,7 +50,7 @@ namespace Wladis_Cassiopeia
             ComboMenu.Add("Q", new CheckBox("- Use Q"));
             ComboMenu.Add("W", new CheckBox("- Use W"));
             ComboMenu.Add("E", new CheckBox("- Use E"));
-            ComboMenu.Add("EOnly", new CheckBox("- First priority to poisoned enemies", false));
+            ComboMenu.Add("EOnly", new CheckBox("- First priority to poisoned enemies"));
             ComboMenu.AddSeparator();
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.Add("ROnly", new CheckBox("- Use R only if enemy is facing you"));
