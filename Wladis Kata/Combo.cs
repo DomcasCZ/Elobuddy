@@ -15,13 +15,22 @@ namespace Wladis_Kata
         // normal Combo Q E W
         public static void Execute20()
         {
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
             var Enemy = EntityManager.Heroes.Enemies.FirstOrDefault(x => x.IsValidTarget(SpellsManager.E.Range) && x.IsValid);
-        var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
+
+            var minion = EntityManager.MinionsAndMonsters.GetLaneMinions().Where(m => m.IsValidTarget(SpellsManager.Q.Range)).OrderBy(m => m.Distance(Enemy) > 450).FirstOrDefault();
+
+            var DaggerFirst = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+
 
             if ((target == null) || target.IsInvulnerable)
                 return;
-
-            var DaggerFirst = ObjectManager.Get <Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+            
+            // Q on minion
+            if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue && minion.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady() && !target.IsInRange(myhero, SpellsManager.Q.Range) && ComboMenu["QMinion"].Cast<CheckBox>().CurrentValue)
+                {
+                     SpellsManager.Q.Cast(minion);
+                }
 
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue)
                 if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
@@ -42,7 +51,7 @@ namespace Wladis_Kata
 
             if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && (SpellsManager.Q.IsOnCooldown || !target.IsInRange(myhero, SpellsManager.Q.Range) && target.Distance(myhero) > 150 && ComboMenu["EDagger"].Cast<CheckBox>().CurrentValue == false && target.IsValidTarget(SpellsManager.E.Range)))
                 // Cast E on enemy first, when dagger was collecte
-                if (/*myhero.HasBuff("KatarinaWhaste") || */!Enemy.IsInRange(DaggerFirst, 400) || DaggerFirst.IsDead || !DaggerFirst.IsVisible) 
+                if (!Enemy.IsInRange(DaggerFirst, 400) || DaggerFirst.IsDead || !DaggerFirst.IsVisible) 
             {
                 if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
                     Core.DelayAction(() => SpellsManager.E.Cast(target), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);

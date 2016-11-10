@@ -56,8 +56,8 @@ namespace Wladis_Kata
             if (HarassMenu["AutoQ"].Cast<CheckBox>().CurrentValue)
                 Harass.Execute7();
 
-            /*if (HarassMenu["PokeHarass"].Cast<KeyBind>().CurrentValue)
-                Harass.Execute13();*/
+            if (HarassMenu["PokeHarass"].Cast<KeyBind>().CurrentValue)
+                Harass.PokeHarass();
 
             if (KillStealMenu["Q"].Cast<CheckBox>().CurrentValue && !(HasRBuff()))
                 KillSteal.Execute2();

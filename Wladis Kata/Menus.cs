@@ -48,6 +48,10 @@ namespace Wladis_Kata
             ComboMenu.Add("E", new CheckBox("- Use E"));
             ComboMenu.Add("R", new CheckBox("- Use R"));
             ComboMenu.Add("EDagger", new CheckBox("- Only E on dagger", false));
+            ComboMenu.AddLabel("It will only jump on enemy if E on dagger wouldn't dmg the enemy");
+            ComboMenu.AddSeparator();
+            ComboMenu.Add("QMinion", new CheckBox("- Q on minion"));
+            ComboMenu.AddLabel("It will only Q on minion if enemy isn't in Q range");
             ComboMenu.AddSeparator();
             ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "Q>E>E>W>R", "E>Q>W>R"));
             ComboMenu.AddSeparator();
@@ -71,16 +75,18 @@ namespace Wladis_Kata
             HarassMenu.Add("Q", new CheckBox("- Use Q"));
             HarassMenu.Add("W", new CheckBox("- Use W"));
             HarassMenu.Add("E", new CheckBox("- Use E"));
-
+            HarassMenu.Add("EDagger", new CheckBox("- Only E on dagger", false));
+            HarassMenu.Add("QMinion", new CheckBox("- Q on minion"));
+            HarassMenu.AddSeparator();
             HarassMenu.AddGroupLabel("Auto Harass");
             HarassMenu.Add("AutoQ", new CheckBox("- Use Q", false));
             HarassMenu.AddLabel("Autoharras casts spells from itself, when the enemy is in range");
 
-            /*HarassMenu.AddGroupLabel("Poke Harass");
+            HarassMenu.AddGroupLabel("Poke Harass");
             HarassMenu.Add("PokeHarass", new KeyBind("Poke Harass", false, KeyBind.BindTypes.HoldActive, 'T'));
             HarassMenu.AddSeparator();
             HarassMenu.AddLabel(" Poke Harass will use Q > W > E on Q dagger > E on W dagger");
-            HarassMenu.AddLabel("It's a smart way to harass");*/
+            HarassMenu.AddLabel("It's a smart way to harass");
 
 
             LaneClearMenu.AddGroupLabel("Lane Clear Settings");

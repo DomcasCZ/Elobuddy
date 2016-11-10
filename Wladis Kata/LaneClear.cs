@@ -11,8 +11,7 @@ namespace Wladis_Kata
     {
         public static void Execute10()
         {
-            var DaggerFirst =
-ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+            var DaggerFirst = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
 
             var minionq = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                 EntityManager.UnitTeam.Enemy,
@@ -38,11 +37,7 @@ ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" 
             {
                 SpellsManager.E.Cast(DaggerFirst.Position);
             }
-
-            if (Menus.LaneClearMenu["E"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady() && minione.IsValidTarget(SpellsManager.E.Range) && SpellsManager.Q.IsOnCooldown)
-            {
-                SpellsManager.E.Cast(minione);
-            }
+            
 
         }
 
@@ -60,10 +55,6 @@ ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" 
                   {
                     SpellsManager.Q.Cast(minionQ);
                 }
-                  var minionw = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
-                EntityManager.UnitTeam.Enemy,
-                Player.Instance.ServerPosition, SpellsManager.W.Range)
-               .FirstOrDefault();
 
                  var minione = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion,
                 EntityManager.UnitTeam.Enemy,
@@ -71,9 +62,6 @@ ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" 
                 .FirstOrDefault();
 
             if (Menus.LaneClearMenu["ELastHit"].Cast<CheckBox>().CurrentValue && SpellsManager.E.IsReady())
-                /* if (SpellsManager.E.IsReady() && minione.IsValidTarget((SpellsManager.E.Range)) &&
-                Prediction.Health.GetPrediction(minione, SpellsManager.E.CastDelay) <=
-                SpellsManager.GetRealDamage(minione, SpellSlot.E))*/
                 if (minione.Health < SpellsManager.GetRealDamage(minione, SpellSlot.E))
                 {
                     SpellsManager.E.Cast(minione);

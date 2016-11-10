@@ -11,32 +11,44 @@ namespace Wladis_Kata
     {
         public static void Execute1()
         {
-            var qtarget = TargetSelector.GetTarget(SpellsManager.Q.Range, DamageType.Magical);
+            var DaggerFirst = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+            var Enemy = EntityManager.Heroes.Enemies.FirstOrDefault(x => x.IsValidTarget(SpellsManager.E.Range) && x.IsValid);
+            var minion = EntityManager.MinionsAndMonsters.GetLaneMinions().Where(m => m.IsValidTarget(SpellsManager.Q.Range)).OrderBy(m => m.Distance(Enemy) > 450).FirstOrDefault();
 
-            if ((qtarget == null) || qtarget.IsInvulnerable)
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
+
+            if ((target == null) || target.IsInvulnerable)
                 return;
 
+            if (HarassMenu["Q"].Cast<CheckBox>().CurrentValue && minion.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady() && !target.IsInRange(myhero, SpellsManager.Q.Range) && HarassMenu["QMinion"].Cast<CheckBox>().CurrentValue)
+            {
+                SpellsManager.Q.Cast(minion);
+            }
 
             //Cast Q
             if (Menus.HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
-                if (qtarget.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
+                if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady())
                 {
                     if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
-                        Core.DelayAction(() => SpellsManager.Q.Cast(qtarget), HumanizeMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
-                    else SpellsManager.Q.Cast(qtarget);
+                        Core.DelayAction(() => SpellsManager.Q.Cast(target), HumanizeMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
+                    else SpellsManager.Q.Cast(target);
                 }
 
-            var etarget = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
+            if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && DaggerFirst.CountEnemiesInRange(400) >= 1 && !DaggerFirst.IsDead)
+            {
+                if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                    Core.DelayAction(() => SpellsManager.E.Cast(DaggerFirst.Position), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
+                else SpellsManager.E.Cast(DaggerFirst.Position);
+            }
 
-            if ((etarget == null) || etarget.IsInvulnerable)
-                return;
             //Cast E
-            if (Menus.HarassMenu["E"].Cast<CheckBox>().CurrentValue)
-                if (etarget.IsValidTarget(SpellsManager.E.Range) && SpellsManager.E.IsReady())
+            if (SpellsManager.E.IsReady() && HarassMenu["E"].Cast<CheckBox>().CurrentValue && (SpellsManager.Q.IsOnCooldown || !target.IsInRange(myhero, SpellsManager.Q.Range) && target.Distance(myhero) > 150 && HarassMenu["EDagger"].Cast<CheckBox>().CurrentValue == false && target.IsValidTarget(SpellsManager.E.Range)))
+                // Cast E on enemy first, when dagger was collecte
+                if (!Enemy.IsInRange(DaggerFirst, 400) || DaggerFirst.IsDead || !DaggerFirst.IsVisible)
                 {
                     if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
-                        Core.DelayAction(() => SpellsManager.E.Cast(etarget), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
-                    else SpellsManager.E.Cast(etarget);
+                        Core.DelayAction(() => SpellsManager.E.Cast(target), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
+                    else SpellsManager.E.Cast(target);
                 }
         }
 
@@ -56,14 +68,15 @@ namespace Wladis_Kata
         }
 
 
-        /*public static void Execute13()
+        //Poke Harass
+        public static void PokeHarass()
         {
             var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Magical);
 
             if ((target == null) || target.IsInvulnerable)
                 return;
 
-            var DaggerFirst = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+            var DaggerLast = ObjectManager.Get<Obj_AI_Minion>().LastOrDefault(a => a.Name == "HiddenMinion" && a.IsValid && a.Distance(myhero) > 250);
 
             if (target.IsValidTarget(SpellsManager.Q.Range) && SpellsManager.Q.IsReady() && HarassMenu["Q"].Cast<CheckBox>().CurrentValue)
             {
@@ -82,10 +95,10 @@ namespace Wladis_Kata
             if (SpellsManager.E.IsReady() && HarassMenu["E"].Cast<CheckBox>().CurrentValue)
             {
                 if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
-                    Core.DelayAction(() => SpellsManager.E.Cast(DaggerFirst.Position), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
-                else SpellsManager.E.Cast(DaggerFirst.Position);
+                    Core.DelayAction(() => SpellsManager.E.Cast(DaggerLast.Position), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
+                else SpellsManager.E.Cast(DaggerLast.Position);
             }
 
-        }*/
+        }
     }
 }
