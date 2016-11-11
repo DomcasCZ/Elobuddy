@@ -50,6 +50,13 @@ namespace Wladis_Kata
                         Core.DelayAction(() => SpellsManager.E.Cast(target), HumanizeMenu["HumanizeE"].Cast<Slider>().CurrentValue);
                     else SpellsManager.E.Cast(target);
                 }
+
+            if (HarassMenu["W"].Cast<CheckBox>().CurrentValue && SpellsManager.W.IsReady() && myhero.IsInAutoAttackRange(target))
+            {
+                if (HumanizeMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                    Core.DelayAction(() => SpellsManager.W.Cast(), HumanizeMenu["HumanizeW"].Cast<Slider>().CurrentValue);
+                else SpellsManager.W.Cast();
+            }
         }
 
         public static void Execute7()
