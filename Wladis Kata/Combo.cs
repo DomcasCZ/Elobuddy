@@ -49,7 +49,7 @@ namespace Wladis_Kata
 
             // Cast E on target
 
-            if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && (SpellsManager.Q.IsOnCooldown || !target.IsInRange(myhero, SpellsManager.Q.Range) && target.Distance(myhero) > 150 && ComboMenu["EDagger"].Cast<CheckBox>().CurrentValue == false && target.IsValidTarget(SpellsManager.E.Range)))
+            if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && (SpellsManager.Q.IsOnCooldown || !target.IsInRange(myhero, SpellsManager.Q.Range) && target.Distance(myhero) > 250 && ComboMenu["EDagger"].Cast<CheckBox>().CurrentValue == false && target.IsValidTarget(SpellsManager.E.Range)))
                 // Cast E on enemy first, when dagger was collecte
                 if (!Enemy.IsInRange(DaggerFirst, 400) || DaggerFirst.IsDead || !DaggerFirst.IsVisible) 
             {

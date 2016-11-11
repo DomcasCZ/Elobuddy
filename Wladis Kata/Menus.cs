@@ -51,7 +51,10 @@ namespace Wladis_Kata
             ComboMenu.AddLabel("It will only jump on enemy if E on dagger wouldn't dmg the enemy");
             ComboMenu.AddSeparator();
             ComboMenu.Add("QMinion", new CheckBox("- Q on minion"));
-            ComboMenu.AddLabel("It will only Q on minion if enemy isn't in Q range");
+            ComboMenu.Add("QFollow", new CheckBox("- Pickup daggers in combo", false));
+            ComboMenu.Add("DisableAA", new CheckBox("- Disable AA while walking to dagger", false));
+            ComboMenu.Add("DaggerSlider", new Slider("- Collect daggers, which are in range of {0}", 400, 0, 800));
+            ComboMenu.AddLabel("If Katarina is using R, it's disabled");
             ComboMenu.AddSeparator();
             ComboMenu.Add("ComboLogic", new ComboBox(" Combo Logic ", 0, "Q>E>E>W>R", "E>Q>W>R"));
             ComboMenu.AddSeparator();
@@ -61,7 +64,7 @@ namespace Wladis_Kata
             ComboMenu.Add("IgniteHealth", new Slider("- Ignite if enemy Hp % < Slider %", 60, 1, 100));
             ComboMenu.AddSeparator(30);
             ComboMenu.AddLabel("If you want perfekt R, disable your Evade or set it to dodge dangerous only");
-            ComboMenu.Add("RSlider", new Slider("- R cast if target is in range of [{0}]", 300, 1, 625));
+            ComboMenu.Add("RSlider", new Slider("- R cast if target is in range of [{0}]", 200, 1, 625));
             ComboMenu.AddLabel("For example: 625 is the range of R");
             ComboMenu.AddSeparator();
             ComboMenu.Add("Rblock", new CheckBox("- Block other spells while R is casting"));
@@ -118,6 +121,7 @@ namespace Wladis_Kata
             MiscMenu.AddSeparator(15);
             MiscMenu.Add("Zhealth", new Slider("- Health % for Zhonyas", 20, 0, 100));
             MiscMenu.AddSeparator(25);
+            MiscMenu.Add("JumpKey", new KeyBind("- Jump to every dagger exist", false, KeyBind.BindTypes.HoldActive, 'G'));
             MiscMenu.AddGroupLabel("Skin Changer");
 
             var skinList = SkinsDB.FirstOrDefault(list => list.Champ == Player.Instance.Hero);

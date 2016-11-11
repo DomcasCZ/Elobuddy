@@ -5,6 +5,7 @@ using EloBuddy.SDK.Menu.Values;
 using static Wladis_Kata.Menus;
 using static Wladis_Kata.Combo;
 using static Wladis_Kata.Loader;
+using System.Linq;
 
 namespace Wladis_Kata
 {
@@ -125,6 +126,19 @@ namespace Wladis_Kata
 
         private static void Game_OnUpdate(EventArgs args)
         {
+            var Dagger = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid);
+
+            if (MiscMenu["JumpKey"].Cast<KeyBind>().CurrentValue)
+            {
+                Orbwalker.MoveTo(Game.CursorPos);
+                SpellsManager.E.Cast(Dagger);
+            }
+
+            var target = TargetSelector.GetTarget(SpellsManager.E.Range, DamageType.Mixed);
+
+            var DaggerFirst = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.Name == "HiddenMinion" && a.IsValid && a.Distance(target) <= ComboMenu["DaggerSlider"].Cast<Slider>().CurrentValue);
+
+
             if (HasRBuff())
             {
                 Orbwalker.DisableMovement = true;
@@ -135,6 +149,33 @@ namespace Wladis_Kata
                 Orbwalker.DisableMovement = false;
                 Orbwalker.DisableAttacking = false;
             }
+
+            if (DaggerFirst == null || DaggerFirst.IsDead) return;
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && ComboMenu["QFollow"].Cast<CheckBox>().CurrentValue && !HasRBuff())
+            {
+                if (Menus.ComboMenu["DisableAA"].Cast<CheckBox>().CurrentValue)
+                {
+                    Orbwalker.DisableAttacking = true;
+                    Orbwalker.DisableMovement = true;
+                    Orbwalker.MoveTo(DaggerFirst.Position);
+                }
+                else
+                {
+                    Orbwalker.DisableMovement = true;
+                    Orbwalker.MoveTo(DaggerFirst.Position);
+                }
+                if (DaggerFirst == null)
+                {
+                    Orbwalker.DisableMovement = false;
+                    Orbwalker.DisableAttacking = false;
+                }
+            }
+            if (MiscMenu["JumpKey"].Cast<KeyBind>().CurrentValue && SpellsManager.E.IsReady())
+            {
+                Orbwalker.MoveTo(Game.CursorPos);
+                SpellsManager.E.Cast(Dagger.Position);
+            }
+
         }
        
 
