@@ -53,9 +53,12 @@ namespace Wladis_Cassiopeia
             if (ComboMenu["Q"].Cast<CheckBox>().CurrentValue && SpellsManager.Q.IsReady() && target.IsValidTarget(SpellsManager.Q.Range + 100))
             {
                 var prediction = SpellsManager.Q.GetPrediction(target);
-                if (HumanizerMenu["Humanize"].Cast<CheckBox>().CurrentValue)
-                    Core.DelayAction(() => SpellsManager.Q.Cast(prediction.CastPosition), HumanizerMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
-                else SpellsManager.Q.Cast(prediction.CastPosition);
+               // if (prediction.HitChancePercent >= 2)
+               // {
+                    if (HumanizerMenu["Humanize"].Cast<CheckBox>().CurrentValue)
+                        Core.DelayAction(() => SpellsManager.Q.Cast(prediction.CastPosition), HumanizerMenu["HumanizeQ"].Cast<Slider>().CurrentValue);
+                    else SpellsManager.Q.Cast(prediction.CastPosition);
+               // }
             }
 
             if (SpellsManager.E.IsReady() && ComboMenu["E"].Cast<CheckBox>().CurrentValue && Poisoned.IsValidTarget(SpellsManager.E.Range) && ComboMenu["EOnly"].Cast<CheckBox>().CurrentValue && (SpellsManager.Q.IsOnCooldown || !Poisoned.IsInRange(myhero, SpellsManager.Q.Range)))

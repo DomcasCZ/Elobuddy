@@ -119,10 +119,10 @@ namespace Wladis_Cassiopeia
 
             HumanizerMenu.AddGroupLabel("Humanizer settings");
             HumanizerMenu.Add("Humanize", new CheckBox("- Use Humanizer", false));
-            HumanizerMenu.Add("HumanizeQ", new Slider("- Humanize Q", 0, 0, 200));
-            HumanizerMenu.Add("HumanizeW", new Slider("- Humanize W", 0, 0, 200));
-            HumanizerMenu.Add("HumanizeE", new Slider("- Humanize E", 0, 0, 200));
-            HumanizerMenu.Add("HumanizeR", new Slider("- Humanize R", 0, 0, 200));
+            HumanizerMenu.Add("HumanizeQ", new Slider("- Humanize Q", 0, 0, 1000));
+            HumanizerMenu.Add("HumanizeW", new Slider("- Humanize W", 0, 0, 1000));
+            HumanizerMenu.Add("HumanizeE", new Slider("- Humanize E", 0, 0, 1000));
+            HumanizerMenu.Add("HumanizeR", new Slider("- Humanize R", 0, 0, 1000));
 
             MiscMenu.AddGroupLabel("Misc");
             MiscMenu.Add("Z", new CheckBox("- Use Zhonyas"));

@@ -5,6 +5,7 @@ using System.Drawing;
 using EloBuddy.SDK;
 using static Wladis_Cassiopeia.Menus;
 using static Wladis_Cassiopeia.SpellsManager;
+using static Wladis_Cassiopeia.Loader;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Wladis_Cassiopeia
@@ -18,7 +19,7 @@ namespace Wladis_Cassiopeia
             Drawing.OnEndScene += Drawing_OnEndScene;
             DamageIndicator.Init();
         }
-
+        
 
         private static void Drawing_OnDraw(EventArgs args)
         {
