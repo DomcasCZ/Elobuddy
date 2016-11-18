@@ -13,7 +13,7 @@ namespace Wladis_Cassiopeia
             if ((rtarget == null) || rtarget.IsInvulnerable)
                 return;
             //Cast E
-            if (SpellsManager.R.IsReady() && rtarget.IsValidTarget((SpellsManager.R.Range)) &&
+            if (!rtarget.IsDead && SpellsManager.R.IsReady() && rtarget.IsValidTarget((SpellsManager.R.Range)) &&
                 Prediction.Health.GetPrediction(rtarget, SpellsManager.R.CastDelay) <=
                 SpellsManager.GetRealDamage(rtarget, SpellSlot.R) && !rtarget.IsDead)
             {

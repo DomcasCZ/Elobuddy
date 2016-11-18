@@ -35,7 +35,7 @@ namespace Wladis_Cassiopeia
             if (orbMode.HasFlag(Orbwalker.ActiveModes.LastHit))
                 LaneClear.Execute13();
 
-            if (LaneClearMenu["AutoLastHitKey"].Cast<KeyBind>().CurrentValue && (!orbMode.HasFlag(Orbwalker.ActiveModes.Combo) || orbMode.HasFlag(Orbwalker.ActiveModes.Harass)))
+            if (LaneClearMenu["AutoLastHitKey"].Cast<KeyBind>().CurrentValue && !orbMode.HasFlag(Orbwalker.ActiveModes.Combo) && !orbMode.HasFlag(Orbwalker.ActiveModes.Harass))
                 LaneClear.Execute13();
         }
         private static void Game_OnTick(EventArgs args)
@@ -65,10 +65,10 @@ namespace Wladis_Cassiopeia
             if (HarassMenu["AutoE"].Cast<CheckBox>().CurrentValue)
                 Harass.Execute6();
 
-            if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue)
+            if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute9();
 
-            if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
+            if (KillStealMenu["E"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute10();
 
             if (MiscMenu["Z"].Cast<CheckBox>().CurrentValue)
