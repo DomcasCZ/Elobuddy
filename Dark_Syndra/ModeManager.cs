@@ -49,6 +49,9 @@ namespace Dark_Syndra
             if (KillStealMenu["R"].Cast<CheckBox>().CurrentValue)
                 KillSteal.Execute5();
 
+            if (orbMode.HasFlag(Orbwalker.ActiveModes.JungleClear))
+                LaneClear.JungleClear();
+
 
         }
     }

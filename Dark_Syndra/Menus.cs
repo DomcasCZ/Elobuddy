@@ -80,7 +80,13 @@ namespace Dark_Syndra
             LaneClearMenu.Add("W", new CheckBox("- Use W"));
             LaneClearMenu.Add("E", new CheckBox("- Use E"));
             LaneClearMenu.Add("manaSlider", new Slider("Mana must be higher than [{0}%] to use LaneClear Spells", 50, 0, 100));
-            
+            LaneClearMenu.AddSeparator();
+            LaneClearMenu.AddGroupLabel("Jungle Clear Settings");
+            LaneClearMenu.Add("QJungle", new CheckBox("- Use Q"));
+            LaneClearMenu.Add("WJungle", new CheckBox("- Use W"));
+            LaneClearMenu.Add("EJungle", new CheckBox("- Use E", false));
+            LaneClearMenu.Add("ManaSliderJungle", new Slider("Mana must be higher than [{0}%] to use JungleClear", 50, 0, 100));
+
             KillStealMenu.AddGroupLabel("Killsteal Settings");
             KillStealMenu.Add("Q", new CheckBox("- Use Q"));
             KillStealMenu.Add("W", new CheckBox("- Use W"));

@@ -45,5 +45,28 @@ namespace Dark_Syndra
                     SpellsManager.E.CastOnBestFarmPosition();
 
         }
+
+        public static void JungleClear()
+        {
+            var jungleMonsters = EntityManager.MinionsAndMonsters.GetJungleMonsters().OrderByDescending(x => x.Health).FirstOrDefault(x => x.IsValidTarget(SpellsManager.W.Range));
+
+            if (Player.Instance.ManaPercent < Menus.LaneClearMenu["ManaSliderJungle"].Cast<Slider>().CurrentValue) return;
+            if (jungleMonsters == null) return;
+
+            if (SpellsManager.Q.IsReady() && SpellsManager.Q.IsInRange(jungleMonsters) && Menus.LaneClearMenu["QJungle"].Cast<CheckBox>().CurrentValue)
+
+                SpellsManager.Q.Cast(jungleMonsters.Position);
+
+            if (SpellsManager.W.IsReady() && SpellsManager.W.IsInRange(jungleMonsters) && Menus.LaneClearMenu["WJungle"].Cast<CheckBox>().CurrentValue)
+            {
+                SpellsManager.W.Cast(Functions.GrabWPostt(true));
+                SpellsManager.W.Cast(jungleMonsters);
+            }
+            if (SpellsManager.E.IsReady() && SpellsManager.E.IsInRange(jungleMonsters) && Menus.LaneClearMenu["EJungle"].Cast<CheckBox>().CurrentValue)
+            {
+                SpellsManager.E.Cast(jungleMonsters);
+
+            }
+        }
     }
 }
